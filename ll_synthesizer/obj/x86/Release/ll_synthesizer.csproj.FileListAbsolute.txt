@@ -1,0 +1,4 @@
+J:\Document\csharp\ll_synthesizer\ll_synthesizer\obj\x86\Release\ll_synthesizer.csprojResolveAssemblyReference.cache
+J:\Document\csharp\ll_synthesizer\ll_synthesizer\obj\x86\Release\ll_synthesizer.Form1.resources
+J:\Document\csharp\ll_synthesizer\ll_synthesizer\obj\x86\Release\ll_synthesizer.Properties.Resources.resources
+J:\Document\csharp\ll_synthesizer\ll_synthesizer\obj\x86\Release\ll_synthesizer.csproj.GenerateResource.Cache

@@ -1,0 +1,31 @@
+D:\installed software\Visual Studio 2010\Projects\ll_synthesizer\ll_synthesizer\obj\x86\Debug\ll_synthesizer.Form1.resources
+D:\installed software\Visual Studio 2010\Projects\ll_synthesizer\ll_synthesizer\obj\x86\Debug\ll_synthesizer.Properties.Resources.resources
+D:\installed software\Visual Studio 2010\Projects\ll_synthesizer\ll_synthesizer\obj\x86\Debug\ll_synthesizer.csproj.GenerateResource.Cache
+D:\installed software\Visual Studio 2010\Projects\ll_synthesizer\ll_synthesizer\bin\Debug\ll_synthesizer.exe
+D:\installed software\Visual Studio 2010\Projects\ll_synthesizer\ll_synthesizer\bin\Debug\ll_synthesizer.pdb
+D:\installed software\Visual Studio 2010\Projects\ll_synthesizer\ll_synthesizer\obj\x86\Debug\ll_synthesizer.exe
+D:\installed software\Visual Studio 2010\Projects\ll_synthesizer\ll_synthesizer\obj\x86\Debug\ll_synthesizer.pdb
+D:\installed software\Visual Studio 2010\Projects\ll_synthesizer\ll_synthesizer\obj\x86\Debug\ll_synthesizer.csprojResolveAssemblyReference.cache
+D:\installed software\Visual Studio 2010\Projects\ll_synthesizer\ll_synthesizer\bin\Debug\ll_synthesizer.exe.config
+D:\installed software\Visual Studio 2010\Projects\ll_synthesizer\ll_synthesizer\bin\Debug\NAudio.dll
+D:\installed software\Visual Studio 2010\Projects\ll_synthesizer\ll_synthesizer\bin\Debug\NAudio.xml
+J:\Document\csharp\ll_synthesizer\ll_synthesizer\bin\Debug\ll_synthesizer.exe.config
+J:\Document\csharp\ll_synthesizer\ll_synthesizer\obj\x86\Debug\ll_synthesizer.exe
+J:\Document\csharp\ll_synthesizer\ll_synthesizer\obj\x86\Debug\ll_synthesizer.pdb
+J:\Document\csharp\ll_synthesizer\ll_synthesizer\bin\Debug\ll_synthesizer.exe
+J:\Document\csharp\ll_synthesizer\ll_synthesizer\bin\Debug\ll_synthesizer.pdb
+J:\Document\csharp\ll_synthesizer\ll_synthesizer\bin\Debug\NAudio.xml
+J:\Document\csharp\ll_synthesizer\ll_synthesizer\obj\x86\Debug\ll_synthesizer.csprojResolveAssemblyReference.cache
+J:\Document\csharp\ll_synthesizer\ll_synthesizer\obj\x86\Debug\ll_synthesizer.Form1.resources
+J:\Document\csharp\ll_synthesizer\ll_synthesizer\obj\x86\Debug\ll_synthesizer.Properties.Resources.resources
+J:\Document\csharp\ll_synthesizer\ll_synthesizer\obj\x86\Debug\ll_synthesizer.csproj.GenerateResource.Cache
+H:\Document\csharp\ll_synthesizer\ll_synthesizer\bin\Debug\ll_synthesizer.exe.config
+H:\Document\csharp\ll_synthesizer\ll_synthesizer\obj\x86\Debug\ll_synthesizer.exe
+H:\Document\csharp\ll_synthesizer\ll_synthesizer\obj\x86\Debug\ll_synthesizer.pdb
+H:\Document\csharp\ll_synthesizer\ll_synthesizer\bin\Debug\ll_synthesizer.exe
+H:\Document\csharp\ll_synthesizer\ll_synthesizer\bin\Debug\ll_synthesizer.pdb
+H:\Document\csharp\ll_synthesizer\ll_synthesizer\bin\Debug\NAudio.xml
+H:\Document\csharp\ll_synthesizer\ll_synthesizer\obj\x86\Debug\ll_synthesizer.csprojResolveAssemblyReference.cache
+H:\Document\csharp\ll_synthesizer\ll_synthesizer\obj\x86\Debug\ll_synthesizer.Form1.resources
+H:\Document\csharp\ll_synthesizer\ll_synthesizer\obj\x86\Debug\ll_synthesizer.Properties.Resources.resources
+H:\Document\csharp\ll_synthesizer\ll_synthesizer\obj\x86\Debug\ll_synthesizer.csproj.GenerateResource.Cache
