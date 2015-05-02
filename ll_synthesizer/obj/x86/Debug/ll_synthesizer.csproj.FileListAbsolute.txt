@@ -29,3 +29,15 @@ H:\Document\csharp\ll_synthesizer\ll_synthesizer\obj\x86\Debug\ll_synthesizer.cs
 H:\Document\csharp\ll_synthesizer\ll_synthesizer\obj\x86\Debug\ll_synthesizer.Form1.resources
 H:\Document\csharp\ll_synthesizer\ll_synthesizer\obj\x86\Debug\ll_synthesizer.Properties.Resources.resources
 H:\Document\csharp\ll_synthesizer\ll_synthesizer\obj\x86\Debug\ll_synthesizer.csproj.GenerateResource.Cache
+C:\Users\tomooka\Documents\csharp\mdl\ll_synthesizer\trunk\ll_synthesizer\bin\Debug\ll_synthesizer.exe.config
+C:\Users\tomooka\Documents\csharp\mdl\ll_synthesizer\trunk\ll_synthesizer\obj\x86\Debug\ll_synthesizer.exe
+C:\Users\tomooka\Documents\csharp\mdl\ll_synthesizer\trunk\ll_synthesizer\obj\x86\Debug\ll_synthesizer.pdb
+C:\Users\tomooka\Documents\csharp\mdl\ll_synthesizer\trunk\ll_synthesizer\bin\Debug\ll_synthesizer.exe
+C:\Users\tomooka\Documents\csharp\mdl\ll_synthesizer\trunk\ll_synthesizer\bin\Debug\ll_synthesizer.pdb
+C:\Users\tomooka\Documents\csharp\mdl\ll_synthesizer\trunk\ll_synthesizer\bin\Debug\Microsoft.DirectX.xml
+C:\Users\tomooka\Documents\csharp\mdl\ll_synthesizer\trunk\ll_synthesizer\bin\Debug\Microsoft.DirectX.DirectSound.xml
+C:\Users\tomooka\Documents\csharp\mdl\ll_synthesizer\trunk\ll_synthesizer\bin\Debug\NAudio.xml
+C:\Users\tomooka\Documents\csharp\mdl\ll_synthesizer\trunk\ll_synthesizer\obj\x86\Debug\ll_synthesizer.csprojResolveAssemblyReference.cache
+C:\Users\tomooka\Documents\csharp\mdl\ll_synthesizer\trunk\ll_synthesizer\obj\x86\Debug\ll_synthesizer.Form1.resources
+C:\Users\tomooka\Documents\csharp\mdl\ll_synthesizer\trunk\ll_synthesizer\obj\x86\Debug\ll_synthesizer.Properties.Resources.resources
+C:\Users\tomooka\Documents\csharp\mdl\ll_synthesizer\trunk\ll_synthesizer\obj\x86\Debug\ll_synthesizer.csproj.GenerateResource.Cache

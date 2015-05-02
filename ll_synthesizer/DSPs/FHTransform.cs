@@ -8,7 +8,7 @@ namespace ll_synthesizer.DSPs
     class FHTransform
     {
         private static int kWindowSize;
-        private const int kOverlapCount = 4;
+        private const int kOverlapCount = 1;
         private const int kPostWindowPower = 3;
 
         internal static readonly double twopi = 2 * Math.PI;
@@ -18,6 +18,19 @@ namespace ll_synthesizer.DSPs
         internal static double[] mPreWindow;
         internal static double[] mPostWindow;
         internal static uint[] mBitRev;
+
+        private double[] overlap;
+        private int overlapSize;
+        public int OverlapSize {
+            set
+            {
+                if (value > 0)
+                {
+                    overlapSize = value;
+                    overlap = new double[value];
+                }
+            }
+        }
 
         public static void Initialize(int windowSize)
         {
@@ -90,7 +103,7 @@ namespace ll_synthesizer.DSPs
             }
         }
 
-        static public void ComputeFHT(ref double[] A, int nPoints)
+        public void ComputeFHT(ref double[] A, int nPoints)
         {
             int i, n, n2, theta_inc;
 
@@ -187,7 +200,16 @@ namespace ll_synthesizer.DSPs
                 n2 *= 2;
                 theta_inc >>= 1;
             }
+            AddOverlap(ref A);
+        }
 
+        private void AddOverlap(ref double[] A)
+        {
+            for (var i = 0; i < overlapSize; i++)
+            {
+                A[i] += overlap[i];
+            }
+            Array.Copy(A, kWindowSize - overlapSize - 1, overlap, 0, overlapSize);
         }
 
         static uint IntegerLog2(uint v)
@@ -212,7 +234,7 @@ namespace ll_synthesizer.DSPs
             return y;
         }
 
-        static public double[] test()
+        public double[] test()
         {
             double[] sinArray = new double[kWindowSize];
             double omega = 2 * Math.PI * 20;

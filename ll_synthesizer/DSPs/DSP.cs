@@ -10,6 +10,9 @@ namespace ll_synthesizer.DSPs
         bool enabled = false;
         int mSampleRate = 44100;
         bool mBassToSides = true;
+        FHTransform fhtr = new FHTransform();
+        FHTransform fhtl = new FHTransform();
+        FHTransform fhtc = new FHTransform();
 
         public bool Enabled
         {
@@ -35,6 +38,15 @@ namespace ll_synthesizer.DSPs
             right = ToShort(rightd, size);
         }
 
+        public void SetOverlapSize(int overlapSize)
+        {
+            //fhtr.OverlapSize = overlapSize;
+            //fhtl.OverlapSize = overlapSize;
+            fhtr.OverlapSize = 1;
+            fhtl.OverlapSize = 1;
+            fhtc.OverlapSize = overlapSize;
+        }
+
         public void CenterCut(double[] leftin, double[] rightin, out double[] leftout, out double[] rightout)
         {
             uint i;
@@ -56,8 +68,8 @@ namespace ll_synthesizer.DSPs
                 tempRight[i] = rightin[k] * mPreWindow[i]; 
             }
 
-            FHTransform.ComputeFHT(ref tempLeft, kWindowSize);
-            FHTransform.ComputeFHT(ref tempRight, kWindowSize);
+            fhtl.ComputeFHT(ref tempLeft, kWindowSize);
+            fhtr.ComputeFHT(ref tempRight, kWindowSize);
 
             double[] tempC = new double[kWindowSize];
             for (i = 1; i < kWindowSize / 2; i++)
@@ -115,7 +127,7 @@ namespace ll_synthesizer.DSPs
                 tempC[mBitRev[i]] = cR + cI;
                 tempC[mBitRev[kWindowSize - i]] = cR - cI;
             }
-            FHTransform.ComputeFHT(ref tempC, kWindowSize);
+            fhtc.ComputeFHT(ref tempC, kWindowSize);
             for (i = 0; i < kWindowSize; i++)
             {
                 tempC[i] *= mPostWindow[i];

@@ -85,9 +85,10 @@ namespace ll_synthesizer
                 wfr = new MP3Reader(path);
             }
             ChangeBufSize(bufSize);
-            this.length = (int)wfr.Length/4;
-            OverlapSize = (int)(bufSize / 2.5);
             this.myDSP = new DSP();
+            this.length = (int)wfr.Length/4;
+            OverlapSize = (int)(bufSize / 2.3);
+            myDSP.SetOverlapSize(overlapSize);
             FetchBuffer(0);
         }
 
