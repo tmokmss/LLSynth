@@ -196,11 +196,6 @@ namespace ll_synthesizer
             }
         }
 
-        private void repeatCheck_CheckedChanged(object sender, EventArgs e)
-        {
-            wp.Repeat = repeatCheck.Checked;
-        }
-
         private void Form1_DragDrop(object sender, DragEventArgs e)
         {
             if (!e.Data.GetDataPresent(DataFormats.FileDrop)) return;

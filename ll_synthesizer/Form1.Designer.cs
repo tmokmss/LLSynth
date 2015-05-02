@@ -35,7 +35,6 @@
             this.lrButton = new System.Windows.Forms.Button();
             this.vocalRstr = new System.Windows.Forms.Label();
             this.vocalLstr = new System.Windows.Forms.Label();
-            this.repeatCheck = new System.Windows.Forms.CheckBox();
             this.pauseButton = new System.Windows.Forms.Button();
             this.refreshButton = new System.Windows.Forms.Button();
             this.autoCheck = new System.Windows.Forms.CheckBox();
@@ -63,7 +62,6 @@
             this.chartPanel.Controls.Add(this.lrButton);
             this.chartPanel.Controls.Add(this.vocalRstr);
             this.chartPanel.Controls.Add(this.vocalLstr);
-            this.chartPanel.Controls.Add(this.repeatCheck);
             this.chartPanel.Controls.Add(this.pauseButton);
             this.chartPanel.Controls.Add(this.refreshButton);
             this.chartPanel.Controls.Add(this.autoCheck);
@@ -108,13 +106,6 @@
             // 
             resources.ApplyResources(this.vocalLstr, "vocalLstr");
             this.vocalLstr.Name = "vocalLstr";
-            // 
-            // repeatCheck
-            // 
-            resources.ApplyResources(this.repeatCheck, "repeatCheck");
-            this.repeatCheck.Name = "repeatCheck";
-            this.repeatCheck.UseVisualStyleBackColor = true;
-            this.repeatCheck.CheckedChanged += new System.EventHandler(this.repeatCheck_CheckedChanged);
             // 
             // pauseButton
             // 
@@ -247,7 +238,6 @@
         private System.Windows.Forms.CheckBox autoCheck;
         private System.Windows.Forms.Button refreshButton;
         private System.Windows.Forms.Button pauseButton;
-        private System.Windows.Forms.CheckBox repeatCheck;
         private System.Windows.Forms.Label vocalRstr;
         private System.Windows.Forms.Label vocalLstr;
         private System.Windows.Forms.Button lrButton;

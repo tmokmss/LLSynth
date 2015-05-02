@@ -8,7 +8,7 @@ namespace ll_synthesizer.DSPs
     class FHTransform
     {
         private static int kWindowSize;
-        private const int kOverlapCount = 1;
+        private const double kOverlapCount = 2.5;
         private const int kPostWindowPower = 3;
 
         internal static readonly double twopi = 2 * Math.PI;

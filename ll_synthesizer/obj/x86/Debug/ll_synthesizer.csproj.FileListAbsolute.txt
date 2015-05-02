@@ -41,3 +41,13 @@ C:\Users\tomooka\Documents\csharp\mdl\ll_synthesizer\trunk\ll_synthesizer\obj\x8
 C:\Users\tomooka\Documents\csharp\mdl\ll_synthesizer\trunk\ll_synthesizer\obj\x86\Debug\ll_synthesizer.Form1.resources
 C:\Users\tomooka\Documents\csharp\mdl\ll_synthesizer\trunk\ll_synthesizer\obj\x86\Debug\ll_synthesizer.Properties.Resources.resources
 C:\Users\tomooka\Documents\csharp\mdl\ll_synthesizer\trunk\ll_synthesizer\obj\x86\Debug\ll_synthesizer.csproj.GenerateResource.Cache
+D:\projects\mdl\ll_synthesizer\trunk\ll_synthesizer\bin\Debug\ll_synthesizer.exe.config
+D:\projects\mdl\ll_synthesizer\trunk\ll_synthesizer\obj\x86\Debug\ll_synthesizer.exe
+D:\projects\mdl\ll_synthesizer\trunk\ll_synthesizer\obj\x86\Debug\ll_synthesizer.pdb
+D:\projects\mdl\ll_synthesizer\trunk\ll_synthesizer\bin\Debug\ll_synthesizer.exe
+D:\projects\mdl\ll_synthesizer\trunk\ll_synthesizer\bin\Debug\ll_synthesizer.pdb
+D:\projects\mdl\ll_synthesizer\trunk\ll_synthesizer\bin\Debug\NAudio.xml
+D:\projects\mdl\ll_synthesizer\trunk\ll_synthesizer\obj\x86\Debug\ll_synthesizer.csprojResolveAssemblyReference.cache
+D:\projects\mdl\ll_synthesizer\trunk\ll_synthesizer\obj\x86\Debug\ll_synthesizer.Form1.resources
+D:\projects\mdl\ll_synthesizer\trunk\ll_synthesizer\obj\x86\Debug\ll_synthesizer.Properties.Resources.resources
+D:\projects\mdl\ll_synthesizer\trunk\ll_synthesizer\obj\x86\Debug\ll_synthesizer.csproj.GenerateResource.Cache

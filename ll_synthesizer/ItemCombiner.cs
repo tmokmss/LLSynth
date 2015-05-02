@@ -15,6 +15,7 @@ namespace ll_synthesizer
         private static WavPlayer wp;
         private int baseLength;
         private Stopwatch sw = new Stopwatch();
+        private Thread factorCalculateThread;
 
         private static readonly short MAX_SHORT = 32767;
         private static readonly short MIN_SHORT = -32768;
@@ -75,6 +76,11 @@ namespace ll_synthesizer
 
         public void Dispose()
         {
+            if (factorCalculateThread != null)
+            {
+                factorCalculateThread.Abort();
+                factorCalculateThread = null;
+            }
             int num = list.Count;
             for (int i = num-1; i >= 0; i--)
             {
@@ -139,9 +145,13 @@ namespace ll_synthesizer
 
         private void AsyncRandomizeFactor()
         {
-            Thread tr = new Thread(new ThreadStart(CalcRandomizedFactor));
-            tr.IsBackground = true;
-            tr.Start();
+            if (factorCalculateThread != null)
+            {
+                factorCalculateThread.Abort();
+            }
+            factorCalculateThread = new Thread(new ThreadStart(CalcRandomizedFactor));
+            factorCalculateThread.IsBackground = true;
+            factorCalculateThread.Start();
         }
 
         public void ApplyRandomizedFactor()
