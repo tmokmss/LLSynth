@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Diagnostics;
+using System.Timers;
 
 namespace ll_synthesizer
 {
@@ -16,6 +17,7 @@ namespace ll_synthesizer
         private int baseLength;
         private Stopwatch sw = new Stopwatch();
         private Thread factorCalculateThread;
+        private System.Timers.Timer timer;
 
         private static readonly short MAX_SHORT = 32767;
         private static readonly short MIN_SHORT = -32768;
@@ -27,7 +29,8 @@ namespace ll_synthesizer
         private double[] searchRegion = new double[] { 0, 0.01 };  // region of offset search
         private double target = 0.2;    // targeted instrument/total ratio
         private double allowedError = 0.005;
-        private int minimumRefreshIntervalMs = 100;
+        private int minimumRefreshIntervalMs = 10000;
+        private double iconRefreshIntervalInMs = 500;
 
         public double MelodyRemovalRatio
         {
@@ -37,6 +40,8 @@ namespace ll_synthesizer
         public ItemCombiner()
         {
             sw.Start();
+            timer = new System.Timers.Timer(iconRefreshIntervalInMs);
+            timer.Elapsed += new ElapsedEventHandler(RegularyRefreshIcons);
         }
 
         static public void SetWavPlayer(WavPlayer wp)
@@ -57,7 +62,7 @@ namespace ll_synthesizer
             }
             Subscribe(item);
             AsyncRandomizeFactor();
-            RefreshAllIcon(true);
+            timer.Enabled = true;
         }
 
         void Subscribe(ItemSet item)
@@ -195,7 +200,7 @@ namespace ll_synthesizer
         }
 
         int ccc = 0;
-        bool IsAllowedFactors(int[,] orgfac)
+        private bool IsAllowedFactors(int[,] orgfac)
         {
             if (ccc++ > 1)
             {
@@ -244,7 +249,7 @@ namespace ll_synthesizer
             return false;
         }
 
-        ArrayList GetUnmutedItems()
+        private ArrayList GetUnmutedItems()
         {
             ArrayList unmutedList = new ArrayList();
             foreach (ItemSet item in list) {
@@ -259,14 +264,14 @@ namespace ll_synthesizer
             return unmutedList;
         }
 
-        void RefleshAllPlot(object sender, EventArgs e)
+        private void RefleshAllPlot(object sender, EventArgs e)
         {
             foreach (ItemSet item in list) {
                 item.PlotLR();
             }
         }
 
-        void RefreshAllIcon(bool forceRefresh)
+        private void RefreshAllIcon(bool forceRefresh)
         {
             if (sw.ElapsedMilliseconds > minimumRefreshIntervalMs || forceRefresh)
             {
@@ -278,17 +283,25 @@ namespace ll_synthesizer
             }
         }
 
-        void RefreshAllIcon()
+        delegate void generalDelegate(bool boolvalue);
+
+        private void RegularyRefreshIcons(object sender, ElapsedEventArgs e)
+        {
+            ItemSet item = GetLastItem();
+            item.BeginInvoke(new generalDelegate(RefreshAllIcon), new object[] { true});
+        }
+
+        private void RefreshAllIcon()
         {
             RefreshAllIcon(false);
         }
 
-        void RefreshRequestReceived(object sender, EventArgs e)
+        private void RefreshRequestReceived(object sender, EventArgs e)
         {
             RefreshAllIcon();
         }
 
-        void RemoveSuicider(object sender, EventArgs e)
+        private void RemoveSuicider(object sender, EventArgs e)
         {
             if (list.Count == 1)
             {
@@ -306,7 +319,7 @@ namespace ll_synthesizer
             }
         }
 
-        double CompareDiff(short[] data1, short[] data2, int startidx1, int startidx2)
+        private double CompareDiff(short[] data1, short[] data2, int startidx1, int startidx2)
         {
             double diff2 = 0;
             if (startidx1 < 0 || startidx2 < 0)
@@ -318,13 +331,13 @@ namespace ll_synthesizer
             return diff2;
         }
 
-        int GetThresholdIdx(int itemidx, out short[] data)
+        private int GetThresholdIdx(int itemidx, out short[] data)
         {
             ItemSet item1 = GetItem(itemidx);
             return GetThresholdIdx(item1, out data);
         }
 
-        int GetThresholdIdx(ItemSet item, out short[] data)
+        private int GetThresholdIdx(ItemSet item, out short[] data)
         {
             item.PrepareAdjustOffset();
             short[] left1 = item.GetData().GetLeft(searchRegion[0], searchRegion[1]);
@@ -342,7 +355,7 @@ namespace ll_synthesizer
             return i1;
         }
 
-        void SetBestOffset(int refidx, int idx2, short[] data1)
+        private void SetBestOffset(int refidx, int idx2, short[] data1)
         {
             // refidx is the first threshold idx of the reference item.
             ItemSet item2 = GetItem(idx2);
