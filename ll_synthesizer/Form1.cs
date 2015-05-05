@@ -45,8 +45,9 @@ namespace ll_synthesizer
             ControlPanel.SetFont(defaultFont);
             ControlPanel.SetWavPlayer(wp);
             cp = new ControlPanel();
-            cp.Location = new Point(500, 560);
-            this.Controls.Add(cp);
+            //cp.Location = new Point(500, 560);
+            //this.Controls.Add(cp);
+            baseTablePanel.Controls.Add(cp, 1, 1);
             FHTransform.Initialize(WavData.BufSizeDefault);
         }
 
@@ -66,7 +67,7 @@ namespace ll_synthesizer
                 ic.Dispose();
                 ic = null;
             }
-            ic = new ItemCombiner();
+            ic = new ItemCombiner(this);
             ItemSet.SetCombiner(ic);
         }
 

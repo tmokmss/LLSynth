@@ -18,6 +18,7 @@ namespace ll_synthesizer
         private Stopwatch sw = new Stopwatch();
         private Thread factorCalculateThread;
         private System.Timers.Timer timer;
+        private Form1 form;
 
         private static readonly short MAX_SHORT = 32767;
         private static readonly short MIN_SHORT = -32768;
@@ -37,8 +38,9 @@ namespace ll_synthesizer
             set { target = value; }
         }
 
-        public ItemCombiner()
+        public ItemCombiner(Form1 form)
         {
+            this.form = form;
             sw.Start();
             timer = new System.Timers.Timer(iconRefreshIntervalInMs);
             timer.Elapsed += new ElapsedEventHandler(RegularyRefreshIcons);
@@ -91,7 +93,7 @@ namespace ll_synthesizer
             {
                 Dispose(i);
             }
-            list = null;
+            //list = null;
             GraphPanel.reset();
         }
 
@@ -287,8 +289,8 @@ namespace ll_synthesizer
 
         private void RegularyRefreshIcons(object sender, ElapsedEventArgs e)
         {
-            ItemSet item = GetLastItem();
-            item.BeginInvoke(new generalDelegate(RefreshAllIcon), new object[] { true});
+            //ItemSet item = GetLastItem();
+            form.BeginInvoke(new generalDelegate(RefreshAllIcon), new object[] { true });
         }
 
         private void RefreshAllIcon()

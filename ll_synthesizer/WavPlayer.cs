@@ -18,7 +18,7 @@ namespace ll_synthesizer
         public delegate void ProcessEventHandler(object sender, ProcessEventArgs e);
         public event ProcessEventHandler PlayReachedBy;
 
-        private static int m_StreamBufferSize = 262144/1;
+        private static int m_StreamBufferSize = 262144/4;
         private static int m_numberOfSectorsInBuffer = 4;
         private static int m_SectorSize = m_StreamBufferSize / m_numberOfSectorsInBuffer;
         private short[] m_transferBuffer = new short[m_SectorSize/2];

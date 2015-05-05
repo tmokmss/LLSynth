@@ -150,7 +150,7 @@ namespace ll_synthesizer
 
             // totalFactor
             totalFactor.Maximum = 10;
-            totalFactor.Minimum = 0;
+            totalFactor.Minimum = -10;
             totalFactor.Name = "totalFactor" + myNum;
             totalFactor.Size = new System.Drawing.Size(90, 40);
             totalFactor.SmallChange = 1;

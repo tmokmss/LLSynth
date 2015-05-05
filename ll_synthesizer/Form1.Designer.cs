@@ -46,11 +46,13 @@
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.flowChartPanel = new System.Windows.Forms.FlowLayoutPanel();
+            this.baseTablePanel = new System.Windows.Forms.TableLayoutPanel();
             this.chartPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.fadeTimeBar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.offsetUpDown)).BeginInit();
             this.menuStrip1.SuspendLayout();
+            this.baseTablePanel.SuspendLayout();
             this.SuspendLayout();
             // 
             // chartPanel
@@ -193,20 +195,27 @@
             // 
             resources.ApplyResources(this.flowChartPanel, "flowChartPanel");
             this.flowChartPanel.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
+            this.baseTablePanel.SetColumnSpan(this.flowChartPanel, 2);
             this.flowChartPanel.Name = "flowChartPanel";
             this.flowChartPanel.ControlRemoved += new System.Windows.Forms.ControlEventHandler(this.flowChartPanel_ControlRemoved);
             this.flowChartPanel.Enter += new System.EventHandler(this.flowChartPanel_Enter);
             this.flowChartPanel.Leave += new System.EventHandler(this.flowChartPanel_Leave);
             this.flowChartPanel.MouseDown += new System.Windows.Forms.MouseEventHandler(this.flowChartPanel_MouseDown);
             // 
+            // baseTablePanel
+            // 
+            resources.ApplyResources(this.baseTablePanel, "baseTablePanel");
+            this.baseTablePanel.Controls.Add(this.chartPanel, 0, 1);
+            this.baseTablePanel.Controls.Add(this.flowChartPanel, 0, 0);
+            this.baseTablePanel.Name = "baseTablePanel";
+            // 
             // Form1
             // 
             this.AllowDrop = true;
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.flowChartPanel);
-            this.Controls.Add(this.chartPanel);
             this.Controls.Add(this.menuStrip1);
+            this.Controls.Add(this.baseTablePanel);
             this.Name = "Form1";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
             this.DragDrop += new System.Windows.Forms.DragEventHandler(this.Form1_DragDrop);
@@ -219,6 +228,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.offsetUpDown)).EndInit();
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
+            this.baseTablePanel.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -243,6 +253,7 @@
         private System.Windows.Forms.Button lrButton;
         private System.Windows.Forms.TrackBar trackBar1;
         private System.Windows.Forms.TrackBar fadeTimeBar;
+        private System.Windows.Forms.TableLayoutPanel baseTablePanel;
     }
 }
 

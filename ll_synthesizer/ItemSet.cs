@@ -89,7 +89,7 @@ namespace ll_synthesizer
         public ItemSet(WavData wd): base(wd.GetName())
         {
             this.wd = wd;
-            if (wd.isMP3()) this.PlotEnable = true;
+            //if (wd.isMP3()) this.PlotEnable = true;
             SetInit();
         }
 
