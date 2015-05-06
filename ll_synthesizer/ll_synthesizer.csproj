@@ -93,6 +93,7 @@
     <Compile Include="ItemSet.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Settings.cs" />
     <Compile Include="Sound\MP3Reader.cs" />
     <Compile Include="ProcessEventArgs.cs" />
     <Compile Include="Program.cs" />

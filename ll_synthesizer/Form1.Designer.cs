@@ -229,6 +229,7 @@
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.baseTablePanel.ResumeLayout(false);
+            this.baseTablePanel.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
