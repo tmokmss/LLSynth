@@ -167,8 +167,8 @@ namespace ll_synthesizer
                 if (autoCheck.Checked)
                 {
                     this.BeginInvoke(new generalDelegate(ic.ApplyRandomizedFactor));
+                    count = 0;
                 }
-                count = 0;
             }
         }
 
