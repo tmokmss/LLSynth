@@ -35,6 +35,8 @@ namespace ll_synthesizer
 
         void init()
         {
+            Settings settings = Settings.GetInstance();
+            settings.SaveSettings();
             wp = new WavPlayer(this);
             ItemCombiner.SetWavPlayer(wp);
             GraphPanel.SetFont(defaultFont);

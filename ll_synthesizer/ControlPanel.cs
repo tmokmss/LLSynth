@@ -97,7 +97,7 @@ namespace ll_synthesizer
             buttonPanel.Controls.Add(repeatCheck, 2, 0);
             buttonPanel.Controls.Add(backButton, 3, 0);
 
-            this.Anchor = (AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right);
+            this.Anchor = (AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right);
             this.AutoSize = true;
             //this.Padding = 
             this.Name = "controlsPanel";

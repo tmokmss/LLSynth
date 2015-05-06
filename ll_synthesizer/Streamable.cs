@@ -10,6 +10,7 @@ namespace ll_synthesizer
         void GetLRBuffer(int start, int size, out short[] left, out short[] right);
         int GetLength();
         int GetMaxTimeSeconds();
+        bool IsReady();
         String GetTitle();
     }
 }

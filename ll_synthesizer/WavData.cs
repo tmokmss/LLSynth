@@ -398,5 +398,10 @@ namespace ll_synthesizer
         {
             return System.IO.Path.GetFileName(path);
         }
+
+        bool Streamable.IsReady()
+        {
+            return true;
+        }
     }
 }

@@ -19,7 +19,6 @@ namespace ll_synthesizer
         private static double span = 1;
         private static double center = 0.5;
         private static readonly double nodivbyzero = 0.000000000000001;
-        private static int fadeTimeMs = 1000;
 
         public event EventHandler PlotRefreshed;
         public event EventHandler Suicided;
@@ -32,9 +31,11 @@ namespace ll_synthesizer
         private int waitTimeTF;
         private bool userInterruptedLR = false;
         private bool userInterruptedTF = false;
-
         private Thread LRThread;
         private Thread TFThread;
+
+        // setting
+        private static int fadeTimeMs = 1000;
 
         static public int FadingTime
         {
@@ -76,7 +77,7 @@ namespace ll_synthesizer
         {
             set
             {
-                if (value > lrBalance.Maximum)
+                if (value > totalFactor.Maximum)
                     totalFactor.Value = totalFactor.Maximum;
                 else if (value < totalFactor.Minimum)
                     totalFactor.Value = totalFactor.Minimum;
@@ -277,6 +278,10 @@ namespace ll_synthesizer
             int stepNum = balance - LRBalance;
             if (stepNum != 0)
                 waitTimeLR = (int)Math.Abs(fadeTimeMs / stepNum);
+            if (LRThread != null)
+            {
+                LRThread.Abort();
+            }
             LRThread = new Thread(new ParameterizedThreadStart(SetLRBalanceGradually));
             LRThread.IsBackground = true;
             LRThread.Start(stepNum);
@@ -308,6 +313,10 @@ namespace ll_synthesizer
             }
             if (stepNum != 0)
                 waitTimeTF = (int)Math.Abs(fadeTimeMs / stepNum);
+            if (TFThread != null)
+            {
+                TFThread.Abort();
+            }
             TFThread = new Thread(new ParameterizedThreadStart(SetTotalFactorGradually));
             TFThread.IsBackground = true;
             TFThread.Start(stepNum);

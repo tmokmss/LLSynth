@@ -26,6 +26,7 @@ namespace ll_synthesizer
         private int m_lastPlayingPosition = 0;
         private int volume = 0;
         private bool repeating = false;
+
         public bool Repeat
         {
             set { repeating = value; }
@@ -218,6 +219,9 @@ namespace ll_synthesizer
         public void Play(Streamable stream)
         {
             Stop();
+
+            if (!stream.IsReady())
+                return;
 
             m_secondaryBufferWritePosition = 0;
             position = 0;

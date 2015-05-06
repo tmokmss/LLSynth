@@ -146,11 +146,11 @@ namespace ll_synthesizer
             lrBalance.Minimum = -10;
             lrBalance.Name = "lrBalance" + myNum;
             lrBalance.Size = new System.Drawing.Size(90, 40);
-            lrBalance.SmallChange = 2;
+            lrBalance.SmallChange = 1;
 
             // totalFactor
-            totalFactor.Maximum = 10;
-            totalFactor.Minimum = -10;
+            totalFactor.Maximum = 100;
+            totalFactor.Minimum = -100;
             totalFactor.Name = "totalFactor" + myNum;
             totalFactor.Size = new System.Drawing.Size(90, 40);
             totalFactor.SmallChange = 1;

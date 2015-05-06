@@ -30,7 +30,7 @@ namespace ll_synthesizer
         private double[] searchRegion = new double[] { 0, 0.01 };  // region of offset search
         private double target = 0.2;    // targeted instrument/total ratio
         private double allowedError = 0.005;
-        private int minimumRefreshIntervalMs = 10000;
+        private int minimumRefreshIntervalMs = 1000;
         private double iconRefreshIntervalInMs = 500;
 
         public double MelodyRemovalRatio
@@ -139,13 +139,86 @@ namespace ll_synthesizer
             {
                 for (int i = 0; i < num; i++)
                 {
-                    factors[i, 0] = r.Next(maxmin[0], maxmin[1]);
-                    factors[i, 1] = r.Next(-maxmin[3], maxmin[3]);
+                    factors[i, 0] = r.Next(maxmin[0], maxmin[1]);   // LRFactor
+                    factors[i, 1] = r.Next(-maxmin[3], maxmin[3]);  // TotalFactor
                     //factors[i, 1] = r.Next(maxmin[2], maxmin[3]);
                 }
                 count++;
             }
             Console.WriteLine(count);
+            factorsCalced = true;
+            isFirst = false;
+        }
+
+        private void CalcRandomizedFactor2()
+        {
+            ArrayList unmuted = GetUnmutedItems();
+            int num = unmuted.Count;
+            if (num < 3)
+                return; // there is no answer
+            factorsCalced = false;
+            factors = new int[num, 2];
+            int[] maxmin = ((ItemSet)unmuted[0]).GetFacsMaxMin();
+
+            double targetSaved = target;
+
+            double S1 = 0;
+            double S3 = 0;
+            double S2 = 0;
+            double S4 = 0;
+            for (int i = 0; i < num-2; i++)
+            {
+                factors[i, 0] = r.Next(maxmin[0], maxmin[1]);    // LRFactor
+                factors[i, 1] = r.Next(-maxmin[3], maxmin[3]);   // TotalFactor
+                int val = factors[i, 0];
+                double fac = (factors[i, 1] < 0) ? 1 : 1;
+                double facR = Math.Cos(Math.PI / 40 * val + Math.PI / 4) * factors[i, 1] * fac;
+                double facL = Math.Sin(Math.PI / 40 * val + Math.PI / 4) * factors[i, 1] * fac;
+                S1 += facR;
+                S3 += facL;
+                S2 += Math.Abs(facR);
+                S4 += Math.Abs(facL);
+            }
+            factors[num - 2, 0] = r.Next(1, 10);//(maxmin[0], maxmin[1]);
+            factors[num - 1, 0] = r.Next(1, 10);//(maxmin[0], maxmin[1]);
+            while (factors[num-1,0]==factors[num-2,0])
+                factors[num - 1, 0] = r.Next(1, 10);//(maxmin[0], maxmin[1]);
+            double r1 = Math.Cos(Math.PI / 40 * factors[num - 2, 0] + Math.PI / 4);
+            double r2 = Math.Cos(Math.PI / 40 * factors[num - 1, 0] + Math.PI / 4);
+            double c = targetSaved;
+            /*
+            double a1 = (-r2*(S3-S4*c)+Math.Sqrt(1-r2*r2)*(S1-S2*c))/
+                        ((c-1)*(r1*Math.Sqrt(1-r2*r2)-r2*Math.Sqrt(1-r1*r1)));
+            double a2 = (r1*(S3-S4*c)-Math.Sqrt(1-r1*r1)*(S1-S2*c))/
+                        ((c-1)*(-r2*Math.Sqrt(1-r1*r1)+r1*Math.Sqrt(1-r2*r2)));
+             */
+
+            double a1 = (-r2 * (S3 - S4 * c) + Math.Sqrt(1 - r2 * r2) * (S1 - S2 * c)) /
+                        ((c - 1) * (r1 * Math.Sqrt(1 - r2 * r2) - r2 * Math.Sqrt(1 - r1 * r1)));
+            double a2 = -(r1 * (S3 - S4 * c) - Math.Sqrt(1 - r1 * r1) * (S1 - S2 * c)) /
+                        ((c + 1) * (-r2 * Math.Sqrt(1 - r1 * r1) + r1 * Math.Sqrt(1 - r2 * r2)));
+            double maxValue = Math.Max(Math.Abs(a1), Math.Abs(a2));
+            S1 += r1 * a1 + r2 * a2;
+            S2 += Math.Abs(r1 * a1) + Math.Abs(r2 * a2);
+            S3 += Math.Sqrt(1 - r1 * r1) * a1 + Math.Sqrt(1 - r2 * r2) * a2;
+            S4 += Math.Abs(Math.Sqrt(1 - r1 * r1) * a1) * Math.Abs(Math.Sqrt(1 - r2 * r2) * a2);
+            Console.WriteLine(S1 / S2);
+            Console.WriteLine(S3 / S4);
+            if (maxValue > 1)
+            {
+                for (int i = 0; i < num - 2; i++)
+                {
+                    factors[i, 1] = (int)Math.Round(factors[i, 1] / maxValue * maxmin[3]);
+                }
+                factors[num - 2, 1] = (int)Math.Round(a1 / maxValue * maxmin[3]);
+                factors[num - 1, 1] = (int)Math.Round(a2 / maxValue * maxmin[3]);
+            }
+            else
+            {
+                factors[num - 2, 1] = (int)Math.Round(a1);
+                factors[num - 1, 1] = (int)Math.Round(a2);
+            }
+
             factorsCalced = true;
             isFirst = false;
         }
@@ -156,7 +229,7 @@ namespace ll_synthesizer
             {
                 factorCalculateThread.Abort();
             }
-            factorCalculateThread = new Thread(new ThreadStart(CalcRandomizedFactor));
+            factorCalculateThread = new Thread(new ThreadStart(CalcRandomizedFactor2));
             factorCalculateThread.IsBackground = true;
             factorCalculateThread.Start();
         }
@@ -209,15 +282,6 @@ namespace ll_synthesizer
                 ccc = 0;
                 //return true;
             }
-            bool isOK = false;
-            for (int i = 0; i < orgfac.GetLength(0); i++)
-            {
-                if (orgfac[i, 1] > 0) {
-                    isOK = true;
-                    break;
-                }
-            }
-            //return isOK;
 
             double sumR = 0;
             double sumL = 0;
@@ -281,7 +345,8 @@ namespace ll_synthesizer
                 {
                     item.Refresh();
                 }
-                sw.Restart();
+                if (!forceRefresh)
+                    sw.Restart();
             }
         }
 
@@ -289,7 +354,6 @@ namespace ll_synthesizer
 
         private void RegularyRefreshIcons(object sender, ElapsedEventArgs e)
         {
-            //ItemSet item = GetLastItem();
             form.BeginInvoke(new generalDelegate(RefreshAllIcon), new object[] { true });
         }
 
@@ -420,20 +484,13 @@ namespace ll_synthesizer
         public ItemSet GetItem(int idx)
         {
             ItemSet item;
-            try
+            if (idx < list.Count && idx >= 0)
             {
                 item = (ItemSet)list[idx];
             }
-            catch (ArgumentOutOfRangeException)
+            else
             {
-                if (list.Count > 0)
-                {
-                    item = (ItemSet)list[list.Count];
-                }
-                else
-                {
-                    item = null;
-                }
+                item = null;
             }
             return item;
         }
@@ -456,6 +513,11 @@ namespace ll_synthesizer
 
         int Streamable.GetMaxTimeSeconds()
         {
+            ItemSet item = GetLastItem();
+            if (item == null)
+            {
+                return 0;
+            }
             return (int)GetLastItem().GetData().IdxToTime(baseLength);
         }
 
@@ -478,9 +540,10 @@ namespace ll_synthesizer
                     factorR += Math.Abs(item.GetFactor(idx, WavData.RIGHT));
                     //factorR += (item.GetFactor(idx, WavData.RIGHT));
                 }
-                catch (ArgumentOutOfRangeException) {
-                // sometimes thrown when item removed while playing
-                // can be ignored
+                catch (ArgumentOutOfRangeException)
+                {
+                    // sometimes thrown when item removed while playing
+                    // can be ignored
                 }
             }
             if (factorL == 0 && factorR == 0 && avoidAllMute)
@@ -550,6 +613,14 @@ namespace ll_synthesizer
                 left[i] = mean[0];
                 right[i] = mean[1];
             }
+        }
+
+        bool Streamable.IsReady()
+        {
+            ItemSet item = GetLastItem();
+            if (item == null)
+                return false;
+            return true;
         }
     }
 }
