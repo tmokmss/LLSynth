@@ -21,10 +21,11 @@ namespace ll_synthesizer
         private ItemCombiner ic;
         private ControlPanel cp;
 
-        private int randomizeInterval = 3;
-        
         delegate void progressDelegate(int value);
         delegate void generalDelegate();
+
+        // setting
+        private static int randomizeInterval = 3;
 
         public Form1()
         {
@@ -36,21 +37,34 @@ namespace ll_synthesizer
         void init()
         {
             Settings settings = Settings.GetInstance();
-            settings.SaveSettings();
+            settings.LoadSettings();
+            ItemCombiner.ApplySettings();
+            WavPlayer.ApplySettings();
+            Form1.ApplySettings();
+
             wp = new WavPlayer(this);
+            wp.PlayReachedBy += new WavPlayer.ProcessEventHandler(this.ReportReceived);
+            this.KeyPreview = true;
+
             ItemCombiner.SetWavPlayer(wp);
             GraphPanel.SetFont(defaultFont);
             ItemSet.SetWavPlayer(wp);
             ItemSet.SetForm(this);
-            wp.PlayReachedBy += new WavPlayer.ProcessEventHandler(this.ReportReceived);
-            this.KeyPreview = true;
             ControlPanel.SetFont(defaultFont);
             ControlPanel.SetWavPlayer(wp);
-            cp = new ControlPanel();
-            //cp.Location = new Point(500, 560);
-            //this.Controls.Add(cp);
-            baseTablePanel.Controls.Add(cp, 1, 1);
             FHTransform.Initialize(WavData.BufSizeDefault);
+
+            cp = new ControlPanel();
+            baseTablePanel.Controls.Add(cp, 1, 1);
+        }
+
+        static public void ApplySettings()
+        {
+            Settings settings = Settings.GetInstance();
+            string fontName = settings.FontName;
+            int fontSize = settings.FontSize;
+            defaultFont = new Font(fontName, fontSize);
+            randomizeInterval = settings.AutoDJIntervalSecond;
         }
 
         void debug()

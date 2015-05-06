@@ -49,6 +49,12 @@ namespace ll_synthesizer
             device.SetCooperativeLevel(form, CooperativeLevel.Priority);
         }
 
+        static public void ApplySettings()
+        {
+            Settings settings = Settings.GetInstance();
+            m_StreamBufferSize = settings.StreamBufferSize;
+        }
+
         void setBufferAndWave()
         {
             waveFormat = new Microsoft.DirectX.DirectSound.WaveFormat();

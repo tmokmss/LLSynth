@@ -15,7 +15,7 @@ namespace ll_synthesizer
         private SoundFileReader wfr;
         private DSP myDSP;
         private static int bufSizeDefault = WavPlayer.BufSize / 2;
-        private int bufSize = bufSizeDefault;  // size in short. twice when byte
+        private int bufSize;  // size in short. twice when byte
         private int overlapSize;
         private short[] leftBuf;
         private short[] rightBuf; // buffer
@@ -78,6 +78,7 @@ namespace ll_synthesizer
         {
             this.path = path;
             this.samplesPerSecond = 44100;
+            bufSize = WavPlayer.BufSize / 2;
             if (path.EndsWith("wav")) {
                 wfr = new WaveReader(path);
             }

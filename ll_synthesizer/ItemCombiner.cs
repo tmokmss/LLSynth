@@ -24,14 +24,14 @@ namespace ll_synthesizer
         private static readonly short MIN_SHORT = -32768;
 
         // settings
-        private bool avoidAllMute = true;
+        private static bool avoidAllMute = true;
         private static int compareSpan = 30; // in index +-
         private static short threashold = 50;
-        private double[] searchRegion = new double[] { 0, 0.01 };  // region of offset search
+        private static double[] searchRegion = new double[] { 0, 0.01 };  // region of offset search
         private double target = 0.2;    // targeted instrument/total ratio
-        private double allowedError = 0.005;
-        private int minimumRefreshIntervalMs = 1000;
-        private double iconRefreshIntervalInMs = 500;
+        private static double allowedError = 0.005;
+        private static int minimumRefreshIntervalMs = 1000;
+        private static double iconRefreshIntervalInMs = 500;
 
         public double MelodyRemovalRatio
         {
@@ -49,6 +49,18 @@ namespace ll_synthesizer
         static public void SetWavPlayer(WavPlayer wp)
         {
             ItemCombiner.wp = wp;
+        }
+
+        static public void ApplySettings()
+        {
+            Settings settings = Settings.GetInstance();
+            avoidAllMute = settings.AvoidAllMute;
+            compareSpan = settings.CompareSpanIdx;
+            threashold = settings.ThreasholdLevel;
+            searchRegion[1] = settings.SearchRegionEnd;
+            allowedError = settings.VocalReduceAllowedError;
+            minimumRefreshIntervalMs = settings.MinimumRefreshInterval;
+            iconRefreshIntervalInMs = settings.IconRefreshInterval;
         }
 
         public void AddItem(ItemSet item)
@@ -229,7 +241,7 @@ namespace ll_synthesizer
             {
                 factorCalculateThread.Abort();
             }
-            factorCalculateThread = new Thread(new ThreadStart(CalcRandomizedFactor2));
+            factorCalculateThread = new Thread(new ThreadStart(CalcRandomizedFactor));
             factorCalculateThread.IsBackground = true;
             factorCalculateThread.Start();
         }

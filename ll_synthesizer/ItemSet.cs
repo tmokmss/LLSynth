@@ -480,7 +480,6 @@ namespace ll_synthesizer
                 Console.WriteLine(x);
                 return 255;
             }
-            //return (int)(345.24*Math.Pow(x, 4)-1307.1*Math.Pow(x,3)+1748*Math.Pow(x,2)-1016.1*x+230);
             return (int)(-399.76 * Math.Pow(x, 5) + 1965.9 * Math.Pow(x, 4) - 3509.5 * Math.Pow(x, 3) + 2915.3*x*x - 1201.9 * x + 230);
         }
 
