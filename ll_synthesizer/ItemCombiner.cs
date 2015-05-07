@@ -95,6 +95,7 @@ namespace ll_synthesizer
 
         public void Dispose()
         {
+            timer.Stop();
             if (factorCalculateThread != null)
             {
                 factorCalculateThread.Abort();

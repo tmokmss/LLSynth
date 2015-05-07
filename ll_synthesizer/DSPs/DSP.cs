@@ -52,7 +52,7 @@ namespace ll_synthesizer.DSPs
             uint i;
             int kWindowSize = leftin.Length;
             int freqBelowToSides = (int)((0 / ((double)mSampleRate / kWindowSize)) + 0.5);
-            int freqAboveToSides = (int)((200.0 / ((double)mSampleRate / kWindowSize)) + 0.5);
+            int freqAboveToSides = (int)((300.0 / ((double)mSampleRate / kWindowSize)) + 0.5);
             uint[] mBitRev = FHTransform.mBitRev;
             double[] mPreWindow = FHTransform.mPreWindow;
             double[] mPostWindow = FHTransform.mPostWindow;

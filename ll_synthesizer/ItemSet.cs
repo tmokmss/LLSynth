@@ -207,6 +207,7 @@ namespace ll_synthesizer
 
         public void PrepareAdjustOffset()
         {
+            SetOffset(0);
             wd.IsDefault = true;
         }
 
