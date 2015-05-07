@@ -158,7 +158,7 @@ namespace ll_synthesizer
             return GetWithOffset(i, RIGHT);
         }
 
-        short[] GetWithOffset(bool isLeft)
+        private short[] GetWithOffset(bool isLeft)
         {
             short[] withofs = new short[length];
             for (int i = 0; i < length; i++)
@@ -187,12 +187,12 @@ namespace ll_synthesizer
             factor = fac;
         }
 
-        int IdxOffset(int idx)
+        private int IdxOffset(int idx)
         {
             return IdxOffset(idx, true);
         }
 
-        int IdxOffset(int idx, bool process)
+        private int IdxOffset(int idx, bool process)
         {
             int newidx = idx + offset;
             if (process)
@@ -253,7 +253,7 @@ namespace ll_synthesizer
             return extractArray(sampleNum, start, end, RIGHT);
         }
 
-        short[] extractArray(int sampleNum, int start, int end, bool isLeft)
+        private short[] extractArray(int sampleNum, int start, int end, bool isLeft)
         {
             int di = (int)Math.Floor((end - start) * 1.0 / sampleNum);
             if (di == 0) di = 1;
@@ -269,7 +269,7 @@ namespace ll_synthesizer
             return array;
         }
 
-        short GetWithOffset(int idxWithoutOffset, bool isLeft)
+        private short GetWithOffset(int idxWithoutOffset, bool isLeft)
         {
             if (idxWithoutOffset >= length)
                 return 0;
@@ -292,14 +292,14 @@ namespace ll_synthesizer
             return ToShort(value);
         }
 
-        short ToShort(double value)
+        private short ToShort(double value)
         {
             if (value < -32768) return -32768;
             if (value > 32767) return 32767;
             return Convert.ToInt16(value);
         }
 
-        void FetchBuffer(int idxWithoutOffset)
+        private void FetchBuffer(int idxWithoutOffset)
         {
             try
             {
@@ -331,7 +331,7 @@ namespace ll_synthesizer
             }
         }
 
-        bool isAvailable(int idxWithOffset, bool isLeft)
+        private bool isAvailable(int idxWithOffset, bool isLeft)
         {
             // if a value is obtained from the buffer
             int startPosition = (isLeft) ? startPositionL : startPositionR;
@@ -357,7 +357,7 @@ namespace ll_synthesizer
             }
         }
             
-        private int RatioToIdx(double ratio)
+        public int RatioToIdx(double ratio)
         {
             int maxIdx = length - 1;
             if (ratio < 0)
@@ -390,7 +390,7 @@ namespace ll_synthesizer
             return IdxToTime(RatioToIdx(ratio));
         }
 
-        int MsToIdx(double ms)
+        private int MsToIdx(double ms)
         {
             return (int)(samplesPerSecond*ms/1000);
         }

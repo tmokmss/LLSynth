@@ -420,23 +420,33 @@ namespace ll_synthesizer
             item.PrepareAdjustOffset();
             short[] left1 = item.GetData().GetLeft(searchRegion[0], searchRegion[1]);
             int i1 = 0;
-            for (int i = 0; i < left1.Length; i++)
+            bool loopFlag = true;
+            while (true)
             {
-                if (left1[i] > threashold)
+                for (int i = 0; i < left1.Length; i++)
                 {
-                    i1 = i;
-                    break;
+                    if (left1[i] > threashold)
+                    {
+                        i1 = i;
+                        loopFlag = false;
+                        break;
+                    }
                 }
+                if (!loopFlag)
+                    break;
+                Console.WriteLine("Not enough");
+                searchRegion[1] *= 2;
+                left1 = item.GetData().GetLeft(searchRegion[0], searchRegion[1]);
             }
             data = left1;
             item.BackToPreparation();
             return i1;
         }
 
-        private void SetBestOffset(int refidx, int idx2, short[] data1)
+        private void SetBestOffset(int refidx, int idxOfTarget, short[] data1)
         {
             // refidx is the first threshold idx of the reference item.
-            ItemSet item2 = GetItem(idx2);
+            ItemSet item2 = GetItem(idxOfTarget);
             if (item2.OffsetAdjusted)
                 return;
             short[] data2;
