@@ -350,7 +350,7 @@ namespace ll_synthesizer
             }
         }
 
-        private void RefreshAllIcon(bool forceRefresh)
+        private void RefreshAllIcon(bool forceRefresh = false)
         {
             if (sw.ElapsedMilliseconds > minimumRefreshIntervalMs || forceRefresh)
             {
@@ -368,11 +368,6 @@ namespace ll_synthesizer
         private void RegularyRefreshIcons(object sender, ElapsedEventArgs e)
         {
             form.BeginInvoke(new generalDelegate(RefreshAllIcon), new object[] { true });
-        }
-
-        private void RefreshAllIcon()
-        {
-            RefreshAllIcon(false);
         }
 
         private void RefreshRequestReceived(object sender, EventArgs e)
