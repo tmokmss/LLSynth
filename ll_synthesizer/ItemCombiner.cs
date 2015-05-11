@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading;
 using System.Diagnostics;
 using System.Timers;
+using NAudio.Wave;
 
 namespace ll_synthesizer
 {
@@ -639,6 +640,11 @@ namespace ll_synthesizer
             if (item == null)
                 return false;
             return true;
+        }
+
+        WaveFormat Streamable.GetWaveFormat()
+        {
+            return GetLastItem().GetData().WaveFormat;
         }
     }
 }

@@ -35,5 +35,7 @@ namespace ll_synthesizer.Sound
             wfr.Dispose();
         }
 
+        public WaveFormat WaveFormat { get { return wfr.WaveFormat; } }
+
     }
 }

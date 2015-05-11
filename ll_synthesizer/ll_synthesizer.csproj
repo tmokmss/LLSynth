@@ -104,6 +104,7 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="Sound\SoundFileReader.cs" />
+    <Compile Include="Sound\WaveWriter.cs" />
     <Compile Include="Streamable.cs" />
     <Compile Include="WavData.cs" />
     <Compile Include="Sound\WaveReader.cs" />

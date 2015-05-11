@@ -11,9 +11,11 @@ namespace ll_synthesizer.Sound
         byte[] data;
         int position;
         int length;
+        WaveFormat waveFormat;
         public MP3Reader(String path)
         {
             Mp3FileReader fr = new Mp3FileReader(path);
+            waveFormat = fr.WaveFormat;
             length = (int)fr.Length;
             data = new byte[length];
             fr.Read(data, 0, length);
@@ -41,5 +43,6 @@ namespace ll_synthesizer.Sound
             data = null;
         }
 
+        public WaveFormat WaveFormat { get { return waveFormat; } }
     }
 }

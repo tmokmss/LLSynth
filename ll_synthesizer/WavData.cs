@@ -73,6 +73,10 @@ namespace ll_synthesizer
         {
             set { isDefault = value; }
         }
+        public WaveFormat WaveFormat
+        {
+            get { return wfr.WaveFormat; }
+        }
 
         public WavData(String path)
         {
@@ -118,6 +122,11 @@ namespace ll_synthesizer
         int Streamable.GetLength()
         {
             return GetLength();
+        }
+
+        WaveFormat Streamable.GetWaveFormat()
+        {
+            return WaveFormat;
         }
 
         int Streamable.GetMaxTimeSeconds()

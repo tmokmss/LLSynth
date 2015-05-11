@@ -4,17 +4,19 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using Microsoft.DirectX.DirectSound;
+using NAudio.Wave;
 
 namespace ll_synthesizer
 {
     class WavPlayer
     {
         private BufferDescription bufferDesc;
-        private WaveFormat waveFormat;
+        private Microsoft.DirectX.DirectSound.WaveFormat waveFormat;
         private SecondaryBuffer buffer;
         private Device device = null;
         private Notify notify;
         private Thread mThread;
+        private WaveFileWriter wfw;
         public delegate void ProcessEventHandler(object sender, ProcessEventArgs e);
         public event ProcessEventHandler PlayReachedBy;
 
@@ -26,6 +28,7 @@ namespace ll_synthesizer
         private int m_lastPlayingPosition = 0;
         private int volume = 0;
         private bool repeating = false;
+        private bool saveFile = true;
 
         public bool Repeat
         {
@@ -81,6 +84,12 @@ namespace ll_synthesizer
             isDoing = false;
             Array.Clear(m_transferBuffer, 0, m_transferBuffer.Length);
             stream = null;
+            if (wfw != null)
+            {
+                wfw.Close();
+                wfw.Dispose();
+                wfw = null;
+            }
             if (buffer != null)
             {
                 buffer.Dispose();
@@ -122,6 +131,10 @@ namespace ll_synthesizer
 
         public void Close()
         {
+            if (wfw != null)
+            {
+                wfw.Dispose();
+            }
             if (mThread != null)
             {
                 mThread.Abort();
@@ -129,10 +142,6 @@ namespace ll_synthesizer
             }
             if (buffer != null)
             {
-                /*
-                if (IsPlaying())
-                    buffer.Stop();
-                 */
                 buffer.Dispose();
                 buffer = null;
             }
@@ -141,6 +150,7 @@ namespace ll_synthesizer
                 device.Dispose();
                 device = null;
             }
+
         }
 
         public bool IsPlaying()
@@ -222,18 +232,35 @@ namespace ll_synthesizer
             }
         }
 
+        private void InitializeRecorder()
+        {
+            NAudio.Wave.WaveFormat wf = stream.GetWaveFormat();
+            string datetime = DateTime.Now.ToString().Replace('/', '-').Replace(":", "");
+            string fileName = stream.GetTitle() + " " + datetime + ".wav";
+            wfw = new WaveFileWriter(fileName, wf);
+        }
+
+        private void SaveBuffer()
+        {
+            wfw.WriteSamples(m_transferBuffer, 0, m_transferBuffer.Length);
+        }
+
         public void Play(Streamable stream)
         {
             Stop();
+            this.stream = stream;
 
             if (!stream.IsReady())
                 return;
+            if (saveFile)
+            {
+                InitializeRecorder();
+            }
 
             m_secondaryBufferWritePosition = 0;
             position = 0;
             progressSoFar = 0;
 
-            this.stream = stream;
             setBufferAndWave();
             SetInterval();
             buffer = new SecondaryBuffer(bufferDesc, device);
@@ -256,10 +283,10 @@ namespace ll_synthesizer
 
             isPlaying = true;
 
+
             //TransferBuffer();
             buffer.Play(0, BufferPlayFlags.Looping);
         }
-
 
         int position = 0;
 
@@ -271,6 +298,7 @@ namespace ll_synthesizer
                 ReportProgress();
                 are.WaitOne(Timeout.Infinite, true);
                 TransferBuffer();
+                SaveBuffer();
             }
         }
 

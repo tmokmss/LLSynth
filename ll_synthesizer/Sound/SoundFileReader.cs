@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using NAudio.Wave;
 
 namespace ll_synthesizer.Sound
 {
@@ -18,5 +19,6 @@ namespace ll_synthesizer.Sound
         }
         void Read(byte[] buffer, int offset, int count);
         void Dispose();
+        WaveFormat WaveFormat {get;}
     }
 }
