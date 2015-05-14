@@ -149,8 +149,8 @@ namespace ll_synthesizer
             lrBalance.SmallChange = 1;
 
             // totalFactor
-            totalFactor.Maximum = 100;
-            totalFactor.Minimum = -100;
+            totalFactor.Maximum = 10;
+            totalFactor.Minimum = -10;
             totalFactor.Name = "totalFactor" + myNum;
             totalFactor.Size = new System.Drawing.Size(90, 40);
             totalFactor.SmallChange = 1;

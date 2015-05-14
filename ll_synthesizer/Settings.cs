@@ -24,6 +24,7 @@ namespace ll_synthesizer
         private double allowedError = 0.005;
         private int minimumRefreshIntervalMs = 1000;
         private double iconRefreshIntervalInMs = 500;
+        private int numOfElementsCompared = 2000;
 
         // WavPlayer
         private int m_StreamBufferSize = 262144 / 4;
@@ -70,6 +71,11 @@ namespace ll_synthesizer
         {
             set { iconRefreshIntervalInMs = value; }
             get { return iconRefreshIntervalInMs; }
+        }
+        public int NumOfElementsCompared
+        {
+            set { numOfElementsCompared = value; }
+            get { return numOfElementsCompared; }
         }
         public int StreamBufferSize
         {

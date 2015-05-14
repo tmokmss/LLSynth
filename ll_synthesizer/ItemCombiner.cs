@@ -33,6 +33,7 @@ namespace ll_synthesizer
         private static double allowedError = 0.005;
         private static int minimumRefreshIntervalMs = 1000;
         private static double iconRefreshIntervalInMs = 500;
+        private static int numOfElementsCompared = 2000;
 
         public double MelodyRemovalRatio
         {
@@ -62,6 +63,7 @@ namespace ll_synthesizer
             allowedError = settings.VocalReduceAllowedError;
             minimumRefreshIntervalMs = settings.MinimumRefreshInterval;
             iconRefreshIntervalInMs = settings.IconRefreshInterval;
+            numOfElementsCompared = settings.NumOfElementsCompared;
         }
 
         public void AddItem(ItemSet item)
@@ -262,18 +264,6 @@ namespace ll_synthesizer
             {
                 ItemSet item = (ItemSet)unmuted[i];
                 item.AsyncSetLRBalance(factors[i, 0]);
-                /*
-                item.AsyncSetTotalFactor(factors[i, 1]);
-                if (i < num*target)
-                {
-                    item.DSPEnabled = true;
-                }
-                else
-                {
-                    item.DSPEnabled = false;
-                }
-                */
-
                 if (factors[i, 1] < 0)
                 {
                     item.DSPEnabled = true;
@@ -397,13 +387,14 @@ namespace ll_synthesizer
         private double CompareDiff(short[] data1, short[] data2, int startidx1, int startidx2)
         {
             double diff2 = 0;
-            if (startidx1 < 0 || startidx2 < 0)
-                return 0;
-            for (int i = 0; i + startidx1 < data1.Length && i + startidx2 < data2.Length; i++)
+            int count = 0;
+            //for (int i = 0; i + startidx1 < data1.Length && i + startidx2 < data2.Length ; i++)
+            for (var i=0; i<numOfElementsCompared; i++)
             {
                 diff2 += Math.Pow(data1[i + startidx1] - data2[i + startidx2], 2);
+                count++;
             }
-            return diff2;
+            return diff2 / count;
         }
 
         private int GetThresholdIdx(int itemidx, out short[] data)
@@ -416,6 +407,7 @@ namespace ll_synthesizer
         {
             item.PrepareAdjustOffset();
             short[] left1 = item.GetData().GetLeft(searchRegion[0], searchRegion[1]);
+            double newSearchEnd = searchRegion[1];
             int i1 = 0;
             bool loopFlag = true;
             while (true)
@@ -430,10 +422,16 @@ namespace ll_synthesizer
                     }
                 }
                 if (!loopFlag)
+                {
+                    if (left1.Length - i1 < numOfElementsCompared)
+                    {
+                        left1 = item.GetData().GetLeft(searchRegion[0], newSearchEnd + searchRegion[1]);
+                    }
                     break;
+                }
                 Console.WriteLine("Not enough");
-                searchRegion[1] *= 2;
-                left1 = item.GetData().GetLeft(searchRegion[0], searchRegion[1]);
+                newSearchEnd *= 2;
+                left1 = item.GetData().GetLeft(searchRegion[0], newSearchEnd);
             }
             data = left1;
             item.BackToPreparation();
@@ -454,7 +452,7 @@ namespace ll_synthesizer
                 double diff = CompareDiff(data1, data2, refidx, i2 - compareSpan);
                 Console.WriteLine(item2.GetData().GetName());
                 Console.WriteLine(i2);
-                for (int i = -compareSpan; i <= compareSpan; i++)
+                for (int i = -compareSpan + 1; i <= compareSpan; i++)
                 {
                     double newdiff = CompareDiff(data1, data2, refidx, i2 + i);
                     if (newdiff < diff)

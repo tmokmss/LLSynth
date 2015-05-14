@@ -28,7 +28,6 @@ namespace ll_synthesizer
         private int m_lastPlayingPosition = 0;
         private int volume = 0;
         private bool repeating = false;
-        private bool saveFile = true;
 
         public bool Repeat
         {
@@ -45,6 +44,8 @@ namespace ll_synthesizer
             get { return volume; }
             set { volume = value; }
         }
+
+        public bool SaveFile { set; get;}
 
         public WavPlayer(Form1 form)
         {
@@ -242,7 +243,10 @@ namespace ll_synthesizer
 
         private void SaveBuffer()
         {
-            wfw.WriteSamples(m_transferBuffer, 0, m_transferBuffer.Length);
+            if (SaveFile)
+            {
+                wfw.WriteSamples(m_transferBuffer, 0, m_transferBuffer.Length);
+            }
         }
 
         public void Play(Streamable stream)
@@ -252,7 +256,7 @@ namespace ll_synthesizer
 
             if (!stream.IsReady())
                 return;
-            if (saveFile)
+            if (SaveFile)
             {
                 InitializeRecorder();
             }
