@@ -13,6 +13,8 @@ namespace ll_synthesizer
 {
     public partial class Form1 : Form
     {
+        public event KeyEventHandler KeyPushed;
+
         private static String appName = "LoveLive Synthesizer";
         private String folderPath = "";
         private static Font defaultFont = new Font("Meiryo UI", 9);
@@ -118,14 +120,34 @@ namespace ll_synthesizer
             }
         }
 
-        private void openToolStripMenuItem_Click(object sender, EventArgs e)
+        private void AddItemsAndAdjust(string[] files)
         {
-            this.flowChartPanel.BackColor = Color.AntiqueWhite;
+            foreach (var filePath in files)
+            {
+                if (FileGetter.IsValidFile(filePath))
+                    AddItem(filePath);
+            }
+            ic.AsyncAdjustOffset();
+        }
+
+        private void openDirectoryToolStripMenuItem_Click(object sender, EventArgs e)
+        {
             FolderBrowserDialog fbd = new FolderBrowserDialog();
             fbd.Description = "Select folder that includes wav|mp3 files:";
             if (fbd.ShowDialog(this) == DialogResult.OK) {
                 folderPath = fbd.SelectedPath;
                 LoadFiles();
+            }
+        }
+
+        private void openFileToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var ofd = new OpenFileDialog();
+            ofd.Filter = "sound files (*.wav; *.mp3)|*.wav;*.mp3";
+            ofd.Multiselect = true;
+            if (ofd.ShowDialog(this) == DialogResult.OK)
+            {
+                AddItemsAndAdjust(ofd.FileNames);
             }
         }
 
@@ -178,7 +200,6 @@ namespace ll_synthesizer
             vocalRstr.Text = str[1];
         }
 
-        public event KeyEventHandler KeyPushed;
 
         private void Form1_KeyDown(object sender, KeyEventArgs e)
         {
@@ -217,13 +238,7 @@ namespace ll_synthesizer
         {
             if (!e.Data.GetDataPresent(DataFormats.FileDrop)) return;
 
-            wp.Pause();
-            foreach (var filePath in (string[])e.Data.GetData(DataFormats.FileDrop))
-            {
-                if (FileGetter.IsValidFile(filePath))
-                    AddItem(filePath);
-            }
-            ic.AsyncAdjustOffset();
+            AddItemsAndAdjust((string[])e.Data.GetData(DataFormats.FileDrop));
         }
 
         private void Form1_DragEnter(object sender, DragEventArgs e)
@@ -256,6 +271,11 @@ namespace ll_synthesizer
         {
             wp.Close();
             ic.Dispose();
+        }
+
+        private void saveCheck_CheckedChanged(object sender, EventArgs e)
+        {
+            wp.SaveFile = saveCheck.Checked;
         }
     }
 }

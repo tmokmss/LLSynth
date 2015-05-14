@@ -30,6 +30,7 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.chartPanel = new System.Windows.Forms.Panel();
+            this.saveCheck = new System.Windows.Forms.CheckBox();
             this.fadeTimeBar = new System.Windows.Forms.TrackBar();
             this.trackBar1 = new System.Windows.Forms.TrackBar();
             this.lrButton = new System.Windows.Forms.Button();
@@ -45,6 +46,7 @@
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.openFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.flowChartPanel = new System.Windows.Forms.FlowLayoutPanel();
             this.baseTablePanel = new System.Windows.Forms.TableLayoutPanel();
             this.chartPanel.SuspendLayout();
@@ -59,6 +61,7 @@
             // 
             resources.ApplyResources(this.chartPanel, "chartPanel");
             this.chartPanel.BackColor = System.Drawing.SystemColors.ControlDark;
+            this.chartPanel.Controls.Add(this.saveCheck);
             this.chartPanel.Controls.Add(this.fadeTimeBar);
             this.chartPanel.Controls.Add(this.trackBar1);
             this.chartPanel.Controls.Add(this.lrButton);
@@ -72,6 +75,13 @@
             this.chartPanel.Controls.Add(this.button4);
             this.chartPanel.Controls.Add(this.button1);
             this.chartPanel.Name = "chartPanel";
+            // 
+            // saveCheck
+            // 
+            resources.ApplyResources(this.saveCheck, "saveCheck");
+            this.saveCheck.Name = "saveCheck";
+            this.saveCheck.UseVisualStyleBackColor = true;
+            this.saveCheck.CheckedChanged += new System.EventHandler(this.saveCheck_CheckedChanged);
             // 
             // fadeTimeBar
             // 
@@ -181,7 +191,8 @@
             // fileToolStripMenuItem
             // 
             this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.openToolStripMenuItem});
+            this.openToolStripMenuItem,
+            this.openFileToolStripMenuItem});
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
             resources.ApplyResources(this.fileToolStripMenuItem, "fileToolStripMenuItem");
             // 
@@ -189,7 +200,13 @@
             // 
             this.openToolStripMenuItem.Name = "openToolStripMenuItem";
             resources.ApplyResources(this.openToolStripMenuItem, "openToolStripMenuItem");
-            this.openToolStripMenuItem.Click += new System.EventHandler(this.openToolStripMenuItem_Click);
+            this.openToolStripMenuItem.Click += new System.EventHandler(this.openDirectoryToolStripMenuItem_Click);
+            // 
+            // openFileToolStripMenuItem
+            // 
+            this.openFileToolStripMenuItem.Name = "openFileToolStripMenuItem";
+            resources.ApplyResources(this.openFileToolStripMenuItem, "openFileToolStripMenuItem");
+            this.openFileToolStripMenuItem.Click += new System.EventHandler(this.openFileToolStripMenuItem_Click);
             // 
             // flowChartPanel
             // 
@@ -255,6 +272,8 @@
         private System.Windows.Forms.TrackBar trackBar1;
         private System.Windows.Forms.TrackBar fadeTimeBar;
         private System.Windows.Forms.TableLayoutPanel baseTablePanel;
+        private System.Windows.Forms.CheckBox saveCheck;
+        private System.Windows.Forms.ToolStripMenuItem openFileToolStripMenuItem;
     }
 }
 
