@@ -151,7 +151,6 @@ namespace ll_synthesizer
                 device.Dispose();
                 device = null;
             }
-
         }
 
         public bool IsPlaying()

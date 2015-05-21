@@ -97,9 +97,9 @@ namespace ll_synthesizer
 
         public void AddItems(String[] files)
         {
-            for (int i = 0; i < files.Length; i++)
+            foreach (string file in files)
             {
-                AddItem(files[i]);
+                AddItem(file);
             }
         }
 
@@ -115,7 +115,6 @@ namespace ll_synthesizer
             if (files.Length > 0)
             {
                 AddItems(fg.GetList());
-                //ic.AdjustOffset();
                 ic.AsyncAdjustOffset();
             }
         }
@@ -124,7 +123,7 @@ namespace ll_synthesizer
         {
             foreach (var filePath in files)
             {
-                if (FileGetter.IsValidFile(filePath))
+                if (FileGetter.HasValidFileExtension(filePath))
                     AddItem(filePath);
             }
             ic.AsyncAdjustOffset();

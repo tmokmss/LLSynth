@@ -171,24 +171,26 @@ namespace ll_synthesizer.DSPs
                 return 0;
             return (-b + Math.Sqrt(D)) / (2 * a);
         }
-        static readonly short MAX_SHORT = 32767;
-        static readonly short MIN_SHORT = -32768;
 
         static short[] ToShort(double[] array, int size)
         {
+            // size is for performance reason
             short[] newarr = new short[size];
             for (int i = 0; i < size; i++)
             {
-                double val = array[i];
-                if (val > MAX_SHORT)
-                    val = MAX_SHORT;
-                else if (val < MIN_SHORT)
-                    val = MIN_SHORT;
-                else if (Double.IsNaN(val))
-                    val = 0;
-                newarr[i] = Convert.ToInt16(val);
+                newarr[i] = ToShort(array[i]);
             }
             return newarr;
+        }
+
+        static short ToShort(double val) {
+            if (val > short.MaxValue)
+                return short.MaxValue;
+            else if (val < short.MinValue)
+                return short.MinValue;
+            else if (Double.IsNaN(val))
+                return 0;
+            return Convert.ToInt16(val);
         }
 
         static double[] ToDouble(short[] array, int size)

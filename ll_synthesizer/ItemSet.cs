@@ -241,20 +241,10 @@ namespace ll_synthesizer
         {
             if (isIncrement)
             {
-                if (TotalFactor == -1)
-                {
-                    //TotalFactor += 2;
-                    //return;
-                }
                 TotalFactor += 1;
             }
             else
             {
-                if (TotalFactor == 1)
-                {
-                    //TotalFactor -= 2;
-                    //return;
-                }
                 TotalFactor -= 1;
             }
         }
@@ -453,7 +443,7 @@ namespace ll_synthesizer
         void PaintMask(object sender, PaintEventArgs e)
         {
             Graphics g = e.Graphics;
-            double[] sumfac = ic.GetFactorSum(true);
+            double[] sumfac = ic.ComputeFactorSum(true);
             double factorL = Math.Abs(wd.GetFactor(0, WavData.LEFT));
             double factorR = Math.Abs(wd.GetFactor(0, WavData.RIGHT));
             
@@ -476,6 +466,7 @@ namespace ll_synthesizer
         int FactorToAlpha(double x)
         {
             // (0, 230) , (1, 0) is fixed
+            // please refer to alphaline.xlsx
             if (x < 0 || x > 1)
             {
                 Console.WriteLine(x);

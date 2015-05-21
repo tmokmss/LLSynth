@@ -30,7 +30,7 @@ namespace ll_synthesizer
             }
         }
 
-        public static bool IsValidFile(String path)
+        public static bool HasValidFileExtension(String path)
         {
             foreach (String ext in exts)
             {

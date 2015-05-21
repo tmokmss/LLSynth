@@ -2,3 +2,17 @@ J:\Document\csharp\ll_synthesizer\ll_synthesizer\obj\x86\Release\ll_synthesizer.
 J:\Document\csharp\ll_synthesizer\ll_synthesizer\obj\x86\Release\ll_synthesizer.Form1.resources
 J:\Document\csharp\ll_synthesizer\ll_synthesizer\obj\x86\Release\ll_synthesizer.Properties.Resources.resources
 J:\Document\csharp\ll_synthesizer\ll_synthesizer\obj\x86\Release\ll_synthesizer.csproj.GenerateResource.Cache
+D:\projects\mdl\ll_synthesizer\trunk\ll_synthesizer\bin\Release\ll_synthesizer.exe.config
+D:\projects\mdl\ll_synthesizer\trunk\ll_synthesizer\obj\x86\Release\ll_synthesizer.csprojResolveAssemblyReference.cache
+D:\projects\mdl\ll_synthesizer\trunk\ll_synthesizer\obj\x86\Release\ll_synthesizer.Form1.resources
+D:\projects\mdl\ll_synthesizer\trunk\ll_synthesizer\obj\x86\Release\ll_synthesizer.Properties.Resources.resources
+D:\projects\mdl\ll_synthesizer\trunk\ll_synthesizer\obj\x86\Release\ll_synthesizer.csproj.GenerateResource.Cache
+D:\projects\mdl\ll_synthesizer\trunk\ll_synthesizer\bin\Release\ll_synthesizer.exe.manifest
+D:\projects\mdl\ll_synthesizer\trunk\ll_synthesizer\bin\Release\ll_synthesizer.application
+D:\projects\mdl\ll_synthesizer\trunk\ll_synthesizer\bin\Release\ll_synthesizer.exe
+D:\projects\mdl\ll_synthesizer\trunk\ll_synthesizer\bin\Release\ll_synthesizer.pdb
+D:\projects\mdl\ll_synthesizer\trunk\ll_synthesizer\bin\Release\NAudio.dll
+D:\projects\mdl\ll_synthesizer\trunk\ll_synthesizer\obj\x86\Release\ll_synthesizer.exe.manifest
+D:\projects\mdl\ll_synthesizer\trunk\ll_synthesizer\obj\x86\Release\ll_synthesizer.application
+D:\projects\mdl\ll_synthesizer\trunk\ll_synthesizer\obj\x86\Release\ll_synthesizer.exe
+D:\projects\mdl\ll_synthesizer\trunk\ll_synthesizer\obj\x86\Release\ll_synthesizer.pdb

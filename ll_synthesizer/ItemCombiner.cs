@@ -21,9 +21,6 @@ namespace ll_synthesizer
         private System.Timers.Timer timer;
         private Form1 form;
 
-        private static readonly short MAX_SHORT = 32767;
-        private static readonly short MIN_SHORT = -32768;
-
         // settings
         private static bool avoidAllMute = true;
         private static int compareSpan = 30; // in index +-
@@ -126,8 +123,8 @@ namespace ll_synthesizer
 
         public String[] GetLRStrength()
         {
-            double[] facss = GetFactorSum(true);
-            double[] facss2 = GetFactorSum(false);
+            double[] facss = ComputeFactorSum(true);
+            double[] facss2 = ComputeFactorSum(false);
             
             String[] str = new String[2];
             str[0] = (facss2[0] / facss[0]).ToString();
@@ -259,7 +256,7 @@ namespace ll_synthesizer
             ArrayList unmuted = GetUnmutedItems();
             int num = unmuted.Count;
             int numfac = factors.GetLength(0);
-            num = (numfac < num) ? numfac : num;
+            num = Math.Min(numfac, num);
             for (int i = 0; i < num; i++)
             {
                 ItemSet item = (ItemSet)unmuted[i];
@@ -278,15 +275,8 @@ namespace ll_synthesizer
             AsyncRandomizeFactor();
         }
 
-        int ccc = 0;
         private bool IsAllowedFactors(int[,] orgfac)
         {
-            if (ccc++ > 1)
-            {
-                ccc = 0;
-                //return true;
-            }
-
             double sumR = 0;
             double sumL = 0;
             double sumAbsR = 0;
@@ -311,11 +301,15 @@ namespace ll_synthesizer
             double L = sumL / sumAbsL;
 
             double target = this.target;
-            if (R > target - allowedError && R < target + allowedError)
-            {
-                if (L > target - allowedError && L < target + allowedError)
-                    return true;
-            }
+            if (IsApproxTarget(R) && IsApproxTarget(L))
+                return true;
+            return false;
+        }
+
+        private bool IsApproxTarget(double val)
+        {
+            if (val > target - allowedError && val < target + allowedError)
+                return true;
             return false;
         }
 
@@ -388,7 +382,6 @@ namespace ll_synthesizer
         {
             double diff2 = 0;
             int count = 0;
-            //for (int i = 0; i + startidx1 < data1.Length && i + startidx2 < data2.Length ; i++)
             for (var i=0; i<numOfElementsCompared; i++)
             {
                 diff2 += Math.Pow(data1[i + startidx1] - data2[i + startidx2], 2);
@@ -447,22 +440,15 @@ namespace ll_synthesizer
             short[] data2;
             int i2 = GetThresholdIdx(item2, out data2);
             int newi2 = i2;
-            if (true)
+            double diff = CompareDiff(data1, data2, refidx, i2 - compareSpan);
+            for (int i = -compareSpan + 1; i <= compareSpan; i++)
             {
-                double diff = CompareDiff(data1, data2, refidx, i2 - compareSpan);
-                Console.WriteLine(item2.GetData().GetName());
-                Console.WriteLine(i2);
-                for (int i = -compareSpan + 1; i <= compareSpan; i++)
+                double newdiff = CompareDiff(data1, data2, refidx, i2 + i);
+                if (newdiff < diff)
                 {
-                    double newdiff = CompareDiff(data1, data2, refidx, i2 + i);
-                    if (newdiff < diff)
-                    {
-                        diff = newdiff;
-                        newi2 = i2 + i;
-                    }
+                    diff = newdiff;
+                    newi2 = i2 + i;
                 }
-                Console.WriteLine(newi2);
-                Console.WriteLine(newi2 - i2);
             }
             item2.SetOffset(newi2 - refidx);
             item2.OffsetAdjusted = true;
@@ -500,16 +486,11 @@ namespace ll_synthesizer
 
         public ItemSet GetItem(int idx)
         {
-            ItemSet item;
             if (idx < list.Count && idx >= 0)
             {
-                item = (ItemSet)list[idx];
+                return (ItemSet)list[idx];
             }
-            else
-            {
-                item = null;
-            }
-            return item;
+            return null;
         }
 
         public ItemSet GetLastItem()
@@ -538,7 +519,7 @@ namespace ll_synthesizer
             return (int)GetLastItem().GetData().IdxToTime(baseLength);
         }
 
-        short[] GetMean(int idx)
+        short[] ComputeMean(int idx)
         {
             int left = 0;
             int right = 0;
@@ -555,7 +536,6 @@ namespace ll_synthesizer
                     right += item.GetRight(idx);
                     factorL += Math.Abs(item.GetFactor(idx, WavData.LEFT));
                     factorR += Math.Abs(item.GetFactor(idx, WavData.RIGHT));
-                    //factorR += (item.GetFactor(idx, WavData.RIGHT));
                 }
                 catch (ArgumentOutOfRangeException)
                 {
@@ -573,21 +553,21 @@ namespace ll_synthesizer
                 factorL = 1;
                 factorR = 1;
             }
-            short newLeft = ConvertToShort(left, factorL);
-            short newRight = ConvertToShort(right, factorR);//Math.Abs(factorR)*num*2);
+            short newLeft = ToShortDevidedBy(left, factorL);
+            short newRight = ToShortDevidedBy(right, factorR);;
             return new short[] {newLeft, newRight};
         }
 
-        static short ConvertToShort(int value, double factor)
+        static short ToShortDevidedBy(int value, double factor)
         {
             if (factor < 0.000000000000001) return 0;
             int newval = (int)(value / factor);
-            if (newval > MAX_SHORT) return MAX_SHORT;
-            if (newval < MIN_SHORT) return MIN_SHORT;
+            if (newval > short.MaxValue) return short.MaxValue;
+            if (newval < short.MinValue) return short.MinValue;
             return Convert.ToInt16(newval);
         }
 
-        public double[] GetFactorSum(bool isAbs)
+        public double[] ComputeFactorSum(bool isAbs)
         {
             double factorL = 0;
             double factorR = 0;
@@ -608,25 +588,13 @@ namespace ll_synthesizer
             return new double[] { factorL, factorR };
         }
 
-        public void Combine()
-        {
-            short[] left = new short[baseLength];
-            short[] right = new short[baseLength];
-            for (int i = 0; i < baseLength; i++)
-            {
-                short[] mean = GetMean(i);
-                left[i] = mean[0];
-                right[i] = mean[1];
-            }
-        }
-
         void Streamable.GetLRBuffer(int start, int size, out short[] left, out short[] right)
         {
             left = new short[size];
             right = new short[size];
             for (int i = 0; i < size; i++)
             {
-                short[] mean = GetMean(i+start);
+                short[] mean = ComputeMean(i+start);
                 left[i] = mean[0];
                 right[i] = mean[1];
             }

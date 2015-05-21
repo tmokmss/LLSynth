@@ -196,15 +196,10 @@ namespace ll_synthesizer
             factor = fac;
         }
 
-        private int IdxOffset(int idx)
-        {
-            return IdxOffset(idx, true);
-        }
-
-        private int IdxOffset(int idx, bool process)
+        private int IdxOffset(int idx, bool checkBorder = true)
         {
             int newidx = idx + offset;
-            if (process)
+            if (checkBorder)
             {
                 if (newidx < 0)
                     return 0;
@@ -303,8 +298,8 @@ namespace ll_synthesizer
 
         private short ToShort(double value)
         {
-            if (value < -32768) return -32768;
-            if (value > 32767) return 32767;
+            if (value < short.MinValue) return short.MinValue;
+            if (value > short.MaxValue) return short.MaxValue;
             return Convert.ToInt16(value);
         }
 
@@ -350,8 +345,6 @@ namespace ll_synthesizer
 
         void Streamable.GetLRBuffer(int start, int size, out short[] left, out short[] right)
         {
-            //left = GetLeft(start, start + size);
-            //right = GetRight(start, start + size);
             int itr = size;
             if (start + size > length)
             {
