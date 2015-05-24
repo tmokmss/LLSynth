@@ -16,7 +16,6 @@ namespace ll_synthesizer
         public event KeyEventHandler KeyPushed;
 
         private static String appName = "LoveLive Synthesizer";
-        private String folderPath = "";
         private static Font defaultFont = new Font("Meiryo UI", 9);
         private FileGetter fg;
         private WavPlayer wp;
@@ -71,11 +70,11 @@ namespace ll_synthesizer
 
         void debug()
         {
-            folderPath = @"H:\jump";
-            LoadFiles();
+            string folderPath = @"H:\jump";
+            LoadFiles(folderPath);
         }
 
-        private void refresh()
+        private void refresh(string folderPath = "")
         {
             wp.Stop();
             this.Text = appName + " " + folderPath;
@@ -107,7 +106,7 @@ namespace ll_synthesizer
             this.flowChartPanel.Controls.Add(item);
         }
 
-        void LoadFiles()
+        void LoadFiles(string folderPath)
         {
             refresh();
             fg = new FileGetter(folderPath);
@@ -134,8 +133,7 @@ namespace ll_synthesizer
             FolderBrowserDialog fbd = new FolderBrowserDialog();
             fbd.Description = "Select folder that includes wav|mp3 files:";
             if (fbd.ShowDialog(this) == DialogResult.OK) {
-                folderPath = fbd.SelectedPath;
-                LoadFiles();
+                LoadFiles(fbd.SelectedPath);
             }
         }
 

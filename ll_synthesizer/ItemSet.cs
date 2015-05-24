@@ -193,7 +193,7 @@ namespace ll_synthesizer
         {
             wd.SetOffset(offsetInMs);
             offsetAdjusted = false;
-            offsetUpDown.BeginInvoke(new upDownDelegate(changeUpDownValue), new object[] { offsetInMs });
+            offsetUpDown.BeginInvoke(new upDownDelegate(ChangeUpDownValue), new object[] { offsetInMs });
         }
 
         public void SetOffset(int offset)
@@ -202,7 +202,7 @@ namespace ll_synthesizer
             double offsetInMs = wd.IdxToTime(offset) * 1000;
             wd.Offset = offset;
             offsetAdjusted = false;
-            offsetUpDown.BeginInvoke(new upDownDelegate(changeUpDownValue), new object[] { offsetInMs });
+            offsetUpDown.BeginInvoke(new upDownDelegate(ChangeUpDownValue), new object[] { offsetInMs });
         }
 
         public void PrepareAdjustOffset()
@@ -216,7 +216,7 @@ namespace ll_synthesizer
             wd.IsDefault = false;
         }
 
-        void changeUpDownValue(double offset)
+        private void ChangeUpDownValue(double offset)
         {
             if ((decimal)offset > offsetUpDown.Maximum)
             {
@@ -295,19 +295,14 @@ namespace ll_synthesizer
 
         public void AsyncSetTotalFactor(int tfactor)
         {
-            int stepNum = tfactor - TotalFactor;
-
-            if (tfactor * TotalFactor < 0)
-            {
-                // avoid overrunning 0
-                //stepNum -= 1;
-            }
-            if (stepNum != 0)
-                waitTimeTF = (int)Math.Abs(fadeTimeMs / stepNum);
             if (TFThread != null)
             {
                 TFThread.Abort();
             }
+            int stepNum = tfactor - TotalFactor;
+
+            if (stepNum != 0)
+                waitTimeTF = (int)Math.Abs(fadeTimeMs / stepNum);
             TFThread = new Thread(new ParameterizedThreadStart(SetTotalFactorGradually));
             TFThread.IsBackground = true;
             TFThread.Start(stepNum);
@@ -331,7 +326,6 @@ namespace ll_synthesizer
                 wp.Pause();
             }
             titleText.Focus();
-
         }
 
         int triple = 0;
@@ -449,8 +443,6 @@ namespace ll_synthesizer
             
             int alphaL = FactorToAlpha(factorL / sumfac[0]);
             int alphaR = FactorToAlpha(factorR / sumfac[1]);
-            if (sumfac[0] < nodivbyzero) alphaL = 230;
-            if (sumfac[1] < nodivbyzero) alphaR = 230;
 
             Color color = Color.FromArgb(alphaL, mainPanelBack);
             Brush b = new SolidBrush(color);
@@ -467,7 +459,7 @@ namespace ll_synthesizer
         {
             // (0, 230) , (1, 0) is fixed
             // please refer to alphaline.xlsx
-            if (x < 0 || x > 1)
+            if (x < 0 || x > 1 || double.IsNaN(x))
             {
                 Console.WriteLine(x);
                 return 255;
