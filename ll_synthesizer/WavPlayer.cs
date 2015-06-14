@@ -242,6 +242,7 @@ namespace ll_synthesizer
 
         private void SaveBuffer()
         {
+            if (wfw == null) InitializeRecorder();
             if (SaveFile)
             {
                 wfw.WriteSamples(m_transferBuffer, 0, m_transferBuffer.Length);

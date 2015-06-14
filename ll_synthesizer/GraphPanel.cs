@@ -191,7 +191,7 @@ namespace ll_synthesizer
         }
 
 
-        static public void reset()
+        static public void ResetCounter()
         {
             sequential = 0;
         }
