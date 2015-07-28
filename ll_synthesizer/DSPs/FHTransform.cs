@@ -7,17 +7,14 @@ namespace ll_synthesizer.DSPs
 {
     class FHTransform
     {
-        private static int kWindowSize;
-        private const double kOverlapCount = 3.8;
+        private int kWindowSize;
+        //private const double kOverlapCount = 3.8;
+        private const double kOverlapCount = 2;
         private const int kPostWindowPower = 3;
 
         internal static readonly double twopi = 2 * Math.PI;
         internal static readonly double invsqrt2 = 0.70710678118654752440084436210485;
         internal static readonly double nodivbyzero = 0.000000000000001;
-        internal static double[] mSineTab;
-        internal static double[] mPreWindow;
-        internal static double[] mPostWindow;
-        internal static uint[] mBitRev;
 
         private double[] overlap;
         private int overlapSize;
@@ -32,79 +29,10 @@ namespace ll_synthesizer.DSPs
             }
         }
 
-        public static void Initialize(int windowSize)
-        {
-            kWindowSize = windowSize;
-            CreateBitRevTable(out mBitRev, kWindowSize);
-            CreateHalfSineTable(out mSineTab, kWindowSize);
-
-            double[] tmp;// = new double[kWindowSize];
-            //if (!tmp) return false;
-            CreateRaisedCosineWindow(out tmp, kWindowSize, 1.0);
-            mPreWindow = new double[kWindowSize];
-            for (uint i = 0; i < kWindowSize; ++i)
-            {
-                // The correct Hartley<->FFT conversion is:
-                //
-                //	Fr(i) = 0.5(Hr(i) + Hi(i))
-                //	Fi(i) = 0.5(Hr(i) - Hi(i))
-                //
-                // We omit the 0.5 in both the forward and reverse directions,
-                // so we have a 0.25 to put here.
-
-                mPreWindow[i] = tmp[mBitRev[i]] * 0.5 * (2.0 / (double)kOverlapCount);
-                
-            }
-
-            CreatePostWindow(out mPostWindow, kWindowSize, kPostWindowPower);
-        }
-
-        static void CreateRaisedCosineWindow(out double[] dst, int n, double power)
-        {
-            double twopi_over_n = twopi / n;
-            double scalefac = 1.0 / n;
-            dst = new double[n];
-            for (int i = 0; i < n; ++i)
-            {
-                dst[i] = scalefac * Math.Pow(0.5 * (1.0 - Math.Cos(twopi_over_n * (i + 0.5))), power);
-            }
-        }
-
-        static void CreatePostWindow(out double[] dst, int windowSize, int power)
-        {
-            double[] powerIntegrals = new double[] { 1.0, 1.0/2.0, 3.0/8.0, 5.0/16.0, 35.0/128.0,
-									                 63.0/256.0, 231.0/1024.0, 429.0/2048.0 };
-            double scalefac = windowSize * (powerIntegrals[1] / powerIntegrals[power + 1]);
-            CreateRaisedCosineWindow(out dst, windowSize, (double)power);
-            for (int i = 0; i < windowSize; ++i)
-            {
-                dst[i] *= scalefac;
-                //dst[i] = 1;
-            }
-        }
-
-        static void CreateHalfSineTable(out double[] dst, int n)
-        {
-            double twopi_over_n = twopi / n;
-            dst = new double[n];
-            for (int i = 0; i < n; ++i)
-            {
-                dst[i] = Math.Sin(twopi_over_n * i);
-            }
-        }
-
-        static void CreateBitRevTable(out uint[] dst, int n)
-        {
-            uint bits = IntegerLog2((uint)n);
-            dst = new uint[n];
-            for (uint i = 0; i < n; ++i)
-            {
-                dst[i] = RevBits(i, bits);
-            }
-        }
-
         public void ComputeFHT(ref double[] A, int nPoints)
         {
+            kWindowSize = nPoints;
+            var mSineTab = FHTArrays.GetHalfSineTable(nPoints);
             int i, n, n2, theta_inc;
 
             // 1, 2 round
@@ -209,33 +137,12 @@ namespace ll_synthesizer.DSPs
             {
                 A[i] += overlap[i];
             }
-            Array.Copy(A, kWindowSize - overlapSize - 1, overlap, 0, overlapSize);
-        }
-
-        static uint IntegerLog2(uint v)
-        {
-            uint i = 0;
-            while (v > 1)
-            {
-                ++i;
-                v >>= 1;
-            }
-            return i;
-        }
-
-        static uint RevBits(uint x, uint bits)
-        {
-            uint y = 0;
-            while (bits-- > 0)
-            {
-                y = (y + y) + (x & 1);
-                x >>= 1;
-            }
-            return y;
+            Array.Copy(A, kWindowSize - overlapSize, overlap, 0, overlapSize);
         }
 
         public double[] test()
         {
+            var mBitRev = FHTArrays.GetBitRevTable(kWindowSize);
             double[] sinArray = new double[kWindowSize];
             double omega = 2 * Math.PI * 20;
             for (int i = 0; i < kWindowSize; i++)
