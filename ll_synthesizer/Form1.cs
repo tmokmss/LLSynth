@@ -53,7 +53,6 @@ namespace ll_synthesizer
             ItemSet.SetForm(this);
             ControlPanel.SetFont(defaultFont);
             ControlPanel.SetWavPlayer(wp);
-            FHTransform.Initialize(WavData.BufSizeDefault);
 
             cp = new ControlPanel();
             baseTablePanel.Controls.Add(cp, 1, 1);

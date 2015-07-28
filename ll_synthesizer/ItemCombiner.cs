@@ -445,23 +445,6 @@ namespace ll_synthesizer
             return (int)GetLastItem().GetData().IdxToTime(baseLength);
         }
 
-        private struct ItemData
-        {
-            public short left, right;
-            public double factorL, factorR;
-        }
-
-        private ItemData GetItemData(ArrayList itemList, int itemIdx, int idx)
-        {
-            var itemData = new ItemData();
-            var item = ((ItemSet)itemList[itemIdx]).GetData();
-            itemData.left = item.GetLeft(idx);
-            itemData.right = item.GetRight(idx);
-            itemData.factorL = Math.Abs(item.GetFactor(idx, WavData.LEFT));
-            itemData.factorR = Math.Abs(item.GetFactor(idx, WavData.RIGHT));
-            return itemData;
-        }
-
         short[] ComputeMean(int idx)
         {
             int left = 0;
@@ -470,22 +453,7 @@ namespace ll_synthesizer
             int num = listUnmuted.Count;
             double factorL = 0;
             double factorR = 0;
-            /*
-            var itemDataArray = new ItemData[num];
-            Parallel.For(0, num, i =>
-            {
-                itemDataArray[i] = GetItemData(listUnmuted, i, idx);
-            });
 
-            foreach (ItemData itemData in itemDataArray)
-            {
-                left += itemData.left;
-                right += itemData.right;
-                factorL += itemData.factorL;
-                factorR += itemData.factorR;
-            }
-             */
-            ///*
             for (int i = 0; i < num; i++)
             {
                 try
@@ -502,7 +470,6 @@ namespace ll_synthesizer
                     // can be ignored
                 }
             }
-            // */
             if (factorL == 0 && factorR == 0 && avoidAllMute)
             {
                 WavData item = GetLastItem().GetData();

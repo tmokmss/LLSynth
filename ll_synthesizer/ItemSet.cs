@@ -200,9 +200,9 @@ namespace ll_synthesizer
         {
             wd.Offset = 0;
             double offsetInMs = wd.IdxToTime(offset) * 1000;
+            offsetUpDown.BeginInvoke(new upDownDelegate(ChangeUpDownValue), new object[] { offsetInMs });
             wd.Offset = offset;
             offsetAdjusted = false;
-            offsetUpDown.BeginInvoke(new upDownDelegate(ChangeUpDownValue), new object[] { offsetInMs });
         }
 
         public void PrepareAdjustOffset()

@@ -51,12 +51,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <ManifestCertificateThumbprint>57B5098CA848627E579F2026DA2E355D61AAF15D</ManifestCertificateThumbprint>
-  </PropertyGroup>
-  <PropertyGroup>
-    <ManifestKeyFile>ll_synthesizer_TemporaryKey.pfx</ManifestKeyFile>
-  </PropertyGroup>
-  <PropertyGroup>
     <GenerateManifests>true</GenerateManifests>
   </PropertyGroup>
   <PropertyGroup>
@@ -92,7 +86,9 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="DSPs\DSP.cs" />
+    <Compile Include="DSPs\FHTArrays.cs" />
     <Compile Include="DSPs\FHTransform.cs" />
+    <Compile Include="DSPs\PitchShift.cs" />
     <Compile Include="FileGetter.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
