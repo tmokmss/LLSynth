@@ -92,7 +92,7 @@ namespace ll_synthesizer
             ChangeBufSize(bufSize);
             this.myDSP = new DSP();
             this.length = (int)wfr.Length/4;
-            OverlapSize = (int)(bufSize / 2.3);
+            OverlapSize = (int)(bufSize / 2.2);
             myDSP.SetOverlapSize(overlapSize);
             FetchBuffer(0);
         }
@@ -325,9 +325,29 @@ namespace ll_synthesizer
                     leftBuf[i] = BitConverter.ToInt16(buffer, i * 4);
                     rightBuf[i] = BitConverter.ToInt16(buffer, i * 4 + 2);
                 }
-                myDSP.CenterCut(ref leftBuf, ref rightBuf);
+                //myDSP.PitchShift(rightBuf, out rightBuf);
+                //myDSP.PitchShift(leftBuf, out leftBuf);
+                //myDSP.CenterCut(ref leftBuf, ref rightBuf);
+                myDSP.PitchShiftTD(rightBuf, out rightBuf);
+                myDSP.PitchShiftTD(leftBuf, out leftBuf);
                 //myDSP.LowPassFiltering(leftBuf, out leftBuf);
                 //myDSP.LowPassFiltering(rightBuf, out rightBuf);
+                /*
+                if (DSPEnabled)
+                {
+                    var leftnew = new short[bufSize];
+                    var rightnew = new short[bufSize];
+                    for (var i = 1; i < bufSize; i++)
+                    {
+                        leftnew[i] = (short)((leftBuf[i] + leftBuf[i - 1]) / 2);
+                        rightnew[i] = (short)((rightBuf[i] + rightBuf[i - 1]) / 2);
+                    }
+                    leftnew[0] = leftBuf[0];
+                    rightnew[0] = rightBuf[0];
+                    leftBuf = leftnew;
+                    rightBuf = rightnew;
+                }
+                 */
             }
             catch (Exception)
             {
@@ -394,7 +414,7 @@ namespace ll_synthesizer
 
         private int MsToIdx(double ms)
         {
-            return (int)(samplesPerSecond*ms/1000);
+            return (int)Math.Round(samplesPerSecond*ms/1000);
         }
 
         public String GetName()
