@@ -171,7 +171,7 @@ namespace ll_synthesizer.DSPs
 
             var temp_shift = new double[length*2];
             int shift = (int)((20 / ((double)mSampleRate / kWindowSize)) + 0.5);
-            double shiftr = 0.8;
+            double shiftr = 1.1;
             /*
             for (var i = 0; i < length-shift; i++)
             {
@@ -181,7 +181,7 @@ namespace ll_synthesizer.DSPs
 
             mBitRev = FHTArrays.GetBitRevTable(length * 2);
             mPostWindow = FHTArrays.GetPostWindow(length * 2);
-
+            /*
             var re = new double[length/2];
             var im = new double[length/2];
             for (var i = 0; i < length / 2; i++)
@@ -210,7 +210,7 @@ namespace ll_synthesizer.DSPs
                 temp_shift[mBitRev[i]] = reshift[i] + imshift[i];
                 temp_shift[mBitRev[2*length-1-i]] = reshift[i] - imshift[i];
             }
-
+            */
             /*
             for (var i = 0; i < length; i++)
             {
@@ -233,6 +233,11 @@ namespace ll_synthesizer.DSPs
                 //temp_shift[mBitRev[i]] = temp[i];
             }
             */
+            var temp_shiftirr = Stretch(temp, shiftr);
+            for (var i=0; i<temp_shiftirr.Length; i++)
+            {
+                temp_shift[mBitRev[i]] = temp_shiftirr[i];
+            }
 
             var fht1 = new FHTransform();
             fht1.OverlapSize = (int)(length * 2 / 2.3);
@@ -249,7 +254,7 @@ namespace ll_synthesizer.DSPs
             dataout = ToShort(temp, length);
         }
 
-        private const int region = (int)(44100 * 30e-3);
+        private const int region = (int)(44100 * 20e-3);
         public void PitchShiftTD(short[] datain, out short[] dataout)
         {
             if (!enabled)
@@ -261,8 +266,8 @@ namespace ll_synthesizer.DSPs
             //var baseNum = (int)(44100 * 50e-3);
             var startIdx = SearchHeadZero(datain);
             var baseNum = CalcBaseCycle(datain);
-            var ratio = 1.1;
-            var newlen = (int)(length / ratio);
+            var ratio = 1.2;
+            var newlen = (int)Math.Round(length / ratio);
             var temp = new double[newlen];
             var step = (int)(baseNum * ratio);
             var window = GetCrossFadeWindow(baseNum);
@@ -280,18 +285,40 @@ namespace ll_synthesizer.DSPs
                     j = 0;
                 }
             }
-            for (var i=0; i<length - 1; i++)
-            {
-                double orgidx = i / ratio;
-                int orgidxn = (int)Math.Floor(orgidx);
-                int orgidxn1 = (int)Math.Ceiling(orgidx);
-                short newval = (short)((temp[orgidxn] - temp[orgidxn1]) * (orgidx - orgidxn) + temp[orgidxn]);
-                datain[i] = newval;
-            }
-            LowPassFiltering(datain, out dataout);
+            datain = Stretch(temp, ratio);
+            //LowPassFiltering(datain, out dataout);
+            dataout = datain;
         }
 
-        private int SearchHeadZero(short[] datain)
+        private static short[] Stretch(double[] datain, double ratio)
+        {
+            var length = datain.Length;
+            var lengthnew = (int)Math.Round(length * ratio);
+            var temp = new short[lengthnew];
+            for (var i=0; i<lengthnew; i++)
+            {
+                double t = i / ratio;
+                int t1 = (int)Math.Floor(t);
+                double x0 = (t1 >= 1) ? datain[t1 - 1] : datain[t1];
+                double x1 = datain[t1];
+                double x2 = (t1 < length - 1) ? datain[t1 + 1] : datain[t1];
+                double x3 = (t1 < length - 2) ? datain[t1 + 2] : datain[t1];
+                short newval = (short)(InterpolateHermite4pt3oX(x0, x1, x2, x3, t - t1));
+                temp[i] = newval;
+            }
+            return temp;
+        }
+
+        private static double InterpolateHermite4pt3oX(double x0, double x1, double x2, double x3, double t)
+        {
+            double c0 = x1;
+            double c1 = .5 * (x2 - x0);
+            double c2 = x0 - (2.5 * x1) + (2 * x2) - (.5 * x3);
+            double c3 = (.5 * (x3 - x0)) + (1.5 * (x1 - x2));
+            return (((((c3 * t) + c2) * t) + c1) * t) + c0;
+        }
+
+        private static int SearchHeadZero(short[] datain)
         {
             int idx = 0;
             for (var i=0; i<datain.Length-1; i++)
@@ -304,7 +331,7 @@ namespace ll_synthesizer.DSPs
             return idx;
         }
 
-        private int CalcBaseCycle(short[] datain)
+        private static int CalcBaseCycle(short[] datain)
         {
             double autcorrMax = 0;
             int diffSol = 0;
@@ -320,30 +347,20 @@ namespace ll_synthesizer.DSPs
             return diffSol;
         }
 
-        private double[] GetCrossFadeWindow(int length)
+        private static double[] GetCrossFadeWindow(int length)
         {
-            //0.1~0.9 -> 1, other gradually goes 0
             var window = new double[length];
             var dicline = 0.0;
             var first = (int)(length * dicline);
             var end = (int)(length*(1- dicline)); 
             for (var i=0; i<length; i++)
             {
-                double val = 1;
-                if (i < first)
-                {
-                    val = 1.0 / first * i;
-                }
-                else if (i > end)
-                {
-                    val = 1.0 / (end - length) * (i - end) + 1;
-                }
-                window[i] = val;
+                window[i] = 0.5 - 0.5 * Math.Cos(2 * Math.PI * i * 1.0 / length);
             }
             return window;
         }
 
-        private double CalcAutocorrelation(short[] datain, int diff)
+        private static double CalcAutocorrelation(short[] datain, int diff)
         {
             int count = 0 ;
             double sum = 0;
@@ -366,7 +383,7 @@ namespace ll_synthesizer.DSPs
             dataout = new short[size];
             for (int i = 1; i < size; i++)
             {
-                dataout[i] = Convert.ToInt16(0.8*dataout[i - 1] + 0.2*datain[i]);
+                dataout[i] = Convert.ToInt16(0.9*dataout[i - 1] + 0.1*datain[i]);
             }
         }
 
