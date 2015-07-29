@@ -80,7 +80,7 @@
             // 
             resources.ApplyResources(this.saveCheck, "saveCheck");
             this.saveCheck.Name = "saveCheck";
-            this.saveCheck.UseVisualStyleBackColor = true;
+            this.saveCheck.UseVisualStyleBackColor = false;
             this.saveCheck.CheckedChanged += new System.EventHandler(this.saveCheck_CheckedChanged);
             // 
             // fadeTimeBar

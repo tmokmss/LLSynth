@@ -28,6 +28,7 @@ namespace ll_synthesizer
         private static Color chartActive = Color.DarkCyan;
         private static Color chartInactive = Color.LightCyan;
         protected Color mainPanelBack = Color.AliceBlue;
+        private static Bitmap muteImage = new Bitmap("..\\ico\\mute.png");
         protected bool plotEnable = false;
         protected int factorDefault = 5;
         protected String title;
@@ -130,9 +131,11 @@ namespace ll_synthesizer
             // mute
             mute.AutoSize = true;
             mute.Name = "mute" + myNum;
-            mute.Text = "Mute";
+            //mute.Text = "Mute";
             mute.UseVisualStyleBackColor = true;
             mute.Font = defaultFont;
+            mute.Image = muteImage;
+            mute.Padding = new Padding(0, 3, 8, 0);
 
             // DSPEnable
             DSPEnable.AutoSize = true;

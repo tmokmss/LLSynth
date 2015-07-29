@@ -129,17 +129,30 @@
     <value>True</value>
   </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="saveCheck.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
+        YQUAAAAZdEVYdFNvZnR3YXJlAEFkb2JlIEltYWdlUmVhZHlxyWU8AAABiElEQVQ4T6WSvUtCYRTGD1qQ
+        d1CuqFhqVA5ugiCIi+IgyKXARUlbnP0fcmrIqSmIiAgyKUMzp4hAbi4RClG6ChXoUtNd7uTpHAgpeo0+
+        Lvw4933O8z7vx72AiP9CKP6G8UsJAMrECcBCBaBANIib91pgnfvs+y4gVpMktReNDl9zOV3L50cvVLuR
+        yLBKOvcnBhzSCqdkek6ltKdsFvvp9JjHTAb7yaRWMZlU9gkD9mmb7XB4cK8o2InHv3CXSGArEBiwTxiw
+        S2ftKoreDIWQuQwEsO7zYdntxgOHA/esVqx5vTr7hAHbdGG0yujC78eqx4NHNKEky5+oulwj9gkDtii5
+        FQzqDZsNz8ksom6z6ewTBhTpbGdO50ClgCaZRZQlacA+YcAG3W7RaFSbdrvWoe23acJHrsxmbdNgUNkn
+        DIjR983Sd14n07EkDW8tFr0nyyOuPGad+4uT/gN6pol5D8CyArCzCnC9BvDAlcekr1B/iZiZFGAkLMQs
+        MTcBmZgSBvwVofhzEN4AjNQwu1xLZT0AAAAASUVORK5CYII=
+</value>
+  </data>
   <data name="saveCheck.Location" type="System.Drawing.Point, System.Drawing">
     <value>101, 90</value>
   </data>
+  <data name="saveCheck.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>0, 3, 0, 0</value>
+  </data>
   <data name="saveCheck.Size" type="System.Drawing.Size, System.Drawing">
-    <value>69, 16</value>
+    <value>31, 19</value>
   </data>
   <data name="saveCheck.TabIndex" type="System.Int32, mscorlib">
     <value>6</value>
-  </data>
-  <data name="saveCheck.Text" xml:space="preserve">
-    <value>Save file</value>
   </data>
   <data name="&gt;&gt;saveCheck.Name" xml:space="preserve">
     <value>saveCheck</value>

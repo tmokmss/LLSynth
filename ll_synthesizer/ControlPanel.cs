@@ -10,6 +10,12 @@ namespace ll_synthesizer
     class ControlPanel: TableLayoutPanel
     {
         private static Font defaultFont;
+        private static Bitmap playImage = new Bitmap("../ico/play.png");
+        private static Bitmap stopImage = new Bitmap("../ico/stop.png");
+        private static Bitmap pauseImage = new Bitmap("../ico/pause.png");
+        private static Bitmap repeatImage = new Bitmap("../ico/repeat.png");
+        private static Bitmap backImage = new Bitmap("../ico/back.png");
+
         private TrackBar seekBar = new TrackBar();
         private TrackBar volumeBar = new TrackBar();
         private Button playButton = new Button();
@@ -38,21 +44,24 @@ namespace ll_synthesizer
         {
             playButton.Name = "playButton";
             playButton.UseVisualStyleBackColor = true;
-            playButton.Text = "Play";
+            //playButton.Text = "Play";
             playButton.AutoSize = true;
             playButton.Font = defaultFont;
+            playButton.Image = playImage;
             playButton.Click += new System.EventHandler(this.playButton_Click);
 
             stopButton.Name = "stopButton";
             stopButton.UseVisualStyleBackColor = true;
-            stopButton.Text = "Stop";
+            //stopButton.Text = "Stop";
             stopButton.AutoSize = true;
             stopButton.Font = defaultFont;
+            stopButton.Image = stopImage;
             stopButton.Click += new System.EventHandler(this.stopButton_Click);
 
             backButton.Name = "backButton";
             backButton.UseVisualStyleBackColor = true;
-            backButton.Text = "Back";
+            //backButton.Text = "Back";
+            backButton.Image = backImage;
             backButton.AutoSize = true;
             backButton.Font = defaultFont;
             backButton.Click += new System.EventHandler(this.backButton_Click);
@@ -81,9 +90,11 @@ namespace ll_synthesizer
             autoDJCheck.AutoSize = true;
             //autoDJCheck.CheckedChanged
 
-            repeatCheck.Text = "Repeat";
+            //repeatCheck.Text = "Repeat";
             repeatCheck.AutoSize = true;
             repeatCheck.Font = defaultFont;
+            repeatCheck.Image = repeatImage;
+            repeatCheck.Padding = new Padding(0, 6, 6, 2);
             repeatCheck.CheckedChanged += this.repeatCheck_CheckedChanged;
 
             titleLabel.AutoSize = true;
@@ -105,8 +116,8 @@ namespace ll_synthesizer
             this.Controls.Add(titleLabel);
             this.Controls.Add(buttonPanel);
             this.Controls.Add(seekBar);
-            this.Controls.Add(volumeBar);
             this.Controls.Add(timeLabel);
+            this.Controls.Add(volumeBar);
 
             wp.PlayReachedBy += new WavPlayer.ProcessEventHandler(this.ReportReceived);
         }
@@ -124,12 +135,14 @@ namespace ll_synthesizer
         {
             if (playButtonIsPlay)
             {
-                playButton.Text = "Pause";
+                //playButton.Text = "Pause";
+                playButton.Image = pauseImage;
                 playButtonIsPlay = false;
             }
             else
             {
-                playButton.Text = "Play";
+                //playButton.Text = "Play";
+                playButton.Image = playImage;
                 playButtonIsPlay = true;
             }
         }
