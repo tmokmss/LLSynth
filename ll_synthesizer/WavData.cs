@@ -82,7 +82,7 @@ namespace ll_synthesizer
         {
             this.path = path;
             this.samplesPerSecond = 44100;
-            bufSize = WavPlayer.BufSize / 2;
+            bufSize = WavPlayer.BufSize *2;
             if (path.EndsWith("wav")) {
                 wfr = new WaveReader(path);
             }
@@ -92,7 +92,7 @@ namespace ll_synthesizer
             ChangeBufSize(bufSize);
             this.myDSP = new DSP();
             this.length = (int)wfr.Length/4;
-            OverlapSize = (int)(bufSize / 2.2);
+            OverlapSize = (int)(bufSize / FHTransform.kOverlapCount);
             myDSP.SetOverlapSize(overlapSize);
             FetchBuffer(0);
         }
@@ -303,11 +303,14 @@ namespace ll_synthesizer
             return Convert.ToInt16(value);
         }
 
+        DSP myDSP1 = new DSP();
+
         private void FetchBuffer(int idxWithoutOffset)
         {
             try
             {
-                int startPosition = IdxOffset(idxWithoutOffset) - overlapSize;
+                //int startPosition = IdxOffset(idxWithoutOffset) - overlapSize;
+                int startPosition = IdxOffset(idxWithoutOffset);
                 if (startPosition + bufSize > length)
                 {
                     startPosition = length - bufSize;
@@ -325,11 +328,12 @@ namespace ll_synthesizer
                     leftBuf[i] = BitConverter.ToInt16(buffer, i * 4);
                     rightBuf[i] = BitConverter.ToInt16(buffer, i * 4 + 2);
                 }
-                //myDSP.PitchShift(rightBuf, out rightBuf);
-                //myDSP.PitchShift(leftBuf, out leftBuf);
+                myDSP.PitchShift(rightBuf, out rightBuf);
+                myDSP1.Enabled = DSPEnabled;
+                myDSP1.PitchShift(leftBuf, out leftBuf);
                 //myDSP.CenterCut(ref leftBuf, ref rightBuf);
-                myDSP.PitchShiftTD(rightBuf, out rightBuf);
-                myDSP.PitchShiftTD(leftBuf, out leftBuf);
+                //myDSP.PitchShiftTD(rightBuf, out rightBuf);
+                //myDSP.PitchShiftTD(leftBuf, out leftBuf);
                 //myDSP.LowPassFiltering(leftBuf, out leftBuf);
                 //myDSP.LowPassFiltering(rightBuf, out rightBuf);
                 /*
@@ -353,13 +357,17 @@ namespace ll_synthesizer
             {
                 Console.WriteLine("Gotcha!!!");
             }
+            //Console.Write(lastlast); Console.Write(" : "); Console.WriteLine(leftBuf[0+overlapSize]);
+            lastlast = leftBuf[bufSize - overlapSize];
         }
+        short lastlast = 0;
 
         private bool isAvailable(int idxWithOffset, bool isLeft)
         {
             // if a value is obtained from the buffer
             int startPosition = (isLeft) ? startPositionL : startPositionR;
-            if (idxWithOffset >= startPosition && idxWithOffset < startPosition + bufSize - overlapSize) return true;
+            //if (idxWithOffset >= startPosition && idxWithOffset < startPosition + bufSize - overlapSize) return true;
+            if (idxWithOffset >= startPosition && idxWithOffset < startPosition + overlapSize) return true;
             return false;
         }
 

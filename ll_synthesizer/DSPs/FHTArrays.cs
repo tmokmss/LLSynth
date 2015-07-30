@@ -13,11 +13,9 @@ namespace ll_synthesizer.DSPs
         private static Dictionary<int, double[]> mPostWindows = new Dictionary<int, double[]>();
         private static Dictionary<int, uint[]> mBitRevs = new Dictionary<int, uint[]>();
 
-        internal static readonly double twopi = 2 * Math.PI;
-        internal static readonly double invsqrt2 = 0.70710678118654752440084436210485;
-        internal static readonly double nodivbyzero = 0.000000000000001;
-        private const double kOverlapCount = 2;
-        private const int kPostWindowPower = 3;
+        private static readonly double twopi = 2 * Math.PI;
+        private static readonly int kOverlapCount = FHTransform.kOverlapCount;
+        private const int kPostWindowPower = 1;
 
         public static double[] GetPreWindow(int windowSize)
         {
@@ -29,7 +27,7 @@ namespace ll_synthesizer.DSPs
                 var mSineTab = GetHalfSineTable(windowSize);
 
                 double[] tmp = CreateRaisedCosineWindow(windowSize, 1.0);
-                Parallel.For(0, windowSize, i =>
+                for (var i=0; i<windowSize; i++)
                 {
                     // The correct Hartley<->FFT conversion is:
                     //
@@ -40,7 +38,7 @@ namespace ll_synthesizer.DSPs
                     // so we have a 0.25 to put here.
 
                     dst[i] = tmp[mBitRev[i]] * 0.5 * (2.0 / (double)kOverlapCount);
-                });
+                }
                 mPreWindows.Add(windowSize, dst);
             }
             return dst;
@@ -53,9 +51,12 @@ namespace ll_synthesizer.DSPs
             {
                 var powerIntegrals = new double[] { 1.0, 1.0/2.0, 3.0/8.0, 5.0/16.0, 35.0/128.0,
 									                 63.0/256.0, 231.0/1024.0, 429.0/2048.0 };
-                double scalefac = windowSize * (powerIntegrals[1] / powerIntegrals[power + 1]);
+                double scalefac = windowSize * (powerIntegrals[1] / powerIntegrals[power+1]);
                 dst = CreateRaisedCosineWindow(windowSize, (double)power);
-                Parallel.For(0, windowSize, i => dst[i] *= scalefac);
+                for (var i=0; i<windowSize; i++)
+                {
+                    dst[i] *= scalefac;
+                }
                 mPostWindows.Add(windowSize, dst);
             }
             return dst;
@@ -68,7 +69,10 @@ namespace ll_synthesizer.DSPs
             {
                 double twopi_over_n = twopi / windowSize;
                 dst = new double[windowSize];
-                Parallel.For(0, windowSize, i => dst[i] = Math.Sin(twopi_over_n * i));
+                for (var i=0; i<windowSize; i++)
+                {
+                    dst[i] = Math.Sin(twopi_over_n * i);
+                }
                 mSineTabs.Add(windowSize, dst);
             }
             return dst;
@@ -81,7 +85,10 @@ namespace ll_synthesizer.DSPs
             {
                 uint bits = IntegerLog2((uint)windowSize);
                 dst = new uint[windowSize];
-                Parallel.For(0, windowSize, i => dst[i] = RevBits((uint)i, bits));
+                for (var i=0; i<windowSize; i++)
+                {
+                    dst[i] = RevBits((uint)i, bits);
+                }
                 mBitRevs.Add(windowSize, dst);
             }
             return dst;
@@ -92,7 +99,10 @@ namespace ll_synthesizer.DSPs
             double twopi_over_n = twopi / windowSize;
             double scalefac = 1.0 / windowSize;
             var dst = new double[windowSize];
-            Parallel.For(0, windowSize, i => dst[i] = scalefac * Math.Pow(0.5 * (1.0 - Math.Cos(twopi_over_n * (i + 0.5))), power));
+            for (var i = 0; i < windowSize; i++)
+            {
+                dst[i] = scalefac * Math.Pow(0.5 * (1.0 - Math.Cos(twopi_over_n * (i + 0.5))), power);
+            }
             return dst;
         }
 

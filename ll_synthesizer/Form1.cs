@@ -250,7 +250,8 @@ namespace ll_synthesizer
 
         private void trackBar1_ValueChanged(object sender, EventArgs e)
         {
-            ic.MelodyRemovalRatio = trackBar1.Value * 1.0 / trackBar1.Maximum;
+            //ic.MelodyRemovalRatio = trackBar1.Value * 1.0 / trackBar1.Maximum;
+            DSP.ShiftRate = (trackBar1.Value-trackBar1.Minimum)* 1.0 / trackBar1.Maximum;
         }
 
         private void button3_Click(object sender, EventArgs e)

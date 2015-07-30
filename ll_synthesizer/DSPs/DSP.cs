@@ -10,11 +10,19 @@ namespace ll_synthesizer.DSPs
     {
         bool enabled = false;
         int mSampleRate = 44100;
-        bool mBassToSides = false;
+        private static double shiftRate = 1.0;
+        bool mBassToSides = true;
         FHTransform fhtr = new FHTransform();
         FHTransform fhtl = new FHTransform();
         FHTransform fhtc = new FHTransform();
-
+        FHTransform fht1 = new FHTransform();
+        FHTransform fht = new FHTransform();
+        
+        public static double ShiftRate
+        {
+            set { shiftRate = value; }
+            get { return shiftRate; }
+        }
         public bool Enabled
         {
             set { enabled = value; }
@@ -43,15 +51,15 @@ namespace ll_synthesizer.DSPs
         {
             //fhtr.OverlapSize = overlapSize;
             //fhtl.OverlapSize = overlapSize;
-            fhtr.OverlapSize = 1;
-            fhtl.OverlapSize = 1;
+            fhtr.OverlapSize = 0;
+            fhtl.OverlapSize = 0;
             fhtc.OverlapSize = overlapSize;
         }
 
         public void CenterCut(double[] leftin, double[] rightin, out double[] leftout, out double[] rightout)
         {
             int kWindowSize = leftin.Length;
-            int freqBelowToSides = (int)((0 / ((double)mSampleRate / kWindowSize)) + 0.5);
+            int freqBelowToSides = (int)((200.0 / ((double)mSampleRate / kWindowSize)) + 0.5);
             int freqAboveToSides = (int)((300.0 / ((double)mSampleRate / kWindowSize)) + 0.5);
             var mBitRev = FHTArrays.GetBitRevTable(kWindowSize);
             var mPreWindow = FHTArrays.GetPreWindow(kWindowSize);
@@ -119,7 +127,7 @@ namespace ll_synthesizer.DSPs
                 double cI = sumI * alpha;
 
 
-                if (mBassToSides && ((i > freqBelowToSides) && (i < freqAboveToSides)))
+                if (mBassToSides && ((i < freqBelowToSides)))// && (i < freqAboveToSides)))
                 {
                     cR = cI = 0.0;
                 }
@@ -127,19 +135,19 @@ namespace ll_synthesizer.DSPs
                 tempC[mBitRev[i]] = cR + cI;
                 tempC[mBitRev[kWindowSize - i]] = cR - cI;
             }
-            fhtc.ComputeFHT(ref tempC, kWindowSize);
-            Parallel.For(0, kWindowSize, i => tempC[i] *= mPostWindow[i]);
-            Parallel.For(0, kWindowSize, i =>
+            fhtc.ComputeFHT(ref tempC, kWindowSize, true);
+            for (var i=0; i<kWindowSize; i++)
             {
                 tempLeft[i] = leftin[i] - tempC[i];
                 tempRight[i] = rightin[i] - tempC[i];
-            });
+            }
 
-            //leftout = tempC;
-            //rightout = tempC;
-            leftout = tempLeft;
-            rightout = tempRight;
+            leftout = tempC;
+            rightout = tempC;
+            //leftout = tempLeft;
+            //rightout = tempRight;
         }
+
 
         public void PitchShift(short[] datain, out short[] dataout)
         {
@@ -163,25 +171,15 @@ namespace ll_synthesizer.DSPs
                 temp[i] = datain[k] * mPreWindow[i];
             }
 
-            var fht = new FHTransform();
             var length = datain.Length;
-            fht.OverlapSize = (int)(length/2.3);
+            fht.OverlapSize = 0;// (int)(length / 2.3);
 
             fht.ComputeFHT(ref temp, kWindowSize);
 
             var temp_shift = new double[length*2];
-            int shift = (int)((20 / ((double)mSampleRate / kWindowSize)) + 0.5);
-            double shiftr = 1.1;
-            /*
-            for (var i = 0; i < length-shift; i++)
-            {
-                temp_shift[mBitRev[i+shift]] = temp[i];
-            }
-            */
 
             mBitRev = FHTArrays.GetBitRevTable(length * 2);
-            mPostWindow = FHTArrays.GetPostWindow(length * 2);
-            /*
+
             var re = new double[length/2];
             var im = new double[length/2];
             for (var i = 0; i < length / 2; i++)
@@ -191,65 +189,23 @@ namespace ll_synthesizer.DSPs
             }
             var reshift = new double[length];
             var imshift = new double[length];
-
-            for (var i = 0; i < length; i++)
-            {
-                double orgidx = i / shiftr;
-                int orgidxn = (int)Math.Floor(orgidx);
-                int orgidxn1 = (int)Math.Ceiling(orgidx);
-                if (orgidxn1 >= length / 2)
-                    break;
-                short newvalre = (short)((re[orgidxn] - re[orgidxn1]) * (orgidx - orgidxn) + re[orgidxn]);
-                short newvalim = (short)((im[orgidxn] - im[orgidxn1]) * (orgidx - orgidxn) + im[orgidxn]);
-                reshift[i] = newvalre;
-                imshift[i] = newvalim;
-            }
-
+            reshift = Stretch(re, ShiftRate, length);
+            imshift = Stretch(im, ShiftRate, length);
             for (var i=0; i < length; i++)
             {
                 temp_shift[mBitRev[i]] = reshift[i] + imshift[i];
                 temp_shift[mBitRev[2*length-1-i]] = reshift[i] - imshift[i];
             }
-            */
             /*
-            for (var i = 0; i < length; i++)
-            {
-                double orgidx = i / shiftr;
-                int orgidxn = (int)Math.Floor(orgidx);
-                int orgidxn1 = (int)Math.Ceiling(orgidx);
-                short newval = (short)((temp[orgidxn] - temp[orgidxn1]) * (orgidx - orgidxn) + temp[orgidxn]);
-                temp_shift[mBitRev[i]] = newval;
-                //temp_shift[mBitRev[i]] = temp[i];
-            }
-            for (var i = length; i < length * 2; i++)
-            {
-                double orgidx = i / shiftr;
-                int orgidxn = (int)Math.Floor(orgidx);
-                int orgidxn1 = (int)Math.Ceiling(orgidx);
-                if (orgidxn1 >= length/2)
-                    break;
-                short newval = (short)((temp[orgidxn] - temp[orgidxn1]) * (orgidx - orgidxn) + temp[orgidxn]);
-                temp_shift[mBitRev[i]] = newval;
-                //temp_shift[mBitRev[i]] = temp[i];
-            }
-            */
             var temp_shiftirr = Stretch(temp, shiftr);
             for (var i=0; i<temp_shiftirr.Length; i++)
             {
                 temp_shift[mBitRev[i]] = temp_shiftirr[i];
             }
-
-            var fht1 = new FHTransform();
-            fht1.OverlapSize = (int)(length * 2 / 2.3);
-            fht1.ComputeFHT(ref temp_shift, length*2);
-            for (var i = 0; i < length * 2; i++)
-            {
-                temp_shift[i] *= mPostWindow[i];
-            }
-            for (var i = 0; i < length; i++)
-            {
-                temp[i] = (temp_shift[2 * i] + temp_shift[2 * i + 1]) / 2;
-            }
+            */
+            //fht1.OverlapSize = (int)(length * 2 / 4);
+            fht1.ComputeFHT(ref temp_shift, length*2, true);
+            temp = Stretch(temp_shift, 0.5);
 
             dataout = ToShort(temp, length);
         }
@@ -265,13 +221,24 @@ namespace ll_synthesizer.DSPs
             var length = datain.Length;
             //var baseNum = (int)(44100 * 50e-3);
             var startIdx = SearchHeadZero(datain);
-            var baseNum = CalcBaseCycle(datain);
+
+            var frame = new short[region];
+            Array.Copy(datain, startIdx, frame, 0, region);
+
+            var baseNum = CalcBaseCycle(frame);
             var ratio = 1.2;
             var newlen = (int)Math.Round(length / ratio);
             var temp = new double[newlen];
             var step = (int)(baseNum * ratio);
             var window = GetCrossFadeWindow(baseNum);
 
+            Console.WriteLine(44100 *1.0 / baseNum);
+
+            if (baseNum > 300)
+            {
+                dataout = datain;
+                //return;
+            }
             int j = 0, count = 0;
             for (var i= 0; i< newlen; i++)
             {
@@ -285,25 +252,31 @@ namespace ll_synthesizer.DSPs
                     j = 0;
                 }
             }
-            datain = Stretch(temp, ratio);
+            datain = ToShort(Stretch(temp, ratio), length);
             //LowPassFiltering(datain, out dataout);
             dataout = datain;
         }
 
-        private static short[] Stretch(double[] datain, double ratio)
+        private static double[] Stretch(double[] datain, double ratio)
+        {
+            return Stretch(datain, ratio, (int)Math.Round(datain.Length * ratio));
+        }
+
+        private static double[] Stretch(double[] datain, double ratio, int size)
         {
             var length = datain.Length;
-            var lengthnew = (int)Math.Round(length * ratio);
-            var temp = new short[lengthnew];
+            var lengthnew = size;
+            var temp = new double[lengthnew];
             for (var i=0; i<lengthnew; i++)
             {
                 double t = i / ratio;
                 int t1 = (int)Math.Floor(t);
+                if (t1 >= length) break;
                 double x0 = (t1 >= 1) ? datain[t1 - 1] : datain[t1];
                 double x1 = datain[t1];
                 double x2 = (t1 < length - 1) ? datain[t1 + 1] : datain[t1];
                 double x3 = (t1 < length - 2) ? datain[t1 + 2] : datain[t1];
-                short newval = (short)(InterpolateHermite4pt3oX(x0, x1, x2, x3, t - t1));
+                double newval = InterpolateHermite4pt3oX(x0, x1, x2, x3, t - t1);
                 temp[i] = newval;
             }
             return temp;
@@ -333,15 +306,37 @@ namespace ll_synthesizer.DSPs
 
         private static int CalcBaseCycle(short[] datain)
         {
-            double autcorrMax = 0;
+            double autocorrMax = 0;
             int diffSol = 0;
-            for (var i=50; i < region; i++)
+            var length = datain.Length;
+            var a = ApplyWindow(datain);
+            var autocorr = new double[length];
+            var wincorr = GetWindowCorrelation(length);
+            var a0 = CalcAutocorrelation(a, 0);
+            Parallel.For(0, length, i =>
             {
-                double autocorr = CalcAutocorrelation(datain, i);
-                if (autocorr > autcorrMax)
+                var corr = CalcAutocorrelation(a, i);
+                autocorr[i] = corr / a0 / wincorr[i];
+            });
+            var peaks = new int[20];
+            var peakidx = 0;
+            for (var i=1; i< length-1; i++)
+            {
+                var diff = autocorr[i] - autocorr[i + 1];
+                var diff2 = autocorr[i - 1] - autocorr[i];
+                if (diff * diff2<= 0)
                 {
-                    autcorrMax = autocorr;
-                    diffSol = i;
+                    peaks[peakidx++] = i;
+                }
+                if (peakidx >= peaks.Length) break;
+            }
+            for (var i=0; i<peakidx; i++)
+            {
+                var corr = Math.Abs(autocorr[peaks[i]]);
+                if (corr>autocorrMax)
+                {
+                    autocorrMax = corr;
+                    diffSol = peaks[i];
                 }
             }
             return diffSol;
@@ -360,16 +355,44 @@ namespace ll_synthesizer.DSPs
             return window;
         }
 
-        private static double CalcAutocorrelation(short[] datain, int diff)
+        private static double[] ApplyWindow(short[] datain)
         {
-            int count = 0 ;
+            var length = datain.Length;
+            var dataout = new double[length];
+            var window = GetCrossFadeWindow(length);
+            double avg = 0;
+            for (var i=0; i< length; i++)
+            {
+                avg += datain[i];
+            }
+            avg /= length;
+            for (var i=0; i< length; i++)
+            {
+                dataout[i] = (datain[i]- avg) * window[i];
+            }
+            return dataout;
+        }
+
+        private static double[] GetWindowCorrelation(int T)
+        {
+            var corr = new double[T];
+            for (var i=0; i< T; i++)
+            {
+                corr[i] = (1 - i*1.0 / T) * (2.0 / 3 + 1.0 / 3 * Math.Cos(2 * Math.PI * i / T))
+                    + 1.0 / 2 / Math.PI * Math.Sin(2 * (Math.PI * i * T));
+            }
+            return corr;
+        }
+
+        private static double CalcAutocorrelation(double[] datain, int diff)
+        {
             double sum = 0;
-            for (var i=0; i<region; i++)
+            var length = datain.Length;
+            for (var i=0; i<length-diff; i++)
             {
                 sum += datain[i] * datain[i + diff];
-                count++;
             }
-            return sum / count;
+            return sum;
         }
 
         public void LowPassFiltering(short[] datain, out short[] dataout)
@@ -411,7 +434,10 @@ namespace ll_synthesizer.DSPs
         static double[] ToDouble(short[] array, int size)
         {
             double[] newarr = new double[size];
-            Parallel.For(0, size, i => newarr[i] = (double)array[i]);
+            for (var i=0; i< size; i++)
+            {
+                newarr[i] = (double)array[i];
+            }
             return newarr;
         }
 
