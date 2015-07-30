@@ -14,7 +14,7 @@ namespace ll_synthesizer
     class ItemCombiner: Streamable
     {
         private ArrayList list = new ArrayList();
-        private String name = "Synthesized";
+        private string name = "Synthesized";
         private static WavPlayer wp;
         private int baseLength;
         private Stopwatch sw = new Stopwatch();
@@ -121,12 +121,12 @@ namespace ll_synthesizer
             item = null;
         }
 
-        public String[] GetLRStrength()
+        public string[] GetLRStrength()
         {
             double[] facss = ComputeFactorSum(true);
             double[] facss2 = ComputeFactorSum(false);
-            
-            String[] str = new String[2];
+
+            string[] str = new string[2];
             str[0] = (facss2[0] / facss[0]).ToString();
             str[1] = (facss2[1] / facss[1]).ToString();
             return str;
@@ -430,7 +430,7 @@ namespace ll_synthesizer
             return baseLength;
         }
 
-        String Streamable.GetTitle()
+        string Streamable.GetTitle()
         {
             return name;
         }

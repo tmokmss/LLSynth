@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections;
 using System.Windows.Forms;
-
 
 namespace ll_synthesizer
 {
@@ -33,42 +28,42 @@ namespace ll_synthesizer
             keyList.Add(NoneKey);
         }
 
-        public static bool Is1Year(String name)
+        public static bool Is1Year(string name)
         {
             if (name == "HANAYO" | name == "MAKI" | name == "RIN")
                 return true;
             return false;
         }
 
-        public static bool Is2Year(String name)
+        public static bool Is2Year(string name)
         {
             if (name == "HONOKA" | name == "KOTORI" | name == "UMI")
                 return true;
             return false;
         }
 
-        public static bool Is3Year(String name)
+        public static bool Is3Year(string name)
         {
             if (name == "NOZOMI" | name == "ELI" | name == "NICO")
                 return true;
             return false;
         }
 
-        public static bool IsPrimtemps(String name)
+        public static bool IsPrimtemps(string name)
         {
             if (name == "HONOKA" || name == "HANAYO" || name == "KOTORI")
                 return true;
             return false;
         }
 
-        public static bool IsBiBi(String name)
+        public static bool IsBiBi(string name)
         {
             if (name == "ELI" || name == "NICO" || name == "MAKI")
                 return true;
             return false;
         }
 
-        public static bool IsLilyWhite(String name)
+        public static bool IsLilyWhite(string name)
         {
             if (name == "UMI" || name == "RIN" || name == "NOZOMI")
                 return true;
@@ -84,7 +79,7 @@ namespace ll_synthesizer
             return false;
         }
 
-        public static bool SelectIsMute(Keys key, String name)
+        public static bool SelectIsMute(Keys key, string name)
         {
             if (key == Year1Key)
                 return Is1Year(name);

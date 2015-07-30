@@ -9,7 +9,7 @@ namespace ll_synthesizer.Sound
     class WaveReader: SoundFileReader
     {
         WaveFileReader wfr;
-        public WaveReader(String path)
+        public WaveReader(string path)
         {
             wfr = new WaveFileReader(path);
         }

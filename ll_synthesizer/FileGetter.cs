@@ -8,31 +8,31 @@ namespace ll_synthesizer
 {
     class FileGetter
     {
-        private String dirPath;
-        private String[] paths;
-        private static String[] exts = new String[] {".wav", ".mp3"};
-        private static String wild = "*";
+        private string dirPath;
+        private string[] paths;
+        private static string[] exts = new string[] {".wav", ".mp3"};
+        private static string wild = "*";
 
-        public FileGetter(String dirPath)
+        public FileGetter(string dirPath)
         {
             this.dirPath = dirPath;
             try
             {
                 paths = Directory.GetFiles(dirPath, wild + exts[0]);
                 int wavLen = paths.Length;
-                String[] mp3s = Directory.GetFiles(dirPath, wild + exts[1]);
+                string[] mp3s = Directory.GetFiles(dirPath, wild + exts[1]);
                 Array.Resize(ref paths, paths.Length + mp3s.Length);
                 Array.Copy(mp3s, 0, paths, wavLen, mp3s.Length);
             }
             catch (DirectoryNotFoundException)
             {
-                paths = new String[0];
+                paths = new string[0];
             }
         }
 
-        public static bool HasValidFileExtension(String path)
+        public static bool HasValidFileExtension(string path)
         {
-            foreach (String ext in exts)
+            foreach (string ext in exts)
             {
                 if (path.EndsWith(ext))
                     return true;
@@ -40,7 +40,7 @@ namespace ll_synthesizer
             return false;
         }
 
-        public String[] GetList() {
+        public string[] GetList() {
             return paths;
         }
 
@@ -49,7 +49,7 @@ namespace ll_synthesizer
             return paths.Length;
         }
 
-        public String GetFileName(int i)
+        public string GetFileName(int i)
         {
             return paths[i];
         }

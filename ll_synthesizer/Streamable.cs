@@ -12,7 +12,7 @@ namespace ll_synthesizer
         int GetLength();
         int GetMaxTimeSeconds();
         bool IsReady();
-        String GetTitle();
+        string GetTitle();
         WaveFormat GetWaveFormat();
     }
 }

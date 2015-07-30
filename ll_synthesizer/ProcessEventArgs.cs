@@ -9,7 +9,7 @@ namespace ll_synthesizer
     {
         public double progress;
         public int maxTimeSeconds;
-        public String title;
+        public string title;
         //public bool enable = true;
     }
 }

@@ -113,8 +113,8 @@ namespace ll_synthesizer
             StreamWriter sw = null;
             try
             {
-                String AppPath = System.AppDomain.CurrentDomain.BaseDirectory;
-                String SettingPath = AppPath + fileName;
+                string AppPath = System.AppDomain.CurrentDomain.BaseDirectory;
+                string SettingPath = AppPath + fileName;
 
                 sw = new StreamWriter(SettingPath, false, Encoding.Default);
                 XmlSerializer serializer = new XmlSerializer(typeof(Settings));
@@ -137,8 +137,8 @@ namespace ll_synthesizer
             try
             {
                 // 環境設定ファイルのPATH設定
-                String AppPath = System.AppDomain.CurrentDomain.BaseDirectory;
-                String SettingPath = AppPath + fileName;
+                string AppPath = System.AppDomain.CurrentDomain.BaseDirectory;
+                string SettingPath = AppPath + fileName;
 
                 if (File.Exists(SettingPath))
                 {

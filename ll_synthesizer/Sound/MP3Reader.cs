@@ -12,7 +12,7 @@ namespace ll_synthesizer.Sound
         int position;
         int length;
         WaveFormat waveFormat;
-        public MP3Reader(String path)
+        public MP3Reader(string path)
         {
             Mp3FileReader fr = new Mp3FileReader(path);
             waveFormat = fr.WaveFormat;

@@ -32,7 +32,7 @@ namespace ll_synthesizer
 
         private static WavPlayer wp;
         private delegate void progressDelegate(int value, int maxTime);
-        private delegate void stringDelegate(String text);
+        private delegate void stringDelegate(string text);
         private delegate void generalDelegate();
 
         public ControlPanel()
@@ -160,19 +160,19 @@ namespace ll_synthesizer
 
         private void UpdateTimeLabel()
         {
-            String timenow = TimeToString(seekBar.Value);
-            String timemax = TimeToString(maxTime);
+            string timenow = TimeToString(seekBar.Value);
+            string timemax = TimeToString(maxTime);
             timeLabel.Text = timenow + " / " + timemax;
         }
 
-        private String TimeToString(int time)
+        private string TimeToString(int time)
         {
             int min = time / 60;
             int sec = time - min*60;
-            return String.Format("{0}:{1:D2}", min, sec);
+            return string.Format("{0}:{1:D2}", min, sec);
         }
 
-        private void SetTitle(String title)
+        private void SetTitle(string title)
         {
             titleLabel.Text = title;
         }
