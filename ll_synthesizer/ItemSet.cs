@@ -94,7 +94,7 @@ namespace ll_synthesizer
             SetInit();
         }
 
-        public ItemSet(String path): this(new WavData(path))
+        public ItemSet(string path): this(new WavData(path))
         {
         }
 
@@ -130,6 +130,7 @@ namespace ll_synthesizer
         {
             PlotLR();
             playButton.Click += new System.EventHandler(this.playButton_Clicked);
+            dspConfigButton.Click += new System.EventHandler(this.dspConfigButton_Clicked);
             offsetUpDown.ValueChanged += new System.EventHandler(this.OffsetChanged);
             chart.MouseWheel += new System.Windows.Forms.MouseEventHandler(this.WheelRotated);
             chart.MouseDown += new System.Windows.Forms.MouseEventHandler(this.ChartClicked);
@@ -510,6 +511,11 @@ namespace ll_synthesizer
         {
             wd.SetFactor(totalFactor.Value * 1.0 / totalFactor.Maximum);
             RequestRefresh();
+        }
+
+        void dspConfigButton_Clicked(object sender, EventArgs e)
+        {
+            wd.ShowDSPConfig();
         }
 
         void LRBalance_MouseDown(object sender, MouseEventArgs e)

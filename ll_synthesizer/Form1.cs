@@ -15,7 +15,7 @@ namespace ll_synthesizer
     {
         public event KeyEventHandler KeyPushed;
 
-        private static String appName = "LoveLive Synthesizer";
+        private static string appName = "LoveLive Synthesizer";
         private static Font defaultFont = new Font("Meiryo UI", 9);
         private FileGetter fg;
         private WavPlayer wp;
@@ -87,13 +87,13 @@ namespace ll_synthesizer
             ItemSet.SetCombiner(ic);
         }
 
-        void AddItem(String file)
+        void AddItem(string file)
         {
             ic.AddItem(new ItemSet(file));
             AddChart(ic.GetLastItem());
         }
 
-        public void AddItems(String[] files)
+        public void AddItems(string[] files)
         {
             foreach (string file in files)
             {
@@ -109,7 +109,7 @@ namespace ll_synthesizer
         {
             refresh();
             fg = new FileGetter(folderPath);
-            String[] files = fg.GetList();
+            string[] files = fg.GetList();
             if (files.Length > 0)
             {
                 AddItems(fg.GetList());
@@ -190,7 +190,7 @@ namespace ll_synthesizer
             }
         }
 
-        void SetVocalStrength(String[] str)
+        void SetVocalStrength(string[] str)
         {
             vocalLstr.Text = str[0];
             vocalRstr.Text = str[1];
@@ -244,14 +244,13 @@ namespace ll_synthesizer
 
         private void lrButton_Click(object sender, EventArgs e)
         {
-            String[] str = ic.GetLRStrength();
+            string[] str = ic.GetLRStrength();
             SetVocalStrength(str);
         }
 
         private void trackBar1_ValueChanged(object sender, EventArgs e)
         {
-            //ic.MelodyRemovalRatio = trackBar1.Value * 1.0 / trackBar1.Maximum;
-            DSP.ShiftRate = (trackBar1.Value-trackBar1.Minimum)* 1.0 / trackBar1.Maximum;
+            ic.MelodyRemovalRatio = trackBar1.Value * 1.0 / trackBar1.Maximum;
         }
 
         private void button3_Click(object sender, EventArgs e)

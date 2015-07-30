@@ -15,7 +15,7 @@ namespace ll_synthesizer.DSPs
 
         private static readonly double twopi = 2 * Math.PI;
         private static readonly int kOverlapCount = FHTransform.kOverlapCount;
-        private const int kPostWindowPower = 1;
+        private const int kPostWindowPower = 2;
 
         public static double[] GetPreWindow(int windowSize)
         {

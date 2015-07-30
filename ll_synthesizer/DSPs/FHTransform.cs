@@ -8,30 +8,18 @@ namespace ll_synthesizer.DSPs
     class FHTransform
     {
         private int kWindowSize;
-        //private const double kOverlapCount = 3.8;
-        public static int kOverlapCount = 3;
+        public static int kOverlapCount = 4;
 
         internal static readonly double twopi = 2 * Math.PI;
         internal static readonly double invsqrt2 = 0.70710678118654752440084436210485;
         internal static readonly double nodivbyzero = 0.000000000000001;
-
-        int mynum;static int pubnum = 0;
-        public FHTransform()
-        {
-            mynum = pubnum++;
-        }
-
-        private bool overlapEnable = true;
+        
         private double[,] overlap;
         private int overlapSize;
         public int OverlapSize {
             set
             {
                 if (value == overlapSize) return;
-                if (value == 0)
-                {
-                    overlapEnable = false; return;
-                }
                 if (value > 0)
                 {
                     overlapSize = value;
@@ -42,10 +30,6 @@ namespace ll_synthesizer.DSPs
 
         public void ComputeFHT(ref double[] A, int nPoints, bool enableOverlap = false)
         {
-            if (overlapEnable)
-            {
-                OverlapSize = nPoints / kOverlapCount;
-            }
             kWindowSize = nPoints;
             var mSineTab = FHTArrays.GetHalfSineTable(nPoints);
             int i, n, n2, theta_inc;
@@ -144,6 +128,7 @@ namespace ll_synthesizer.DSPs
                 theta_inc >>= 1;
             }
             if (!enableOverlap) return;
+            OverlapSize = nPoints / kOverlapCount;
             var postWindow = FHTArrays.GetPostWindow(kWindowSize);
             for (i = 0; i < kWindowSize; i++)
             {

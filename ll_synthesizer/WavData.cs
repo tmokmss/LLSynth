@@ -11,9 +11,9 @@ namespace ll_synthesizer
 {
     class WavData: Streamable
     {
-        private String path;
+        private string path;
         private SoundFileReader wfr;
-        private DSP myDSP;
+        private DSPSelector myDSP;
         private static int bufSizeDefault = WavPlayer.BufSize / 2;
         private int bufSize;  // size in short. twice when byte
         private int overlapSize;
@@ -38,8 +38,11 @@ namespace ll_synthesizer
 
         public bool DSPEnabled
         {
-            set { myDSP.Enabled = value; }
-            get { return myDSP.Enabled; }
+            set { if (!value) myDSP.CurrentType = DSPType.Default;
+                else
+                    myDSP.CurrentType = DSPType.PitchShiftPV;
+            }
+            get { return !(myDSP.CurrentType == DSPType.Default); }
         }
         
         public static int BufSizeDefault
@@ -78,7 +81,7 @@ namespace ll_synthesizer
             get { return wfr.WaveFormat; }
         }
 
-        public WavData(String path)
+        public WavData(string path)
         {
             this.path = path;
             this.samplesPerSecond = 44100;
@@ -90,10 +93,9 @@ namespace ll_synthesizer
                 wfr = new MP3Reader(path);
             }
             ChangeBufSize(bufSize);
-            this.myDSP = new DSP();
+            this.myDSP = new DSPSelector();
             this.length = (int)wfr.Length/4;
             OverlapSize = (int)(bufSize / FHTransform.kOverlapCount);
-            myDSP.SetOverlapSize(overlapSize);
             FetchBuffer(0);
         }
 
@@ -114,7 +116,7 @@ namespace ll_synthesizer
             this.offset = MsToIdx(ms);
         }
 
-        String Streamable.GetTitle()
+        string Streamable.GetTitle()
         {
             return GetName();
         }
@@ -303,8 +305,6 @@ namespace ll_synthesizer
             return Convert.ToInt16(value);
         }
 
-        DSP myDSP1 = new DSP();
-
         private void FetchBuffer(int idxWithoutOffset)
         {
             try
@@ -328,9 +328,7 @@ namespace ll_synthesizer
                     leftBuf[i] = BitConverter.ToInt16(buffer, i * 4);
                     rightBuf[i] = BitConverter.ToInt16(buffer, i * 4 + 2);
                 }
-                myDSP.PitchShift(rightBuf, out rightBuf);
-                myDSP1.Enabled = DSPEnabled;
-                myDSP1.PitchShift(leftBuf, out leftBuf);
+                myDSP.Process(ref leftBuf, ref rightBuf);
                 //myDSP.CenterCut(ref leftBuf, ref rightBuf);
                 //myDSP.PitchShiftTD(rightBuf, out rightBuf);
                 //myDSP.PitchShiftTD(leftBuf, out leftBuf);
@@ -425,7 +423,7 @@ namespace ll_synthesizer
             return (int)Math.Round(samplesPerSecond*ms/1000);
         }
 
-        public String GetName()
+        public string GetName()
         {
             return System.IO.Path.GetFileName(path);
         }
@@ -433,6 +431,11 @@ namespace ll_synthesizer
         bool Streamable.IsReady()
         {
             return true;
+        }
+
+        public void ShowDSPConfig()
+        {
+            myDSP.ShowConfigWindow(GetName());
         }
     }
 }

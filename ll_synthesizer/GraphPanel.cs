@@ -23,21 +23,23 @@ namespace ll_synthesizer
         protected CheckBox DSPEnable = new CheckBox();
         protected TrackBar lrBalance = new TrackBar();
         protected TrackBar totalFactor = new TrackBar();
+        protected Button dspConfigButton = new Button();
 
         protected static Font defaultFont;
         private static Color chartActive = Color.DarkCyan;
         private static Color chartInactive = Color.LightCyan;
         protected Color mainPanelBack = Color.AliceBlue;
         private static Bitmap muteImage = new Bitmap("..\\ico\\mute.png");
+        private static Bitmap gearImage = new Bitmap("..\\ico\\gear.png");
         protected bool plotEnable = false;
         protected int factorDefault = 5;
-        protected String title;
-        protected String myName;
-        protected String myNum;
+        protected string title;
+        protected string myName;
+        protected string myNum;
         protected Keys myKey;
         private static int sequential = 0;
 
-        public GraphPanel(String title)
+        public GraphPanel(string title)
         {
             this.title = title;
             this.myNum = (sequential++).ToString();
@@ -66,8 +68,8 @@ namespace ll_synthesizer
         void InitComponents()
         {
             // chart
-            chart.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                            | System.Windows.Forms.AnchorStyles.Right)));
+            chart.Anchor = ((AnchorStyles)(((AnchorStyles.Top | AnchorStyles.Left)
+                            | AnchorStyles.Right)));
             chartArea.Name = "ChartArea" + myNum;
             chart.ChartAreas.Add(chartArea);
             legend.Name = "Legend" + myNum;
@@ -143,6 +145,13 @@ namespace ll_synthesizer
             DSPEnable.Text = "DSP";
             DSPEnable.UseVisualStyleBackColor = true;
             DSPEnable.Font = defaultFont;
+            
+            // DSPConfigButton
+            dspConfigButton.Name = "dspConfigButton" + myNum;
+            dspConfigButton.Size = new System.Drawing.Size(23, 23);
+            dspConfigButton.Font = defaultFont;
+            dspConfigButton.Image = gearImage;
+            dspConfigButton.UseVisualStyleBackColor = true;
 
             // LRBalance
             lrBalance.Maximum = 10;
@@ -159,10 +168,10 @@ namespace ll_synthesizer
             totalFactor.SmallChange = 1;
 
             // infoPanel
-            infoPanel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                            | System.Windows.Forms.AnchorStyles.Right)));
+            infoPanel.Anchor = ((AnchorStyles)(((AnchorStyles.Top | AnchorStyles.Left)
+                            | AnchorStyles.Right)));
             infoPanel.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowOnly;
-            infoPanel.ColumnCount = 2;
+            infoPanel.ColumnCount = 3;
             infoPanel.Name = "infoPanel" + myNum;
             infoPanel.AutoSize = true;
             infoPanel.BackColor = Color.AliceBlue;
@@ -173,12 +182,13 @@ namespace ll_synthesizer
             infoPanel.SetColumnSpan(titleText, 2);
             infoPanel.Controls.Add(mute, 0, 2);
             infoPanel.Controls.Add(DSPEnable, 1, 2);
+            infoPanel.Controls.Add(dspConfigButton, 2, 2);
             infoPanel.Controls.Add(lrBalance, 0, 3);
             infoPanel.Controls.Add(totalFactor, 1, 3);
 
             // mainpanel
-            this.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                            | System.Windows.Forms.AnchorStyles.Right)));
+            this.Anchor = ((AnchorStyles)(((AnchorStyles.Top | AnchorStyles.Left)
+                            | AnchorStyles.Right)));
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowOnly;
             this.Name = "chartPanel" + myNum;
             this.AutoSize = true;
@@ -206,17 +216,18 @@ namespace ll_synthesizer
                 case 1: return Keys.S;
                 case 2: return Keys.D;
                 case 3: return Keys.F;
-                case 4: return Keys.H;
-                case 5: return Keys.J;
-                case 6: return Keys.K;
-                case 7: return Keys.L;
+                case 4: return Keys.G;
+                case 5: return Keys.H;
+                case 6: return Keys.J;
+                case 7: return Keys.K;
+                case 8: return Keys.L;
             }
-            return Keys.Space;
+            return Keys.None;
         }
 
-        String ChooseIcon(String title)
+        string ChooseIcon(string title)
         {
-            String path;
+            string path;
             if (title.Contains("ELI"))
             {
                 myName = "ELI";
@@ -266,7 +277,7 @@ namespace ll_synthesizer
             {
                 path = "..\\ico\\default.png";
             }
-            String basedir = AppDomain.CurrentDomain.BaseDirectory;
+            string basedir = AppDomain.CurrentDomain.BaseDirectory;
             return Path.Combine(basedir, path);
         }
 
