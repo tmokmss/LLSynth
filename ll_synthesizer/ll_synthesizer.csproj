@@ -85,10 +85,22 @@
     <Compile Include="ControlPanel.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="DSPs\Config\ConfigPitchShiftPV.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DSPs\Config\ConfigWindow.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DSPs\Config\ConfigWindowFactory.cs" />
+    <Compile Include="DSPs\Types\CenterCut.cs" />
+    <Compile Include="DSPs\Types\Default.cs" />
     <Compile Include="DSPs\DSP.cs" />
+    <Compile Include="DSPs\DSPSelector.cs" />
+    <Compile Include="DSPs\DSPType.cs" />
     <Compile Include="DSPs\FHTArrays.cs" />
     <Compile Include="DSPs\FHTransform.cs" />
-    <Compile Include="DSPs\PitchShift.cs" />
+    <Compile Include="DSPs\Types\PitchShiftPV.cs" />
+    <Compile Include="DSPs\Types\PitchShiftTDSOLA.cs" />
     <Compile Include="FileGetter.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
