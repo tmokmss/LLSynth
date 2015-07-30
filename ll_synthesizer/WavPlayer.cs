@@ -14,7 +14,6 @@ namespace ll_synthesizer
         private Microsoft.DirectX.DirectSound.WaveFormat waveFormat;
         private SecondaryBuffer buffer;
         private Device device = null;
-        private Notify notify;
         private Thread mThread;
         private WaveFileWriter wfw;
         public delegate void ProcessEventHandler(object sender, ProcessEventArgs e);
@@ -173,7 +172,7 @@ namespace ll_synthesizer
         }
 
         AutoResetEvent are;
-        Boolean isPlaying, isDoing;
+        bool isPlaying, isDoing;
         Streamable stream;
 
         public void Play(WavData wd, int PlayPosition)
@@ -242,9 +241,9 @@ namespace ll_synthesizer
 
         private void SaveBuffer()
         {
-            if (wfw == null) InitializeRecorder();
             if (SaveFile)
             {
+                if (wfw == null) InitializeRecorder();
                 wfw.WriteSamples(m_transferBuffer, 0, m_transferBuffer.Length);
             }
         }
@@ -274,8 +273,8 @@ namespace ll_synthesizer
             //mThread.IsBackground = true;
             are = new AutoResetEvent(false);
 
-            notify = new Notify(buffer);
-            BufferPositionNotify[] psa = new BufferPositionNotify[m_numberOfSectorsInBuffer];
+            var notify = new Notify(buffer);
+            var psa = new BufferPositionNotify[m_numberOfSectorsInBuffer];
             for (int i=0; i< m_numberOfSectorsInBuffer; i++) {
                 psa[i].Offset = m_SectorSize*(i+1)-1;
                 psa[i].EventNotifyHandle = are.SafeWaitHandle.DangerousGetHandle();
@@ -286,8 +285,7 @@ namespace ll_synthesizer
             mThread.Start();
 
             isPlaying = true;
-
-
+            
             //TransferBuffer();
             buffer.Play(0, BufferPlayFlags.Looping);
         }
@@ -306,6 +304,8 @@ namespace ll_synthesizer
             }
         }
 
+        int preReadPos = 0, preWritePos = 0;
+        int readNum = 0, writeNum = 0;
         void TransferBuffer()
         {
             short[] left, right;
@@ -313,9 +313,28 @@ namespace ll_synthesizer
             Array.Clear(m_transferBuffer, 0, m_SectorSize / 2);
             MakeShortArrayFromRL(left, right, ref m_transferBuffer);
 
+            int readPos, writePos;
+            buffer.GetCurrentPosition(out readPos, out writePos);
+            var num = (readPos + m_SectorSize - 1) / m_SectorSize + 2;
+            var newPos = (num * m_SectorSize) % m_StreamBufferSize;
+            if (newPos > m_secondaryBufferWritePosition)
+            {
+                Console.Write(newPos);Console.Write(" ; ");Console.WriteLine(m_secondaryBufferWritePosition);
+                m_secondaryBufferWritePosition = newPos;
+                Console.WriteLine("There were some lag.");
+            }
+            if (preReadPos > readPos)
+                readNum++;
+            if (preWritePos > m_secondaryBufferWritePosition)
+                writeNum++;
+            preReadPos = readPos;
+            preWritePos = m_secondaryBufferWritePosition;
+            //Console.Write(readNum); Console.Write(" ; "); Console.WriteLine(writeNum);
+
             buffer.Write(m_secondaryBufferWritePosition, m_transferBuffer, LockFlag.None);
             m_secondaryBufferWritePosition += m_SectorSize;
             m_secondaryBufferWritePosition %= m_StreamBufferSize;
+            //Console.WriteLine(m_secondaryBufferWritePosition);
             position += m_SectorSize / 4;
         }
 
