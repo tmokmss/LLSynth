@@ -40,7 +40,9 @@ namespace ll_synthesizer
         {
             set { if (!value) myDSP.CurrentType = DSPType.Default;
                 else
-                    myDSP.CurrentType = DSPType.PitchShiftPV;
+                    //myDSP.CurrentType = DSPType.PitchShiftPV;
+                    myDSP.CurrentType = DSPType.PitchShiftTDSOLA;
+                    //myDSP.CurrentType = DSPType.CenterCut;
             }
             get { return !(myDSP.CurrentType == DSPType.Default); }
         }
@@ -309,11 +311,13 @@ namespace ll_synthesizer
         {
             try
             {
-                //int startPosition = IdxOffset(idxWithoutOffset) - overlapSize;
                 int startPosition = IdxOffset(idxWithoutOffset);
+                int bufferCount = bufSize;
+                //if (startPosition + bufSize > length)
                 if (startPosition + bufSize > length)
                 {
-                    startPosition = length - bufSize;
+                    //startPosition = length - bufSize;
+                    bufferCount = length - bufSize;
                 }
                 else if (startPosition < IdxOffset(0))
                     startPosition = IdxOffset(0);
@@ -321,7 +325,7 @@ namespace ll_synthesizer
 
                 byte[] buffer = new byte[bufSize * 4];
                 wfr.Position = (startPosition) * 4;
-                wfr.Read(buffer, 0, bufSize * 4);
+                wfr.Read(buffer, 0, bufferCount * 4);
 
                 for (int i = 0; i < bufSize; i++)
                 {
@@ -329,36 +333,12 @@ namespace ll_synthesizer
                     rightBuf[i] = BitConverter.ToInt16(buffer, i * 4 + 2);
                 }
                 myDSP.Process(ref leftBuf, ref rightBuf);
-                //myDSP.CenterCut(ref leftBuf, ref rightBuf);
-                //myDSP.PitchShiftTD(rightBuf, out rightBuf);
-                //myDSP.PitchShiftTD(leftBuf, out leftBuf);
-                //myDSP.LowPassFiltering(leftBuf, out leftBuf);
-                //myDSP.LowPassFiltering(rightBuf, out rightBuf);
-                /*
-                if (DSPEnabled)
-                {
-                    var leftnew = new short[bufSize];
-                    var rightnew = new short[bufSize];
-                    for (var i = 1; i < bufSize; i++)
-                    {
-                        leftnew[i] = (short)((leftBuf[i] + leftBuf[i - 1]) / 2);
-                        rightnew[i] = (short)((rightBuf[i] + rightBuf[i - 1]) / 2);
-                    }
-                    leftnew[0] = leftBuf[0];
-                    rightnew[0] = rightBuf[0];
-                    leftBuf = leftnew;
-                    rightBuf = rightnew;
-                }
-                 */
             }
             catch (Exception)
             {
                 Console.WriteLine("Gotcha!!!");
             }
-            //Console.Write(lastlast); Console.Write(" : "); Console.WriteLine(leftBuf[0+overlapSize]);
-            lastlast = leftBuf[bufSize - overlapSize];
         }
-        short lastlast = 0;
 
         private bool isAvailable(int idxWithOffset, bool isLeft)
         {

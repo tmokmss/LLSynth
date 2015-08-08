@@ -92,6 +92,10 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="DSPs\Config\ConfigWindowFactory.cs" />
+    <Compile Include="DSPs\Config\ConfigPitchShiftTDSOLA.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DSPs\Overlap.cs" />
     <Compile Include="DSPs\Types\CenterCut.cs" />
     <Compile Include="DSPs\Types\Default.cs" />
     <Compile Include="DSPs\DSP.cs" />

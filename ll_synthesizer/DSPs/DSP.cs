@@ -11,20 +11,28 @@ namespace ll_synthesizer.DSPs
     {
         protected int mSampleRate = 44100;
         private static double shiftRate = 4.0 / 5;//Math.Pow(1/ONEDEG,3);
-        protected ConfigWindow window;
+        protected ConfigWindow configWindow;
 
         abstract public DSPType Type { get; }
         public abstract void Process(ref short[] left, ref short[] right);
 
+        public void Dispose()
+        {
+            if (configWindow != null)
+            {
+                configWindow.Dispose();
+            }
+        }
+
         public void ShowConfigWindow(string title)
         {
-            if (window == null || window.IsDisposed)
+            if (configWindow == null || configWindow.IsDisposed)
             {
                 var factory = ConfigWindowFactory.GetInstance();
-                window = factory.CreateConfigWindow(this);
+                configWindow = factory.CreateConfigWindow(this);
             }
-            window.Visible = !window.Visible;
-            window.Text = title;
+            configWindow.Visible = !configWindow.Visible;
+            configWindow.Text = title;
         }
 
         protected static double[] Stretch(double[] datain, double ratio)
