@@ -61,7 +61,7 @@ namespace ll_synthesizer
         void setBufferAndWave()
         {
             waveFormat = new Microsoft.DirectX.DirectSound.WaveFormat();
-            waveFormat.SamplesPerSecond = 44100;
+            waveFormat.SamplesPerSecond = (int)(44100*1.0);
             waveFormat.Channels = 2;
             waveFormat.FormatTag = WaveFormatTag.Pcm;
             waveFormat.BitsPerSample = 16;
@@ -186,7 +186,7 @@ namespace ll_synthesizer
             if (stream != null)
             {
                 position = (int)(stream.GetLength() * ratio);
-                progressSoFar = GetProgress();
+                progressSoFar = GetProgress() - reportInterval;
             }
         }
 
@@ -217,7 +217,7 @@ namespace ll_synthesizer
                 e.title = stream.GetTitle();
                 if (PlayReachedBy != null)
                     PlayReachedBy(this, e);
-                if (Math.Round((maxtime * progress)) == maxtime)
+                if (progress >= 1)
                 {
                     if (repeating)
                     {

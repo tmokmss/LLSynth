@@ -442,7 +442,7 @@ namespace ll_synthesizer
             {
                 return 0;
             }
-            return (int)GetLastItem().GetData().IdxToTime(baseLength);
+            return (int)item.GetData().IdxToTime(baseLength);
         }
 
         short[] ComputeMean(int idx)
