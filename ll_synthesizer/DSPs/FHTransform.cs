@@ -13,8 +13,8 @@ namespace ll_synthesizer.DSPs
         internal static readonly double twopi = 2 * Math.PI;
         internal static readonly double invsqrt2 = 0.70710678118654752440084436210485;
         internal static readonly double nodivbyzero = 0.000000000000001;
-        
-        private double[,] overlap;
+
+        private Overlap overlap;
         private int overlapSize;
         public int OverlapSize {
             set
@@ -23,12 +23,13 @@ namespace ll_synthesizer.DSPs
                 if (value > 0)
                 {
                     overlapSize = value;
-                    overlap = new double[kOverlapCount, value];
+                    overlap = new Overlap(kOverlapCount, overlapSize);
                 }
             }
+            get { return overlapSize; }
         }
 
-        public void ComputeFHT(ref double[] A, int nPoints, bool enableOverlap = false)
+        public void ComputeFHT(ref double[] A, int nPoints, bool enableOverlap = false, bool enable = true)
         {
             kWindowSize = nPoints;
             var mSineTab = FHTArrays.GetHalfSineTable(nPoints);
@@ -127,6 +128,7 @@ namespace ll_synthesizer.DSPs
                 n2 *= 2;
                 theta_inc >>= 1;
             }
+
             if (!enableOverlap) return;
             OverlapSize = nPoints / kOverlapCount;
             var postWindow = FHTArrays.GetPostWindow(kWindowSize);
@@ -134,30 +136,7 @@ namespace ll_synthesizer.DSPs
             {
                 A[i] *= postWindow[i];
             }
-            AddOverlap(ref A);
-        }
-
-        int overlapIdx = 0;
-
-        private void AddOverlap(ref double[] A)
-        {
-            if (overlapSize <= 0) return;
-
-            for (var i = 0; i < overlapSize; i++)
-            {
-                A[i] += overlap[overlapIdx, i];
-                overlap[overlapIdx, i] = 0;
-            }
-            overlapIdx = (overlapIdx + 1) % kOverlapCount;
-
-            for (var i = 0; i < kOverlapCount-1; i++)
-            {
-                int writeIdx = (overlapIdx + i) % kOverlapCount;
-                for (var j = 0; j < overlapSize; j++)
-                {
-                    overlap[writeIdx, j] += A[j + (i+1) * overlapSize];
-                }
-            }
+            overlap.AddOverlap(ref A);
         }
 
         public double[] test()

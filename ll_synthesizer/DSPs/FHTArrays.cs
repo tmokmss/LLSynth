@@ -37,7 +37,8 @@ namespace ll_synthesizer.DSPs
                     // We omit the 0.5 in both the forward and reverse directions,
                     // so we have a 0.25 to put here.
 
-                    dst[i] = tmp[mBitRev[i]] * 0.5 * (2.0 / (double)kOverlapCount);
+                    //dst[i] = tmp[mBitRev[i]] * 0.5 * (2.0 / (double)kOverlapCount);
+                    dst[i] = tmp[i] * 0.5 * (2.0 / (double)kOverlapCount);
                 }
                 mPreWindows.Add(windowSize, dst);
             }
@@ -104,6 +105,12 @@ namespace ll_synthesizer.DSPs
                 dst[i] = scalefac * Math.Pow(0.5 * (1.0 - Math.Cos(twopi_over_n * (i + 0.5))), power);
             }
             return dst;
+        }
+
+        static public int CeilingPow2(int n)
+        {
+            var pow = IntegerLog2((uint)n);
+            return (int)Math.Pow(2, pow+1);
         }
 
         static uint IntegerLog2(uint v)
