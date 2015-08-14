@@ -73,7 +73,7 @@ namespace ll_synthesizer
             }
             else
             {
-                baseLength = (baseLength > item.GetLength()) ? item.GetLength() : baseLength;
+                //baseLength = (baseLength > item.GetLength()) ? item.GetLength() : baseLength;
             }
             Subscribe(item);
             AsyncRandomizeFactor();
@@ -119,6 +119,10 @@ namespace ll_synthesizer
             UnSubscribe(item);
             item.Dispose();
             item = null;
+            if (idx == 0 && list.Count > 0)
+            {
+                baseLength = GetItem(0).GetLength();
+            }
         }
 
         public string[] GetLRStrength()
