@@ -42,6 +42,9 @@ namespace ll_synthesizer.DSPs
                 case DSPType.PitchShiftTDSOLA:
                     myDSP = new PitchShiftTDSOLA();
                     break;
+                case DSPType.HighPassFilter:
+                    myDSP = new HighPassFilter();
+                    break;
                 default:
                     myDSP = new Default();
                     break;

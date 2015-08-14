@@ -24,6 +24,8 @@ namespace ll_synthesizer.DSPs.Config
                     return new ConfigPitchShiftPV((PitchShiftPV)parent);
                 case DSPType.PitchShiftTDSOLA:
                     return new ConfigPitchShiftTDSOLA((PitchShiftTDSOLA)parent);
+                case DSPType.HighPassFilter:
+                    return new ConfigHighPassFilter((HighPassFilter)parent);
                 default:
                     return new ConfigWindow(parent);
             }
