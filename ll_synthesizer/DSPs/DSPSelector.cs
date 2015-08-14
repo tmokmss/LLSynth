@@ -17,6 +17,12 @@ namespace ll_synthesizer.DSPs
             get { return currentType; }
         }
 
+        public void Dispose()
+        {
+            myDSP.Dispose();
+            myDSP = null;
+        }
+
         public void Process(ref short[] left, ref short[] right)
         {
             myDSP.Process(ref left, ref right);
@@ -44,6 +50,9 @@ namespace ll_synthesizer.DSPs
                     break;
                 case DSPType.HighPassFilter:
                     myDSP = new HighPassFilter();
+                    break;
+                case DSPType.BandPassFilter:
+                    myDSP = new BandPassFilter();
                     break;
                 default:
                     myDSP = new Default();

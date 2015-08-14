@@ -26,6 +26,8 @@ namespace ll_synthesizer.DSPs.Config
                     return new ConfigPitchShiftTDSOLA((PitchShiftTDSOLA)parent);
                 case DSPType.HighPassFilter:
                     return new ConfigHighPassFilter((HighPassFilter)parent);
+                case DSPType.BandPassFilter:
+                    return new ConfigBandPassFilter((BandPassFilter)parent);
                 default:
                     return new ConfigWindow(parent);
             }

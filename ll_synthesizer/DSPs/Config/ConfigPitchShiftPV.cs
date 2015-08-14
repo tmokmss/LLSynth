@@ -25,6 +25,10 @@ namespace ll_synthesizer.DSPs.Config
             shiftRateBar.Maximum = 2*fac;
             shiftRateBar.Minimum = 0;
 
+            var nowRate = myDSP.ShiftRate;
+            var nowValue = (int)(nowRate * shiftRateBar.Maximum / 2 + shiftRateBar.Minimum);
+            shiftRateBar.Value = nowValue;
+
             shiftRateBar.ValueChanged += new System.EventHandler(this.upDownChanged);
             this.Controls.Add(shiftRateBar);
         }

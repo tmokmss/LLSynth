@@ -11,6 +11,7 @@ namespace ll_synthesizer.DSPs
         CenterCut,
         PitchShiftPV,
         PitchShiftTDSOLA,
-        HighPassFilter
+        HighPassFilter,
+        BandPassFilter
     }
 }
