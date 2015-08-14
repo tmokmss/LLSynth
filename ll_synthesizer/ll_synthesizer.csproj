@@ -54,7 +54,7 @@
     <GenerateManifests>true</GenerateManifests>
   </PropertyGroup>
   <PropertyGroup>
-    <SignManifests>true</SignManifests>
+    <SignManifests>false</SignManifests>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.DirectX, Version=1.0.2902.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35">
@@ -85,6 +85,12 @@
     <Compile Include="ControlPanel.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="DSPs\Config\ConfigBandPassFilter.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DSPs\Config\ConfigHighPassFilter.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="DSPs\Config\ConfigPitchShiftPV.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -96,6 +102,7 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="DSPs\Overlap.cs" />
+    <Compile Include="DSPs\Types\BandPassFilter.cs" />
     <Compile Include="DSPs\Types\CenterCut.cs" />
     <Compile Include="DSPs\Types\Default.cs" />
     <Compile Include="DSPs\DSP.cs" />
@@ -103,6 +110,7 @@
     <Compile Include="DSPs\DSPType.cs" />
     <Compile Include="DSPs\FHTArrays.cs" />
     <Compile Include="DSPs\FHTransform.cs" />
+    <Compile Include="DSPs\Types\HighPassFilter.cs" />
     <Compile Include="DSPs\Types\PitchShiftPV.cs" />
     <Compile Include="DSPs\Types\PitchShiftTDSOLA.cs" />
     <Compile Include="FileGetter.cs" />

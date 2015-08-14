@@ -40,8 +40,10 @@ namespace ll_synthesizer
         {
             set { if (!value) myDSP.CurrentType = DSPType.Default;
                 else
+                    myDSP.CurrentType = DSPType.BandPassFilter;
                     //myDSP.CurrentType = DSPType.PitchShiftPV;
-                    myDSP.CurrentType = DSPType.PitchShiftTDSOLA;
+                    //myDSP.CurrentType = DSPType.PitchShiftTDSOLA;
+                    //myDSP.CurrentType = DSPType.HighPassFilter;
                     //myDSP.CurrentType = DSPType.CenterCut;
             }
             get { return !(myDSP.CurrentType == DSPType.Default); }
@@ -87,7 +89,7 @@ namespace ll_synthesizer
         {
             this.path = path;
             this.samplesPerSecond = 44100;
-            bufSize = WavPlayer.BufSize *2;
+            bufSize = WavPlayer.BufSize / 2;
             if (path.EndsWith("wav")) {
                 wfr = new WaveReader(path);
             }
@@ -146,6 +148,8 @@ namespace ll_synthesizer
         public void Dispose()
         {
             wfr.Dispose();
+            myDSP.Dispose();
+            myDSP = null;
             wfr = null;
             leftBuf = null;
             rightBuf = null;
@@ -313,11 +317,9 @@ namespace ll_synthesizer
             {
                 int startPosition = IdxOffset(idxWithoutOffset);
                 int bufferCount = bufSize;
-                //if (startPosition + bufSize > length)
                 if (startPosition + bufSize > length)
                 {
-                    //startPosition = length - bufSize;
-                    bufferCount = length - bufSize;
+                    bufferCount = length - startPosition;
                 }
                 else if (startPosition < IdxOffset(0))
                     startPosition = IdxOffset(0);
