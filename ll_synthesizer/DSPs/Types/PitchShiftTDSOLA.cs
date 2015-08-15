@@ -8,16 +8,19 @@ namespace ll_synthesizer.DSPs.Types
 {
     class PitchShiftTDSOLA : DSP
     {
-        private double shiftRate = 0.8;//Math.Pow(1/ONEDEG,3);
         private int kOverlapCount = FHTransform.kOverlapCount;
         private Overlap overlapr = null;
         private Overlap overlapl = null;
         private double[] window = null;
+        private const int region = (int)(44100 * 20e-3);
 
-        public double ShiftRate
+        public double PitchShiftRate { set; get; }
+        public double FormantShiftRate { set; get; }
+
+        public PitchShiftTDSOLA()
         {
-            set { shiftRate = value; }
-            get { return shiftRate; }
+            PitchShiftRate = 0.8;
+            FormantShiftRate = 1.0;
         }
 
         public override DSPType Type
@@ -31,7 +34,6 @@ namespace ll_synthesizer.DSPs.Types
             PitchShiftTD(right, out right, ref overlapr);
         }
 
-        private const int region = (int)(44100 * 20e-3);
         public void PitchShiftTD(short[] datain, out short[] dataout, ref Overlap overlap)
         {
             var length = datain.Length;
@@ -40,37 +42,42 @@ namespace ll_synthesizer.DSPs.Types
             var frame = new short[region];
             Array.Copy(datain, startIdx, frame, 0, region);
 
-            var baseNum = CalcBaseCycle(frame);
-            var ratio = ShiftRate;
-            var newlen = (int)Math.Round(length / ratio);
+            var baseCycle = CalcBaseCycle(frame);
+            var pratio = PitchShiftRate;
+            var fratio = FormantShiftRate;
+            var newlen = (int)Math.Round(length / fratio);
             var temp = new double[newlen];
-            var step = (int)(baseNum * ratio);
 
-            //Console.WriteLine(44100 * 0.5 / baseNum);
+            //Console.WriteLine(44100.0 / baseCycle);
 
-            int j = 0, count = 0, num = 0;
-            var incrementNum = (int)((length - startIdx) * (ratio - 1) / baseNum);
-            var isIncrement = incrementNum >= 0;
-            incrementNum = Math.Abs(incrementNum);
+            int j = 0, count = 0, idx = startIdx;
+            var incrementFreq = (int)((length - startIdx) * (fratio - 1) / baseCycle);
+            if (baseCycle == 0) incrementFreq = 0;
+            var isIncrement = incrementFreq >= 0;
+            incrementFreq = Math.Abs(incrementFreq);
             for (var i = 0; i < newlen; i++)
             {
-                var idx = j + baseNum * num + startIdx;
                 if (idx >= length) break;
                 temp[i] = datain[idx];// * window[j];
                 j++;
-                if (j >= baseNum)
+                idx++;
+                if (j >= baseCycle && j>=3)
                 {
+                    // search for zero-cross point
+                    if (datain[idx - 1] * datain[idx - 2] > 0) continue;
                     count++;
-                    num++;
+                    baseCycle = j;
                     j = 0;
-                    if (incrementNum != 0 && count % incrementNum == 0)
+                    if (incrementFreq != 0 && count % incrementFreq == 0)
                     {
-                        num--;
+                        idx -= j;
                     }
                 }
+                //if (i%500 == 0)
+                //    Console.WriteLine(String.Format("{0}:{1}", i, idx));
             }
 
-            var tempout = Stretch(temp, 1/ratio, length);
+            var tempout = Stretch(temp, fratio, length);
 
             if (overlap == null) overlap = new Overlap(kOverlapCount, length / kOverlapCount);
             SetPrePostWindow(length);
@@ -186,7 +193,7 @@ namespace ll_synthesizer.DSPs.Types
                 window = new double[length];
                 for (int i = 0; i < length; i++)
                 {
-                    window[i] = preWindow[i] * postWindow[i] * length * 2;
+                    window[i] = preWindow[i] * postWindow[i] * length * 2 * Math.Sqrt(2);
                 }
             }
         }
