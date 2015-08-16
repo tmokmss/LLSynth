@@ -313,7 +313,9 @@ namespace ll_synthesizer
         {
             double diff2 = 0;
             int count = 0;
-            for (var i=0; i<numOfElementsCompared; i++)
+            int start = 0;
+            if (startidx2 < 0 || startidx1 < 0) start = Math.Min(startidx1, startidx2) * -1;
+            for (var i=start; i<numOfElementsCompared; i++)
             {
                 diff2 += Math.Pow(data1[i + startidx1] - data2[i + startidx2], 2);
                 count++;
