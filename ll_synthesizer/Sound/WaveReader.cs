@@ -25,7 +25,7 @@ namespace ll_synthesizer.Sound
             get { return (int)wfr.Length; }
         }
 
-        public void Read(byte[] buffer, int offset, int count)
+        public void Read(ref byte[] buffer, int offset, int count)
         {
             wfr.Read(buffer, offset, count);
         }

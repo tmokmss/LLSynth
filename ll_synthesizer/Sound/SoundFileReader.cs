@@ -17,7 +17,7 @@ namespace ll_synthesizer.Sound
         {
             get;
         }
-        void Read(byte[] buffer, int offset, int count);
+        void Read(ref byte[] buffer, int offset, int count);
         void Dispose();
         WaveFormat WaveFormat {get;}
     }

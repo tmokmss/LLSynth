@@ -40,9 +40,9 @@ namespace ll_synthesizer
         {
             set { if (!value) myDSP.CurrentType = DSPType.Default;
                 else
-                    myDSP.CurrentType = DSPType.BandPassFilter;
+                    //myDSP.CurrentType = DSPType.BandPassFilter;
                     //myDSP.CurrentType = DSPType.PitchShiftPV;
-                    //myDSP.CurrentType = DSPType.PitchShiftTDSOLA;
+                    myDSP.CurrentType = DSPType.PitchShiftTDSOLA;
                     //myDSP.CurrentType = DSPType.HighPassFilter;
                     //myDSP.CurrentType = DSPType.CenterCut;
             }
@@ -95,6 +95,10 @@ namespace ll_synthesizer
             }
             else if (path.EndsWith("mp3")) {
                 wfr = new MP3Reader(path);
+            }
+            if (path.EndsWith("sine200.wav"))
+            {
+                wfr = new WaveGenerator(200);
             }
             ChangeBufSize(bufSize);
             this.myDSP = new DSPSelector();
@@ -327,7 +331,7 @@ namespace ll_synthesizer
 
                 byte[] buffer = new byte[bufSize * 4];
                 wfr.Position = (startPosition) * 4;
-                wfr.Read(buffer, 0, bufferCount * 4);
+                wfr.Read(ref buffer, 0, bufferCount * 4);
 
                 for (int i = 0; i < bufSize; i++)
                 {

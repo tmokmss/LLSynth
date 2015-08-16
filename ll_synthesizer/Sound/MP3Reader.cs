@@ -33,7 +33,7 @@ namespace ll_synthesizer.Sound
             get { return length; }
         }
 
-        public void Read(byte[] buffer, int offset, int count)
+        public void Read(ref byte[] buffer, int offset, int count)
         {
             Array.Copy(data, position, buffer, offset, count); 
         }
