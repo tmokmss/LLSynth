@@ -8,8 +8,8 @@ namespace ll_synthesizer.DSPs
 {
     class DSPSelector
     {
-        DSP myDSP = new Default();
-        DSPType currentType = DSPType.Default;
+        private DSP myDSP = new Default();
+        private DSPType currentType = DSPType.Default;
 
         public DSPType CurrentType
         {
@@ -23,14 +23,9 @@ namespace ll_synthesizer.DSPs
             myDSP = null;
         }
 
-        public void Process(ref short[] left, ref short[] right)
+        public DSP GetDSP()
         {
-            myDSP.Process(ref left, ref right);
-        }
-
-        public void ShowConfigWindow(string title)
-        {
-            myDSP.ShowConfigWindow(title);
+            return myDSP;
         }
 
         private void ChangeDSP(DSPType type)
