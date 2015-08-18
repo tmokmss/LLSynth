@@ -89,7 +89,7 @@ namespace ll_synthesizer
         {
             this.path = path;
             this.samplesPerSecond = 44100;
-            bufSize = WavPlayer.BufSize / 2;
+            bufSize = WavPlayer.BufSize / 8;
             if (path.EndsWith("wav")) {
                 wfr = new WaveReader(path);
             }
@@ -98,18 +98,13 @@ namespace ll_synthesizer
             }
             if (path.EndsWith("sine200.wav"))
             {
-                wfr = new WaveGenerator(200);
+                wfr = new WaveGenerator(200, WaveType.Sine);
             }
             ChangeBufSize(bufSize);
             this.myDSP = new DSPSelector();
             this.length = (int)wfr.Length/4;
             OverlapSize = (int)(bufSize / FHTransform.kOverlapCount);
             FetchBuffer(0);
-        }
-
-        public bool isMP3()
-        {
-            return path.EndsWith("mp3");
         }
 
         public void ChangeBufSize(int bufSize)
@@ -315,6 +310,10 @@ namespace ll_synthesizer
             return Convert.ToInt16(value);
         }
 
+        public ItemSet Parent { set; get; }
+        delegate void plotDelegate(short[] left, short[] right);
+        int plotcount = 0;
+
         private void FetchBuffer(int idxWithoutOffset)
         {
             try
@@ -338,7 +337,16 @@ namespace ll_synthesizer
                     leftBuf[i] = BitConverter.ToInt16(buffer, i * 4);
                     rightBuf[i] = BitConverter.ToInt16(buffer, i * 4 + 2);
                 }
-                myDSP.Process(ref leftBuf, ref rightBuf);
+                var dsp = myDSP.GetDSP();
+                dsp.Position = startPosition;
+                dsp.Process(ref leftBuf, ref rightBuf);
+
+                if (Parent != null && plotcount % 1 == 0)
+                {
+                    Parent.Invoke(new plotDelegate(Parent.AddData), new object[] { leftBuf, rightBuf });
+                }
+                plotcount++;
+
             }
             catch (Exception)
             {
@@ -351,7 +359,7 @@ namespace ll_synthesizer
             // if a value is obtained from the buffer
             int startPosition = (isLeft) ? startPositionL : startPositionR;
             //if (idxWithOffset >= startPosition && idxWithOffset < startPosition + bufSize - overlapSize) return true;
-            if (idxWithOffset >= startPosition && idxWithOffset < startPosition + overlapSize) return true;
+            if (idxWithOffset >= startPosition && idxWithOffset < startPosition + bufSize - overlapSize * (FHTransform.kOverlapCount-1)) return true;
             return false;
         }
 
@@ -421,7 +429,7 @@ namespace ll_synthesizer
 
         public void ShowDSPConfig()
         {
-            myDSP.ShowConfigWindow(GetName());
+            myDSP.GetDSP().ShowConfigWindow(GetName());
         }
     }
 }

@@ -13,4 +13,7 @@
   <PropertyGroup>
     <ReferencePath>C:\Users\tomooka\Documents\csharp\mdl\ll_synthesizer\trunk\ll_synthesizer\bin\Debug\;D:\projects\mdl\ll_synthesizer\trunk\ll_synthesizer\bin\Debug\</ReferencePath>
   </PropertyGroup>
+  <PropertyGroup>
+    <EnableSecurityDebugging>false</EnableSecurityDebugging>
+  </PropertyGroup>
 </Project>

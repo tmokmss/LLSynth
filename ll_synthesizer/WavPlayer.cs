@@ -27,7 +27,8 @@ namespace ll_synthesizer
         private int m_lastPlayingPosition = 0;
         private int volume = 0;
         private bool repeating = false;
-
+        private int playbackSampleRatio = 44100;
+            
         public bool Repeat
         {
             set { repeating = value; }
@@ -58,10 +59,10 @@ namespace ll_synthesizer
             m_StreamBufferSize = settings.StreamBufferSize;
         }
 
-        void setBufferAndWave()
+        private void SetBufferAndWave(int samplesPerSecond)
         {
             waveFormat = new Microsoft.DirectX.DirectSound.WaveFormat();
-            waveFormat.SamplesPerSecond = (int)(44100*1.0);
+            waveFormat.SamplesPerSecond = samplesPerSecond;
             waveFormat.Channels = 2;
             waveFormat.FormatTag = WaveFormatTag.Pcm;
             waveFormat.BitsPerSample = 16;
@@ -77,6 +78,30 @@ namespace ll_synthesizer
             bufferDesc.ControlPositionNotify = true;
             bufferDesc.GlobalFocus = true;
             bufferDesc.BufferBytes = m_StreamBufferSize;
+        }
+
+        private void SetBufferAndWave()
+        {
+            playbackSampleRatio = stream.GetWaveFormat().SampleRate;
+            SetBufferAndWave((int)(playbackSampleRatio * 1.0));
+        }
+
+        public void SetPlaybackSpeedRatio(double ratio)
+        {
+            if (buffer != null)
+            {
+                Pause();
+                buffer.Dispose();
+                SetBufferAndWave((int)(playbackSampleRatio * ratio));
+                SetSecondaryBuffer();
+
+                mThread.Abort();
+                mThread = new Thread(new ThreadStart(OutputEventTask));
+                mThread.Name = "DataTransferThread";
+                mThread.Start();
+
+                Resume();
+            }
         }
 
         public void Stop()
@@ -246,6 +271,31 @@ namespace ll_synthesizer
                 if (wfw == null) InitializeRecorder();
                 wfw.WriteSamples(m_transferBuffer, 0, m_transferBuffer.Length);
             }
+            else
+            {
+                if (wfw != null)
+                {
+                    wfw.Close();
+                    wfw.Dispose();
+                    wfw = null;
+                }
+            }
+        }
+
+        private void SetSecondaryBuffer()
+        {
+            buffer = new SecondaryBuffer(bufferDesc, device);
+
+            are = new AutoResetEvent(false);
+
+            var notify = new Notify(buffer);
+            var psa = new BufferPositionNotify[m_numberOfSectorsInBuffer];
+            for (int i = 0; i < m_numberOfSectorsInBuffer; i++)
+            {
+                psa[i].Offset = m_SectorSize * (i + 1) - 1;
+                psa[i].EventNotifyHandle = are.SafeWaitHandle.DangerousGetHandle();
+            }
+            notify.SetNotificationPositions(psa, m_numberOfSectorsInBuffer);
         }
 
         public void Play(Streamable stream)
@@ -264,24 +314,15 @@ namespace ll_synthesizer
             position = 0;
             progressSoFar = 0;
 
-            setBufferAndWave();
+            SetBufferAndWave();
             SetInterval();
-            buffer = new SecondaryBuffer(bufferDesc, device);
+            SetSecondaryBuffer();
+
+            isDoing = true;
 
             mThread = new Thread(new ThreadStart(OutputEventTask));
             mThread.Name = "DataTransferThread";
             //mThread.IsBackground = true;
-            are = new AutoResetEvent(false);
-
-            var notify = new Notify(buffer);
-            var psa = new BufferPositionNotify[m_numberOfSectorsInBuffer];
-            for (int i=0; i< m_numberOfSectorsInBuffer; i++) {
-                psa[i].Offset = m_SectorSize*(i+1)-1;
-                psa[i].EventNotifyHandle = are.SafeWaitHandle.DangerousGetHandle();
-            }
-            notify.SetNotificationPositions(psa, m_numberOfSectorsInBuffer);
-
-            isDoing = true;
             mThread.Start();
 
             isPlaying = true;

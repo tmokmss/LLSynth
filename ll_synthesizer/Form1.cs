@@ -260,7 +260,8 @@ namespace ll_synthesizer
 
         private void fadeTimeBar_MouseCaptureChanged(object sender, EventArgs e)
         {
-            ItemSet.FadingTime = fadeTimeBar.Value;
+            wp.SetPlaybackSpeedRatio((fadeTimeBar.Value - fadeTimeBar.Minimum) * 2.0 / (fadeTimeBar.Maximum - fadeTimeBar.Minimum));
+            //ItemSet.FadingTime = fadeTimeBar.Value;
         }
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)

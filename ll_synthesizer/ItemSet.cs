@@ -92,6 +92,8 @@ namespace ll_synthesizer
             this.wd = wd;
             //if (wd.isMP3()) this.PlotEnable = true;
             SetInit();
+
+            wd.Parent = this;
         }
 
         public ItemSet(string path): this(new WavData(path))
@@ -132,8 +134,8 @@ namespace ll_synthesizer
             playButton.Click += new System.EventHandler(this.playButton_Clicked);
             dspConfigButton.Click += new System.EventHandler(this.dspConfigButton_Clicked);
             offsetUpDown.ValueChanged += new System.EventHandler(this.OffsetChanged);
-            chart.MouseWheel += new System.Windows.Forms.MouseEventHandler(this.WheelRotated);
-            chart.MouseDown += new System.Windows.Forms.MouseEventHandler(this.ChartClicked);
+            //chart.MouseWheel += new System.Windows.Forms.MouseEventHandler(this.WheelRotated);
+            //chart.MouseDown += new System.Windows.Forms.MouseEventHandler(this.ChartClicked);
             icon.Paint += new System.Windows.Forms.PaintEventHandler(this.PaintMask);
             icon.MouseDown += new System.Windows.Forms.MouseEventHandler(this.iconClicked);
             mute.CheckedChanged += new System.EventHandler(this.muteChanged);
@@ -150,9 +152,9 @@ namespace ll_synthesizer
 
         public void PlotLR()
         {
-            chart.Series.Clear();
-            if (plotEnable)
-                AddLR(wd, plotNum, center - span / 2, center + span / 2);
+            //chart.Series.Clear();
+            //if (plotEnable)
+            //    AddLR(wd, plotNum, center - span / 2, center + span / 2);
         }
 
         public void SetChartRegion(double span, double center)

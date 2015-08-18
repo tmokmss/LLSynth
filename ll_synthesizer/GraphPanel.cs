@@ -31,7 +31,7 @@ namespace ll_synthesizer
         protected Color mainPanelBack = Color.AliceBlue;
         private static Bitmap muteImage = new Bitmap("..\\ico\\mute.png");
         private static Bitmap gearImage = new Bitmap("..\\ico\\gear.png");
-        protected bool plotEnable = false;
+        protected bool plotEnable = true;
         protected int factorDefault = 5;
         protected string title;
         protected string myName;
@@ -83,8 +83,8 @@ namespace ll_synthesizer
             chart.ChartAreas[0].AxisY.LabelStyle.Enabled = false;
             chart.ChartAreas[0].AxisX.LabelStyle.Format = "{0:0.00}";
             chart.BackColor = chartInactive;
-            chart.Enter += new System.EventHandler(this.chart_Enter);
-            chart.Leave += new System.EventHandler(this.chart_Leave);
+            //chart.Enter += new System.EventHandler(this.chart_Enter);
+            //chart.Leave += new System.EventHandler(this.chart_Leave);
 
             // button
             playButton.Name = "playButton" + myNum;
@@ -304,7 +304,34 @@ namespace ll_synthesizer
                 chart.Series["R"].Points.AddXY(x, right[i]);
             }
             setXlim(startTime, endTime);
-            setYlim(-Math.Pow(2, 15)+1, Math.Pow(2,15) - 1);
+            setYlim(Int16.MinValue+1, Int16.MaxValue - 1);
+        }
+
+
+        public void AddData(short[] lefto, short[] righto)
+        {
+            var length = lefto.Length;
+            short[] left = new short[length];
+            short[] right = new short[length];
+            Array.Copy(lefto, left, length);
+            Array.Copy(righto, right, length);
+            var cropRatio = length / 300;
+
+            chart.Series.Clear();
+            chart.Series.Add("L");
+            chart.Series["L"].ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            for (int i = 0; i < left.Length; i += cropRatio)
+            {
+                chart.Series["L"].Points.AddXY(i, left[i]);
+            }
+            chart.Series.Add("R");
+            chart.Series["R"].ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            for (int i = 0; i < right.Length; i += cropRatio)
+            {
+                chart.Series["R"].Points.AddXY(i, right[i]);
+            }
+            setXlim(0, right.Length);
+            setYlim(Int16.MinValue + 1, Int16.MaxValue - 1);
         }
 
         public void setXlim(double min, double max)
