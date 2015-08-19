@@ -9,8 +9,8 @@ namespace ll_synthesizer.DSPs.Types
     class PitchShiftTDSOLA : DSP
     {
         private int kOverlapCount = FHTransform.kOverlapCount;
-        private Overlap overlapr = null;
-        private Overlap overlapl = null;
+        private Overlap overlap = null;
+        //private Overlap overlapl = null;
         private double[] window = null;
         private const int region = (int)(44100 * 20e-3);
 
@@ -28,16 +28,157 @@ namespace ll_synthesizer.DSPs.Types
             get { return DSPType.PitchShiftTDSOLA; }
         }
 
+        PitchShiftTDSOLA dspr, dspl;
+
         public override void Process(ref short[] left, ref short[] right)
         {
-            PitchShiftTD(left, out left, ref overlapl);
-            PitchShiftTD(right, out right, ref overlapr);
+            if (dspr == null)
+            {
+                dspr = new PitchShiftTDSOLA();
+                dspl = new PitchShiftTDSOLA();
+            }
+            dspl.Position = dspr.Position = Position;
+            dspr.PitchShiftRate = dspl.PitchShiftRate = PitchShiftRate;
+            dspl.FormantShiftRate = dspr.FormantShiftRate = FormantShiftRate;
+
+            dspl.PitchShiftTD(left, out left);
+            dspr.PitchShiftTD(right, out right);
+            //PitchShiftTD(left, out left, ref overlapl);
+            //PitchShiftTD(right, out right, ref overlapr);
         }
 
-        public void PitchShiftTD(short[] datain, out short[] dataout, ref Overlap overlap)
+        private void PitchShiftTDv(short[] datain, out short[] dataout, ref Overlap overlap)
         {
             var length = datain.Length;
-            var startIdx = SearchHeadZero(datain);
+            var fratio = FormantShiftRate;
+            var newlen = (int)Math.Round(length / fratio);
+            var temp = new double[newlen];
+            for (var i = 0; i < Math.Min(newlen, length); i++)
+            {
+                temp[i] = datain[i];
+            }
+
+            var tempout = Stretch(temp, fratio, length);
+
+            if (overlap == null) overlap = new Overlap(kOverlapCount, length / kOverlapCount);
+            SetPrePostWindow(length);
+            for (var i = 0; i < length; i++)
+            {
+                tempout[i] *= window[i];
+            }
+            overlap.AddOverlap(ref tempout);
+
+            dataout = ToShort(tempout, length);
+
+        }
+
+        int bufferSpan = 0;
+        int beforeIdx = 0;
+        double[] beforeBuf = new double[0];
+        private void PitchShiftTD(short[] datain, out short[] dataout)
+        {
+            var length = datain.Length;
+            var startIdx = SearchHeadZeroCross(datain);
+
+            var frame = new short[region];
+            Array.Copy(datain, startIdx, frame, 0, region);
+
+            var baseCycle = CalcBaseCycle(frame);
+
+            if (baseCycle < 5 || baseCycle > region * 0.8)
+            {
+                dataout = datain;
+                return;
+            }
+
+            var pratio = PitchShiftRate;
+            var fratio = FormantShiftRate;
+            var newlen = (int)Math.Round(length / fratio);
+            var currentNum = (double)(length - startIdx) / baseCycle;
+            var targetNum = currentNum * pratio;
+            var overlapNum = (int)((targetNum * baseCycle - newlen) / (targetNum - 1));
+            var temp = new double[newlen];
+
+            if (baseCycle == 0)
+                currentNum = targetNum = overlapNum = 0;
+
+            //Console.WriteLine(44100.0 / baseCycle);
+
+            int j = 0, count = 0, idx = startIdx;
+            //var incrementNum = (int)((length - startIdx) * (pratio - 1) / baseCycle);
+            var incrementNum = targetNum - currentNum;
+            var incrementFreq = (incrementNum == 0) ? 0 : (int)Math.Round(targetNum / (incrementNum));
+            var isIncrement = incrementFreq >= 0;
+            incrementFreq = Math.Abs(incrementFreq);
+
+            Array.Copy(beforeBuf, temp, beforeBuf.Length);
+            for (var i = beforeBuf.Length; i < newlen; i++)
+            {
+                if (idx >= length) break;
+                temp[i] = datain[idx];// * window[j];
+                j++;
+                idx++;
+                if (j >= baseCycle -10 && j>=3)
+                {
+                    // search for zero-cross point
+                    if (datain[idx - 1] * datain[idx - 2] > 0) continue;
+                    count++;
+                    //baseCycle = j;
+                    if (incrementFreq != 0 && count % incrementFreq == 0)
+                    {
+                        idx -= j;
+                    }
+                    j = 0;
+                    if (overlapNum > 0)
+                    {
+                        for (var l = overlapNum - 1; l >= 0 && idx < length; l--)
+                        {
+                            var fac = Math.Pow(((double)l / overlapNum),3);
+                            temp[i - l] = (temp[i - l] * fac + datain[idx] * (1 - fac));
+                            j++;
+                            idx++;
+                        }
+                        //i += overlapNum;
+                    }
+                    else
+                    {
+                        i -= overlapNum;
+                    }
+                }
+                //if (i%500 == 0)
+                //    Console.WriteLine(String.Format("{0}:{1}", i, idx));
+            }
+
+            var tempout = Stretch(temp, fratio, length);
+
+            if (overlap == null) overlap = new Overlap(kOverlapCount, length / kOverlapCount);
+            SetPrePostWindow(length);
+            for (var i = 0; i < length; i++)
+            {
+                //tempout[i] *= window[i];
+            }
+            //overlap.AddOverlap(ref tempout);
+
+            dataout = ToShort(tempout, length);
+
+            var bufferSpanS = (int)(bufferSpan / fratio);
+            if (bufferSpanS < temp.Length-region && bufferSpanS >= 0)
+            {
+                beforeBuf = new double[region];
+                Array.Copy(temp, bufferSpanS, beforeBuf, 0, region);
+                var buflen = SearchHeadZeroCross(beforeBuf);
+                beforeBuf = new double[buflen];
+                Array.Copy(temp, bufferSpanS, beforeBuf, 0, buflen);
+            }
+
+            bufferSpan = this.Position - beforeIdx;
+            beforeIdx = this.Position;
+        }
+
+        private void PitchShiftTDold(short[] datain, out short[] dataout, ref Overlap overlap)
+        {
+            var length = datain.Length;
+            var startIdx = SearchHeadZeroCross(datain);
 
             var frame = new short[region];
             Array.Copy(datain, startIdx, frame, 0, region);
@@ -61,7 +202,7 @@ namespace ll_synthesizer.DSPs.Types
                 temp[i] = datain[idx];// * window[j];
                 j++;
                 idx++;
-                if (j >= baseCycle && j>=3)
+                if (j >= baseCycle && j >= 3)
                 {
                     // search for zero-cross point
                     if (datain[idx - 1] * datain[idx - 2] > 0) continue;
@@ -90,12 +231,26 @@ namespace ll_synthesizer.DSPs.Types
             dataout = ToShort(tempout, length);
         }
 
-        private static int SearchHeadZero(short[] datain)
+        private static int SearchHeadZeroCross(short[] datain)
         {
             int idx = 0;
             for (var i = 0; i < datain.Length - 1; i++)
             {
-                if (datain[i] * datain[i + 1] <= 0)
+                if (datain[i] * datain[i + 1] <= 0 && datain[i] < 0)
+                {
+                    idx = i;
+                    break;
+                }
+            }
+            return idx;
+        }
+
+        private static int SearchHeadZeroCross(double[] datain)
+        {
+            int idx = 0;
+            for (var i = 0; i < datain.Length - 1; i++)
+            {
+                if (datain[i] * datain[i + 1] <= 0 && datain[i] < 0)
                 {
                     idx = i;
                     break;
@@ -124,7 +279,7 @@ namespace ll_synthesizer.DSPs.Types
             {
                 var diff = autocorr[i] - autocorr[i + 1];
                 var diff2 = autocorr[i - 1] - autocorr[i];
-                if (diff * diff2 <= 0)
+                if (autocorr[i] > 0 && diff * diff2 <= 0)
                 {
                     peaks[peakidx++] = i;
                 }
@@ -133,7 +288,8 @@ namespace ll_synthesizer.DSPs.Types
             for (var i = peakidx-1; i>=0; i--)
             {
                 var corr = autocorr[peaks[i]];
-                if (corr >= autocorrMax*0.99)
+                if (corr > 1) corr = 1;
+                if (corr >= autocorrMax*0.98)
                 {
                     autocorrMax = corr;
                     diffSol = peaks[i];

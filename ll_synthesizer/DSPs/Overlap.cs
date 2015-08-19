@@ -22,12 +22,30 @@ namespace ll_synthesizer.DSPs
         public void AddOverlap(ref double[] A)
         {
             if (overlapSize <= 0) return;
+            
+            /*
+            // without windowning, just take average
+            var end = overlapCount * overlapSize - A.Length;
+            for (var i = 0; i < end; i++)
+            {
+                A[i] += overlap[overlapIdx, i];
+                A[i] /= overlapCount;
+                overlap[overlapIdx, i] = 0;
+            }
+            for (var i = end; i < overlapSize; i++)
+            {
+                A[i] += overlap[overlapIdx, i];
+                A[i] /= (overlapCount-1);
+                overlap[overlapIdx, i] = 0;
+            }
+            */
 
             for (var i = 0; i < overlapSize; i++)
             {
                 A[i] += overlap[overlapIdx, i];
                 overlap[overlapIdx, i] = 0;
             }
+                 
             overlapIdx = (overlapIdx + 1) % overlapCount;
 
             for (var i = 0; i < overlapCount - 1; i++)
@@ -35,7 +53,9 @@ namespace ll_synthesizer.DSPs
                 var writeIdx = (overlapIdx + i) % overlapCount;
                 for (var j = 0; j < overlapSize; j++)
                 {
-                    overlap[writeIdx, j] += A[j + (i + 1) * overlapSize];
+                    var index = j + (i + 1) * overlapSize;
+                    if (index >= A.Length) break;
+                    overlap[writeIdx, j] += A[index];
                 }
             }
         }

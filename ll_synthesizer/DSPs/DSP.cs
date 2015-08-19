@@ -16,6 +16,9 @@ namespace ll_synthesizer.DSPs
         abstract public DSPType Type { get; }
         public abstract void Process(ref short[] left, ref short[] right);
 
+        public int Position { set; get; }
+        // must indicates the global position of a processed buffer[0]
+
         public void Dispose()
         {
             if (configWindow != null)
@@ -32,6 +35,7 @@ namespace ll_synthesizer.DSPs
                 configWindow = factory.CreateConfigWindow(this);
             }
             configWindow.Visible = !configWindow.Visible;
+            //configWindow.WindowState = System.Windows.Forms.FormWindowState.Normal;
             configWindow.Text = title;
         }
 
@@ -69,7 +73,8 @@ namespace ll_synthesizer.DSPs
             return (((((c3 * t) + c2) * t) + c1) * t) + c0;
         }
 
-        public void LowPassFiltering(short[] datain, out short[] dataout)
+        /*
+        private static void LowPassFiltering(short[] datain, out short[] dataout)
         {
             int size = datain.Length;
             dataout = new short[size];
@@ -78,6 +83,7 @@ namespace ll_synthesizer.DSPs
                 dataout[i] = Convert.ToInt16(0.9*dataout[i - 1] + 0.1*datain[i]);
             }
         }
+        */
 
         protected static short[] ToShort(double[] array, int size)
         {

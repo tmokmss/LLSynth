@@ -1,12 +1,14 @@
 ﻿using System;
 using ll_synthesizer.DSPs.Types;
 using System.Windows.Forms;
+using System.Drawing;
 
 namespace ll_synthesizer.DSPs.Config
 {
     class ConfigPitchShiftTDSOLA : ConfigWindow
     {
-        TrackBar shiftRateBar = new TrackBar();
+        TrackBar fShiftRateBar = new TrackBar();
+        TrackBar pShiftRateBar = new TrackBar();
         PitchShiftTDSOLA myDSP;
 
         int fac = 100;
@@ -19,21 +21,34 @@ namespace ll_synthesizer.DSPs.Config
 
         private void Initialize()
         {
-            shiftRateBar.Maximum = 2 * fac;
-            shiftRateBar.Minimum = 0;
+            fShiftRateBar.Maximum = 2 * fac;
+            fShiftRateBar.Minimum = 0;
 
-            var nowRate = myDSP.ShiftRate;
-            var nowValue = (int)(nowRate * shiftRateBar.Maximum / 2 + shiftRateBar.Minimum);
-            shiftRateBar.Value = nowValue;
+            var nowRate = myDSP.FormantShiftRate;
+            var nowValue = (int)(nowRate * fShiftRateBar.Maximum / 2 + fShiftRateBar.Minimum);
+            fShiftRateBar.Value = nowValue;
 
-            shiftRateBar.ValueChanged += new System.EventHandler(this.upDownChanged);
-            this.Controls.Add(shiftRateBar);
+            fShiftRateBar.ValueChanged += new System.EventHandler(this.upDownChanged);
+            this.Controls.Add(fShiftRateBar);
+
+
+            pShiftRateBar.Maximum = 2 * fac;
+            pShiftRateBar.Minimum = 0;
+            nowRate = myDSP.PitchShiftRate;
+            nowValue = (int)(nowRate * pShiftRateBar.Maximum / 2 + pShiftRateBar.Minimum);
+            pShiftRateBar.Value = nowValue;
+            pShiftRateBar.Location = new Point(10, 100);
+            pShiftRateBar.ValueChanged += new System.EventHandler(this.upDownChanged);
+            this.Controls.Add(pShiftRateBar);
         }
 
         private void upDownChanged(object sender, EventArgs e)
         {
-            var newRate = (shiftRateBar.Value - shiftRateBar.Minimum) * 2.0 / shiftRateBar.Maximum;
-            myDSP.ShiftRate = newRate;
+            var newRate = (fShiftRateBar.Value - fShiftRateBar.Minimum) * 2.0 / fShiftRateBar.Maximum;
+            myDSP.FormantShiftRate = newRate;
+            Console.WriteLine(newRate);
+            newRate = (pShiftRateBar.Value - pShiftRateBar.Minimum) * 2.0 / pShiftRateBar.Maximum;
+            myDSP.PitchShiftRate = newRate;
             Console.WriteLine(newRate);
         }
     }
