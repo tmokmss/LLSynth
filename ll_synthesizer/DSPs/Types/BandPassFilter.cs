@@ -47,12 +47,10 @@ namespace ll_synthesizer.DSPs.Types
             var length = datain.Length;
             var mBitRev = FHTArrays.GetBitRevTable(length);
             var mPreWindow = FHTArrays.GetPreWindow(length);
-            var mPostWindow = FHTArrays.GetPostWindow(length);
             var temp = new double[length];
             var length2 = length / 2;
             var cutoffDown = (int)((CutoffFrequencyDown / ((double)mSampleRate / length2)) + 0.5);
             var cutoffUp = (int)((CutoffFrequencyUp / ((double)mSampleRate / length2)) + 0.5);
-
             for (var i = 0; i < length; ++i)
             {
                 var j = mBitRev[i];
@@ -60,15 +58,8 @@ namespace ll_synthesizer.DSPs.Types
                 temp[i] = datain[k] * mPreWindow[k];
             }
 
-            fht.ComputeFHT(ref temp, length);
-
-            var re = new double[length2];
-            var im = new double[length2];
-            for (var i = 0; i < length2; i++)
-            {
-                re[i] = temp[i] + temp[length - i - 1];
-                im[i] = temp[i] - temp[length - i - 1];
-            }
+            double[] re, im;
+            fht.ComputeFHT(temp, out re, out im);
 
             for (var i = 0; i < cutoffDown; i++)
             {
@@ -79,13 +70,7 @@ namespace ll_synthesizer.DSPs.Types
                 re[i] = im[i] = 0;
             }
 
-            for (var i = 0; i < length2; i++)
-            {
-                temp[mBitRev[i]] = re[i] + im[i];
-                temp[mBitRev[length - 1 - i]] = re[i] - im[i];
-            }
-
-            ifht.ComputeFHT(ref temp, length, true);
+            ifht.ComputeFHT(re, im, out temp, true);
 
             dataout = ToShort(temp, length);
         }

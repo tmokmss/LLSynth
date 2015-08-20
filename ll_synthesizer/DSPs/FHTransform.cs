@@ -29,7 +29,7 @@ namespace ll_synthesizer.DSPs
             get { return overlapSize; }
         }
 
-        public void ComputeFHT(ref double[] A, int nPoints, bool enableOverlap = false, bool enable = true)
+        public void ComputeFHT(ref double[] A, int nPoints, bool enableOverlap = false)
         {
             kWindowSize = nPoints;
             var mSineTab = FHTArrays.GetHalfSineTable(nPoints);
@@ -137,6 +137,46 @@ namespace ll_synthesizer.DSPs
                 A[i] *= postWindow[i];
             }
             overlap.AddOverlap(ref A);
+        }
+
+        public void ComputeFHT(short[] input, out double[] output, bool overlapEnable)
+        {
+            var length = FHTArrays.CeilingPow2(input.Length);
+            var mBitRev = FHTArrays.GetBitRevTable(length);
+            var mPreWindow = FHTArrays.GetPreWindow(length);
+            output = new double[length];
+
+            for (var i = 0; i < input.Length; ++i)
+            {
+                output[i] = input[mBitRev[i]] * mPreWindow[mBitRev[i]];
+            }
+            ComputeFHT(ref output, length, overlapEnable);
+        }
+
+        public void ComputeFHT(double[] re, double[] im, out double[] output, bool overlapEnable = false)
+        {
+            var length = re.Length * 2;
+            var mBitRev = FHTArrays.GetBitRevTable(length);
+            output = new double[length];
+            for (var i = 0; i < length / 2; i++)
+            {
+                output[mBitRev[i]] = re[i] + im[i];
+                output[mBitRev[length - 1 - i]] = re[i] - im[i];
+            }
+            ComputeFHT(ref output, length, overlapEnable);
+        }
+
+        public void ComputeFHT(double[] input, out double[] re, out double[] im, bool overlapEnable = false)
+        {
+            var length = input.Length;
+            ComputeFHT(ref input, length, overlapEnable);
+            re = new double[length / 2];
+            im = new double[length / 2];
+            for (var i = 0; i < length / 2; i++)
+            {
+                re[i] = input[i] + input[length - i - 1];
+                im[i] = input[i] - input[length - i - 1];
+            }
         }
 
         public double[] test()

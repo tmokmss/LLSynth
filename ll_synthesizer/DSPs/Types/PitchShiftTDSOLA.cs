@@ -38,16 +38,14 @@ namespace ll_synthesizer.DSPs.Types
                 dspl = new PitchShiftTDSOLA();
             }
             dspl.Position = dspr.Position = Position;
-            dspr.PitchShiftRate = dspl.PitchShiftRate = PitchShiftRate;
+            dspl.PitchShiftRate = dspr.PitchShiftRate = PitchShiftRate;
             dspl.FormantShiftRate = dspr.FormantShiftRate = FormantShiftRate;
 
             dspl.PitchShiftTD(left, out left);
             dspr.PitchShiftTD(right, out right);
-            //PitchShiftTD(left, out left, ref overlapl);
-            //PitchShiftTD(right, out right, ref overlapr);
         }
 
-        private void PitchShiftTDv(short[] datain, out short[] dataout, ref Overlap overlap)
+        private void PitchShiftTDv(short[] datain, out short[] dataout)
         {
             var length = datain.Length;
             var fratio = FormantShiftRate;
@@ -175,7 +173,7 @@ namespace ll_synthesizer.DSPs.Types
             beforeIdx = this.Position;
         }
 
-        private void PitchShiftTDold(short[] datain, out short[] dataout, ref Overlap overlap)
+        private void PitchShiftTDold(short[] datain, out short[] dataout)
         {
             var length = datain.Length;
             var startIdx = SearchHeadZeroCross(datain);

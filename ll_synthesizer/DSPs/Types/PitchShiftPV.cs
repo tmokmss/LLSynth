@@ -45,12 +45,9 @@ namespace ll_synthesizer.DSPs.Types
                 dspr = new PitchShiftPV();
                 dspl = new PitchShiftPV();
             }
-            //dspl.Position = dspr.Position = Position;
 
-            dspl.Processb(left, out left);
-            dspr.Processb(right, out right);
-            //Process(left, out left, true);
-            //Process(right, out right, false);
+            dspl.Process(left, out left);
+            dspr.Process(right, out right);
         }
 
         public void Process(short[] datain, out short[] dataout)
@@ -61,13 +58,13 @@ namespace ll_synthesizer.DSPs.Types
             var mPostWindow = FHTArrays.GetPostWindow(length);
             var hopanal = length / kOverlapCount;
             var hopsyn = (int)(hopanal * ShiftRate);
+            var overlapCount = (int)Math.Ceiling((double)length / hopsyn);
             var temp = new double[length];
 
             if (shiftChanged || mLastPhase == null || mLastPhase.Length != length / 2)
             {
                 mLastPhase = new double[length / 2];
                 mSumPhase = new double[length / 2];
-                var overlapCount = (int)Math.Ceiling((double)length / hopsyn);
                 overlap = new Overlap(overlapCount, hopsyn);
                 shiftChanged = false;
             }
@@ -79,48 +76,22 @@ namespace ll_synthesizer.DSPs.Types
                 temp[i] = datain[k] * mPreWindow[k];
             }
 
-            fht.ComputeFHT(ref temp, length);
-
-            //var newlen = FHTArrays.CeilingPow2((int)(length * shiftRate));
-            var newlen = length;
-            var temp_shift = new double[newlen];
-            mBitRev = FHTArrays.GetBitRevTable(newlen);
+            double[] re, im;
+            fht.ComputeFHT(temp, out re, out im);
+            var temp_shift = new double[length];
             
-            var re = new double[length / 2];
-            var im = new double[length / 2];
-            for (var i = 0; i < length / 2; i++)
-            {
-                re[i] = temp[i] + temp[length - i - 1];
-                im[i] = temp[i] - temp[length - i - 1];
-            }
-           
-            //var reshift = Stretch(re, ShiftRate, newlen / 2);
-            //var imshift = Stretch(im, ShiftRate, newlen / 2);
-            
-            //AnalysisAndSynthesis(ref re, ref im);
-            var reshift = re;
-            var imshift = im;
+            AnalysisAndSynthesis(ref re, ref im);
 
-            for (var i = 0; i < newlen / 2; i++)
-            {
-                temp_shift[mBitRev[i]] = reshift[i] + imshift[i];
-                temp_shift[mBitRev[newlen - 1 - i]] = reshift[i] - imshift[i];
-            }
-
-            ifht.ComputeFHT(ref temp_shift, newlen, false);
+            ifht.ComputeFHT(re, im, out temp_shift, false);
             temp = temp_shift;
-            for (var i = 0; i < length; i++)
-            {
-                temp_shift[i] = datain[i];
-            }
-
-            //dataout = ToShort(temp, length);
-            //return;
 
             var window = FHTArrays.GetPostWindow(length);
-            for (var i = 0; i < length; i++)
+            if (overlapCount >= kOverlapCount)
             {
-                temp_shift[i] *= window[i];
+                for (var i = 0; i < length; i++)
+                {
+                    temp_shift[i] *= window[i] * shiftRate / 2;
+                }
             }
             overlap.AddOverlap(ref temp_shift);
             temp = new double[hopsyn];
@@ -136,11 +107,9 @@ namespace ll_synthesizer.DSPs.Types
             var length = datain.Length;
             var hopanal = length / kOverlapCount;
             var hopsyn = (int)(hopanal * ShiftRate);
-            var temp = new double[length];
-
+            var overlapCount = (int)Math.Ceiling((double)length / hopsyn);
             if (shiftChanged || overlap == null)
             {
-                var overlapCount = (int)Math.Ceiling((double)length / hopsyn);
                 overlap = new Overlap(overlapCount, hopsyn);
                 shiftChanged = false;
             }
@@ -152,12 +121,15 @@ namespace ll_synthesizer.DSPs.Types
             }
 
             var window = FHTArrays.GetPostWindow(length);
-            for (var i = 0; i < length; i++)
+            if (overlapCount >= kOverlapCount)
             {
-                temp_shift[i] *= window[i] / 2 * ShiftRate;
+                for (var i = 0; i < length; i++)
+                {
+                    temp_shift[i] *= window[i] / 2 * ShiftRate;
+                }
             }
             overlap.AddOverlap(ref temp_shift);
-            temp = new double[hopsyn];
+            var temp = new double[hopsyn];
             Array.Copy(temp_shift, temp, hopsyn);
             temp = Stretch(temp, 1 / ShiftRate, length);
 
@@ -166,7 +138,6 @@ namespace ll_synthesizer.DSPs.Types
 
         private void AnalysisAndSynthesisa(ref double[] re, ref double[] im)
         {
-
             var length = re.Length;
             var osamp = FHTransform.kOverlapCount;
             var hopanal = length / kOverlapCount;
@@ -194,18 +165,6 @@ namespace ll_synthesizer.DSPs.Types
                 anaMagn[i] = magn;
                 anaFreq[i] = omegatrue / (2 * Math.PI);
             }
-            //synMagn = Stretch(anaMagn, shiftRate, length);
-            //synFreq = Stretch(anaFreq, shiftRate, length);
-            //for (var i = 0; i < length; i++) synFreq[i] *= shiftRate;
-            /*
-            for (var i = 0; i < length; i++)
-            {
-                var index = (int)(i * shiftRate);
-                if (index >= length) break;
-                synMagn[index] += anaMagn[i];
-                synFreq[index] = anaFreq[i] * shiftRate;
-            }
-            */
             synMagn = anaMagn;
             synFreq = anaFreq;
 
@@ -249,7 +208,7 @@ namespace ll_synthesizer.DSPs.Types
             //synMagn = Stretch(anaMagn, shiftRate, length);
             //synFreq = Stretch(anaFreq, shiftRate, length);
             //for (var i = 0; i < length; i++) synFreq[i] *= shiftRate;
-            
+            /*
             for (var i = 0; i < length; i++)
             {
                 var index = (int)(i * shiftRate);
@@ -257,6 +216,9 @@ namespace ll_synthesizer.DSPs.Types
                 synMagn[index] += anaMagn[i];
                 synFreq[index] = anaFreq[i] * shiftRate;
             }
+            */
+            synMagn = anaMagn;
+            synFreq = anaFreq;
             
             for (var i = 0; i < length; i++)
             {
