@@ -49,6 +49,7 @@
             this.openFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.flowChartPanel = new System.Windows.Forms.FlowLayoutPanel();
             this.baseTablePanel = new System.Windows.Forms.TableLayoutPanel();
+            this.addFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.chartPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.fadeTimeBar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).BeginInit();
@@ -192,7 +193,8 @@
             // 
             this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.openToolStripMenuItem,
-            this.openFileToolStripMenuItem});
+            this.openFileToolStripMenuItem,
+            this.addFileToolStripMenuItem});
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
             resources.ApplyResources(this.fileToolStripMenuItem, "fileToolStripMenuItem");
             // 
@@ -225,6 +227,12 @@
             this.baseTablePanel.Controls.Add(this.chartPanel, 0, 1);
             this.baseTablePanel.Controls.Add(this.flowChartPanel, 0, 0);
             this.baseTablePanel.Name = "baseTablePanel";
+            // 
+            // addFileToolStripMenuItem
+            // 
+            this.addFileToolStripMenuItem.Name = "addFileToolStripMenuItem";
+            resources.ApplyResources(this.addFileToolStripMenuItem, "addFileToolStripMenuItem");
+            this.addFileToolStripMenuItem.Click += new System.EventHandler(this.addFileToolStripMenuItem_Click);
             // 
             // Form1
             // 
@@ -274,6 +282,7 @@
         private System.Windows.Forms.TableLayoutPanel baseTablePanel;
         private System.Windows.Forms.CheckBox saveCheck;
         private System.Windows.Forms.ToolStripMenuItem openFileToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem addFileToolStripMenuItem;
     }
 }
 

@@ -41,8 +41,8 @@ namespace ll_synthesizer
             set { if (!value) myDSP.CurrentType = DSPType.Default;
                 else
                     //myDSP.CurrentType = DSPType.BandPassFilter;
-                    //myDSP.CurrentType = DSPType.PitchShiftPV;
-                    myDSP.CurrentType = DSPType.PitchShiftTDSOLA;
+                    myDSP.CurrentType = DSPType.PitchShiftPV;
+                    //myDSP.CurrentType = DSPType.PitchShiftTDSOLA;
                     //myDSP.CurrentType = DSPType.HighPassFilter;
                     //myDSP.CurrentType = DSPType.CenterCut;
             }
@@ -89,7 +89,7 @@ namespace ll_synthesizer
         {
             this.path = path;
             this.samplesPerSecond = 44100;
-            bufSize = WavPlayer.BufSize / 8;
+            bufSize = WavPlayer.BufSize / 2;
             if (path.EndsWith("wav")) {
                 wfr = new WaveReader(path);
             }
@@ -98,12 +98,12 @@ namespace ll_synthesizer
             }
             if (path.EndsWith("sine200.wav"))
             {
-                wfr = new WaveGenerator(200, WaveType.Sine);
+                wfr = new WaveGenerator(200, WaveType.Square);
             }
             ChangeBufSize(bufSize);
             this.myDSP = new DSPSelector();
             this.length = (int)wfr.Length/4;
-            OverlapSize = (int)(bufSize / FHTransform.kOverlapCount);
+            OverlapSize =  (int)(bufSize / FHTransform.kOverlapCount);
             FetchBuffer(0);
         }
 
@@ -374,8 +374,8 @@ namespace ll_synthesizer
             right = new short[size];
             for (int i = 0; i < itr; i++)
             {
-                left[i] = GetLeft(start + i);
                 right[i] = GetRight(start + i);
+                left[i] = GetLeft(start + i);
             }
         }
             

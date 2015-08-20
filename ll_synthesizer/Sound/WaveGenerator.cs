@@ -11,6 +11,8 @@ namespace ll_synthesizer.Sound
         private const int SAMPLERATE = 44100;
         private const int CHANNEL = 2;
         private const int LENGTH = SAMPLERATE * 3600;
+        private int frequency = 100;
+        private double[] sineUnit;
 
         public WaveGenerator(int frequency)
             : this(frequency, WaveType.Sine)
@@ -32,7 +34,20 @@ namespace ll_synthesizer.Sound
             Type = type;
         }
 
-        public int Frequency { set; get; }
+        public int Frequency {
+            set
+            {
+                frequency = value;
+                var oneCycle = SAMPLERATE / Frequency;
+                sineUnit = new double[oneCycle];
+                var omega = 2 * Math.PI / oneCycle;
+                for (var i = 0; i < oneCycle; i++)
+                {
+                    sineUnit[i] = Math.Sin(omega * i);
+                }
+            }
+            get { return frequency; }
+        }
 
         public WaveType Type { set; get; }
 
@@ -79,17 +94,17 @@ namespace ll_synthesizer.Sound
             }
             right = left;
 
-            var sine = new byte[size];
+            var wave = new byte[size];
             for (var i = 0; i < chanlen; i++)
             {
                 var leftShort = (short)(left[i] * Int16.MaxValue);
                 var rightShort = (short)(right[i] * Int16.MaxValue);
                 var leftByte = BitConverter.GetBytes(leftShort);
                 var rightByte = BitConverter.GetBytes(rightShort);
-                Array.Copy(leftByte, 0, sine, i * uintlen * CHANNEL, uintlen);
-                Array.Copy(rightByte, 0, sine, i * uintlen * CHANNEL + uintlen, uintlen);
+                Array.Copy(leftByte, 0, wave, i * uintlen * CHANNEL, uintlen);
+                Array.Copy(rightByte, 0, wave, i * uintlen * CHANNEL + uintlen, uintlen);
             }
-            return sine;
+            return wave;
         }
 
         private double[] GenerateSineWave(int startTime, int size)
@@ -101,6 +116,8 @@ namespace ll_synthesizer.Sound
             {
                 var omegat = omega * (i + startTime);
                 sine[i] = Math.Sin(omegat);
+                var tn = (i + startTime) % oneCycle;
+                //sine[i] = sineUnit[tn];
             }
             return sine;
         }

@@ -92,6 +92,7 @@ namespace ll_synthesizer
             {
                 Pause();
                 buffer.Dispose();
+                if (ratio < 1e-8) ratio = 1;
                 SetBufferAndWave((int)(playbackSampleRatio * ratio));
                 SetSecondaryBuffer();
 
@@ -106,9 +107,11 @@ namespace ll_synthesizer
 
         public void Stop()
         {
-            isDoing = false;
-            Array.Clear(m_transferBuffer, 0, m_transferBuffer.Length);
-            stream = null;
+            if (mThread != null)
+            {
+                mThread.Abort();
+                mThread = null;
+            }
             if (wfw != null)
             {
                 wfw.Close();
@@ -120,11 +123,9 @@ namespace ll_synthesizer
                 buffer.Dispose();
                 buffer = null;
             }
-            if (mThread != null)
-            {
-                mThread.Abort();
-                mThread = null;
-            }
+            isDoing = false;
+            Array.Clear(m_transferBuffer, 0, m_transferBuffer.Length);
+            stream = null;
         }
 
         public void Pause()
@@ -360,9 +361,9 @@ namespace ll_synthesizer
             var newPos = (num * m_SectorSize) % m_StreamBufferSize;
             if (newPos > m_secondaryBufferWritePosition)
             {
-                //Console.Write(newPos);Console.Write(" ; ");Console.WriteLine(m_secondaryBufferWritePosition);
-                //m_secondaryBufferWritePosition = newPos;
-                //Console.WriteLine("There were some lag.");
+                Console.Write(newPos);Console.Write(" ; ");Console.WriteLine(m_secondaryBufferWritePosition);
+                m_secondaryBufferWritePosition = newPos;
+                Console.WriteLine("There were some lag.");
             }
             if (preReadPos > readPos)
                 readNum++;

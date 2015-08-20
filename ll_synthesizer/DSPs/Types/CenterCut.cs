@@ -91,8 +91,8 @@ namespace ll_synthesizer.DSPs.Types
 
             leftout = tempC;
             rightout = tempC;
-            //leftout = tempLeft;
-            //rightout = tempRight;
+            leftout = tempLeft;
+            rightout = tempRight;
         }
     }
 }

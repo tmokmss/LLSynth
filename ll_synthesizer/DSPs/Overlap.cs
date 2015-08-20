@@ -39,7 +39,7 @@ namespace ll_synthesizer.DSPs
                 overlap[overlapIdx, i] = 0;
             }
             */
-
+            
             for (var i = 0; i < overlapSize; i++)
             {
                 A[i] += overlap[overlapIdx, i];

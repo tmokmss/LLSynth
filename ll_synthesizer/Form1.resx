@@ -143,7 +143,7 @@
 </value>
   </data>
   <data name="saveCheck.Location" type="System.Drawing.Point, System.Drawing">
-    <value>101, 90</value>
+    <value>101, 98</value>
   </data>
   <data name="saveCheck.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>0, 3, 0, 0</value>
@@ -167,7 +167,7 @@
     <value>0</value>
   </data>
   <data name="fadeTimeBar.Location" type="System.Drawing.Point, System.Drawing">
-    <value>200, 135</value>
+    <value>200, 146</value>
   </data>
   <data name="fadeTimeBar.Size" type="System.Drawing.Size, System.Drawing">
     <value>104, 45</value>
@@ -188,7 +188,7 @@
     <value>1</value>
   </data>
   <data name="trackBar1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>200, 90</value>
+    <value>200, 98</value>
   </data>
   <data name="trackBar1.Size" type="System.Drawing.Size, System.Drawing">
     <value>104, 45</value>
@@ -212,7 +212,7 @@
     <value>101, 3</value>
   </data>
   <data name="lrButton.Size" type="System.Drawing.Size, System.Drawing">
-    <value>75, 23</value>
+    <value>75, 25</value>
   </data>
   <data name="lrButton.TabIndex" type="System.Int32, mscorlib">
     <value>7</value>
@@ -236,10 +236,10 @@
     <value>True</value>
   </data>
   <data name="vocalRstr.Location" type="System.Drawing.Point, System.Drawing">
-    <value>198, 66</value>
+    <value>198, 72</value>
   </data>
   <data name="vocalRstr.Size" type="System.Drawing.Size, System.Drawing">
-    <value>0, 12</value>
+    <value>0, 13</value>
   </data>
   <data name="vocalRstr.TabIndex" type="System.Int32, mscorlib">
     <value>16</value>
@@ -260,10 +260,10 @@
     <value>True</value>
   </data>
   <data name="vocalLstr.Location" type="System.Drawing.Point, System.Drawing">
-    <value>198, 37</value>
+    <value>198, 40</value>
   </data>
   <data name="vocalLstr.Size" type="System.Drawing.Size, System.Drawing">
-    <value>0, 12</value>
+    <value>0, 13</value>
   </data>
   <data name="vocalLstr.TabIndex" type="System.Int32, mscorlib">
     <value>15</value>
@@ -281,10 +281,10 @@
     <value>5</value>
   </data>
   <data name="pauseButton.Location" type="System.Drawing.Point, System.Drawing">
-    <value>101, 61</value>
+    <value>101, 66</value>
   </data>
   <data name="pauseButton.Size" type="System.Drawing.Size, System.Drawing">
-    <value>75, 23</value>
+    <value>75, 25</value>
   </data>
   <data name="pauseButton.TabIndex" type="System.Int32, mscorlib">
     <value>13</value>
@@ -305,10 +305,10 @@
     <value>6</value>
   </data>
   <data name="refreshButton.Location" type="System.Drawing.Point, System.Drawing">
-    <value>101, 32</value>
+    <value>101, 35</value>
   </data>
   <data name="refreshButton.Size" type="System.Drawing.Size, System.Drawing">
-    <value>75, 23</value>
+    <value>75, 25</value>
   </data>
   <data name="refreshButton.TabIndex" type="System.Int32, mscorlib">
     <value>12</value>
@@ -332,10 +332,10 @@
     <value>True</value>
   </data>
   <data name="autoCheck.Location" type="System.Drawing.Point, System.Drawing">
-    <value>20, 90</value>
+    <value>20, 98</value>
   </data>
   <data name="autoCheck.Size" type="System.Drawing.Size, System.Drawing">
-    <value>67, 16</value>
+    <value>64, 17</value>
   </data>
   <data name="autoCheck.TabIndex" type="System.Int32, mscorlib">
     <value>11</value>
@@ -359,7 +359,7 @@
     <value>200, 3</value>
   </data>
   <data name="offsetUpDown.Size" type="System.Drawing.Size, System.Drawing">
-    <value>120, 19</value>
+    <value>120, 20</value>
   </data>
   <data name="offsetUpDown.TabIndex" type="System.Int32, mscorlib">
     <value>10</value>
@@ -380,10 +380,10 @@
     <value>9</value>
   </data>
   <data name="button3.Location" type="System.Drawing.Point, System.Drawing">
-    <value>20, 61</value>
+    <value>20, 66</value>
   </data>
   <data name="button3.Size" type="System.Drawing.Size, System.Drawing">
-    <value>75, 23</value>
+    <value>75, 25</value>
   </data>
   <data name="button3.TabIndex" type="System.Int32, mscorlib">
     <value>9</value>
@@ -404,10 +404,10 @@
     <value>10</value>
   </data>
   <data name="button4.Location" type="System.Drawing.Point, System.Drawing">
-    <value>20, 32</value>
+    <value>20, 35</value>
   </data>
   <data name="button4.Size" type="System.Drawing.Size, System.Drawing">
-    <value>75, 23</value>
+    <value>75, 25</value>
   </data>
   <data name="button4.TabIndex" type="System.Int32, mscorlib">
     <value>6</value>
@@ -431,7 +431,7 @@
     <value>20, 3</value>
   </data>
   <data name="button1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>75, 23</value>
+    <value>75, 25</value>
   </data>
   <data name="button1.TabIndex" type="System.Int32, mscorlib">
     <value>2</value>
@@ -452,10 +452,10 @@
     <value>12</value>
   </data>
   <data name="chartPanel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 461</value>
+    <value>3, 500</value>
   </data>
   <data name="chartPanel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>493, 181</value>
+    <value>493, 196</value>
   </data>
   <data name="chartPanel.TabIndex" type="System.Int32, mscorlib">
     <value>2</value>
@@ -486,6 +486,12 @@
   </data>
   <data name="openFileToolStripMenuItem.Text" xml:space="preserve">
     <value>Open File</value>
+  </data>
+  <data name="addFileToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>164, 22</value>
+  </data>
+  <data name="addFileToolStripMenuItem.Text" xml:space="preserve">
+    <value>Add File</value>
   </data>
   <data name="fileToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>40, 22</value>
@@ -530,13 +536,13 @@
     <value>2</value>
   </data>
   <data name="baseTablePanel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>10, 32</value>
+    <value>10, 35</value>
   </data>
   <data name="baseTablePanel.RowCount" type="System.Int32, mscorlib">
     <value>2</value>
   </data>
   <data name="baseTablePanel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>999, 645</value>
+    <value>999, 699</value>
   </data>
   <data name="baseTablePanel.TabIndex" type="System.Int32, mscorlib">
     <value>5</value>
@@ -587,10 +593,10 @@
     <value>77</value>
   </metadata>
   <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
-    <value>6, 12</value>
+    <value>6, 13</value>
   </data>
   <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
-    <value>1021, 689</value>
+    <value>1021, 746</value>
   </data>
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
@@ -2383,6 +2389,12 @@
     <value>openFileToolStripMenuItem</value>
   </data>
   <data name="&gt;&gt;openFileToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;addFileToolStripMenuItem.Name" xml:space="preserve">
+    <value>addFileToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;addFileToolStripMenuItem.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;$this.Name" xml:space="preserve">

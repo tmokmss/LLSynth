@@ -32,7 +32,7 @@ namespace ll_synthesizer
         {
             InitializeComponent();
             init();
-            refresh();
+            Refresh();
         }
 
         void init()
@@ -73,7 +73,7 @@ namespace ll_synthesizer
             LoadFiles(folderPath);
         }
 
-        private void refresh(string folderPath = "")
+        private void Refresh(string folderPath = "")
         {
             wp.Stop();
             this.Text = appName + " " + folderPath;
@@ -107,7 +107,7 @@ namespace ll_synthesizer
 
         void LoadFiles(string folderPath)
         {
-            refresh();
+            Refresh();
             fg = new FileGetter(folderPath);
             string[] files = fg.GetList();
             if (files.Length > 0)
@@ -131,12 +131,26 @@ namespace ll_synthesizer
         {
             FolderBrowserDialog fbd = new FolderBrowserDialog();
             fbd.Description = "Select folder that includes wav|mp3 files:";
-            if (fbd.ShowDialog(this) == DialogResult.OK) {
+            if (fbd.ShowDialog(this) == DialogResult.OK)
+            {
+                Refresh();
                 LoadFiles(fbd.SelectedPath);
             }
         }
 
         private void openFileToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var ofd = new OpenFileDialog();
+            ofd.Filter = "sound files (*.wav; *.mp3)|*.wav;*.mp3";
+            ofd.Multiselect = true;
+            if (ofd.ShowDialog(this) == DialogResult.OK)
+            {
+                Refresh();
+                AddItemsAndAdjust(ofd.FileNames);
+            }
+        }
+
+        private void addFileToolStripMenuItem_Click(object sender, EventArgs e)
         {
             var ofd = new OpenFileDialog();
             ofd.Filter = "sound files (*.wav; *.mp3)|*.wav;*.mp3";
@@ -207,13 +221,13 @@ namespace ll_synthesizer
         {
             if (flowChartPanel.Controls.Count == 0)
             {
-                refresh();
+                Refresh();
             }
         }
 
         private void refreshButton_Click(object sender, EventArgs e)
         {
-            refresh();
+            Refresh();
         }
 
         private void pauseButton_Click(object sender, EventArgs e)
