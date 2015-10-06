@@ -9,8 +9,8 @@ namespace ll_synthesizer.DSPs
 {
     abstract class DSP
     {
+        protected int kOverlapCount = FHTransform.kOverlapCount;
         protected int mSampleRate = 44100;
-        private static double shiftRate = 4.0 / 5;//Math.Pow(1/ONEDEG,3);
         protected ConfigWindow configWindow;
 
         abstract public DSPType Type { get; }
@@ -72,19 +72,7 @@ namespace ll_synthesizer.DSPs
             double c3 = (.5 * (x3 - x0)) + (1.5 * (x1 - x2));
             return (((((c3 * t) + c2) * t) + c1) * t) + c0;
         }
-
-        /*
-        private static void LowPassFiltering(short[] datain, out short[] dataout)
-        {
-            int size = datain.Length;
-            dataout = new short[size];
-            for (int i = 1; i < size; i++)
-            {
-                dataout[i] = Convert.ToInt16(0.9*dataout[i - 1] + 0.1*datain[i]);
-            }
-        }
-        */
-
+        
         protected static short[] ToShort(double[] array, int size)
         {
             // size is for performance reason

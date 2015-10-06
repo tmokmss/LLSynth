@@ -49,6 +49,9 @@ namespace ll_synthesizer.DSPs
                 case DSPType.BandPassFilter:
                     myDSP = new BandPassFilter();
                     break;
+                case DSPType.Butterworth1stLPF:
+                    myDSP = new Butterworth1stLPF();
+                    break;
                 default:
                     myDSP = new Default();
                     break;

@@ -17,7 +17,7 @@ namespace ll_synthesizer
 
         // ItemCombiner
         private bool avoidAllMute = true;
-        private int compareSpan = 30; // in index +-
+        private int compareSpan = 300; // in index +-
         private short threashold = 50;
         private double searchRegionEnd = 0.01;  // region of offset search
         //private double target = 0.2;    // targeted instrument/total ratio
@@ -29,6 +29,9 @@ namespace ll_synthesizer
         // WavPlayer
         private int m_StreamBufferSize = 262144 / 4;
         //private int m_numberOfSectorsInBuffer = 4;
+
+        // GraphPanel
+        private bool plotEnable = false;
 
         // Form1
         private static int randomizeInterval = 3;
@@ -96,6 +99,11 @@ namespace ll_synthesizer
         {
             set { fontSize = value; }
             get { return fontSize; }
+        }
+        public bool PlotEnable
+        {
+            set { plotEnable = value; }
+            get { return plotEnable; }
         }
 
         private Settings()

@@ -517,7 +517,15 @@ namespace ll_synthesizer
 
         void dspConfigButton_Clicked(object sender, EventArgs e)
         {
-            wd.ShowDSPConfig();
+            if (DSPEnabled)
+            {
+                wd.ShowDSPConfig();
+            }
+            else
+            {
+                var dspSelectWindow = new DSPSelectWindow(wd);
+                dspSelectWindow.Visible = !dspSelectWindow.Visible;
+            }
         }
 
         void LRBalance_MouseDown(object sender, MouseEventArgs e)

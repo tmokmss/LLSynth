@@ -12,6 +12,7 @@ namespace ll_synthesizer.DSPs
         PitchShiftPV,
         PitchShiftTDSOLA,
         HighPassFilter,
-        BandPassFilter
+        BandPassFilter,
+        Butterworth1stLPF
     }
 }

@@ -9,6 +9,7 @@ namespace ll_synthesizer.DSPs.Config
     class ConfigWindow : Form
     {
         DSP myDSP;
+
         public ConfigWindow(DSP parent)
         {
             myDSP = parent;

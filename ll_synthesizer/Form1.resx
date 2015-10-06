@@ -125,10 +125,34 @@
   <data name="chartPanel.AutoScroll" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="tbar2ResetButton.Location" type="System.Drawing.Point, System.Drawing">
+    <value>311, 135</value>
+  </data>
+  <data name="tbar2ResetButton.Size" type="System.Drawing.Size, System.Drawing">
+    <value>75, 23</value>
+  </data>
+  <data name="tbar2ResetButton.TabIndex" type="System.Int32, mscorlib">
+    <value>18</value>
+  </data>
+  <data name="tbar2ResetButton.Text" xml:space="preserve">
+    <value>reset</value>
+  </data>
+  <data name="&gt;&gt;tbar2ResetButton.Name" xml:space="preserve">
+    <value>tbar2ResetButton</value>
+  </data>
+  <data name="&gt;&gt;tbar2ResetButton.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;tbar2ResetButton.Parent" xml:space="preserve">
+    <value>chartPanel</value>
+  </data>
+  <data name="&gt;&gt;tbar2ResetButton.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
   <data name="saveCheck.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
-  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="saveCheck.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
@@ -143,7 +167,7 @@
 </value>
   </data>
   <data name="saveCheck.Location" type="System.Drawing.Point, System.Drawing">
-    <value>101, 98</value>
+    <value>101, 90</value>
   </data>
   <data name="saveCheck.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>0, 3, 0, 0</value>
@@ -164,10 +188,10 @@
     <value>chartPanel</value>
   </data>
   <data name="&gt;&gt;saveCheck.ZOrder" xml:space="preserve">
-    <value>0</value>
+    <value>1</value>
   </data>
   <data name="fadeTimeBar.Location" type="System.Drawing.Point, System.Drawing">
-    <value>200, 146</value>
+    <value>200, 135</value>
   </data>
   <data name="fadeTimeBar.Size" type="System.Drawing.Size, System.Drawing">
     <value>104, 45</value>
@@ -185,10 +209,10 @@
     <value>chartPanel</value>
   </data>
   <data name="&gt;&gt;fadeTimeBar.ZOrder" xml:space="preserve">
-    <value>1</value>
+    <value>2</value>
   </data>
   <data name="trackBar1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>200, 98</value>
+    <value>200, 90</value>
   </data>
   <data name="trackBar1.Size" type="System.Drawing.Size, System.Drawing">
     <value>104, 45</value>
@@ -206,13 +230,13 @@
     <value>chartPanel</value>
   </data>
   <data name="&gt;&gt;trackBar1.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>3</value>
   </data>
   <data name="lrButton.Location" type="System.Drawing.Point, System.Drawing">
     <value>101, 3</value>
   </data>
   <data name="lrButton.Size" type="System.Drawing.Size, System.Drawing">
-    <value>75, 25</value>
+    <value>75, 23</value>
   </data>
   <data name="lrButton.TabIndex" type="System.Int32, mscorlib">
     <value>7</value>
@@ -230,16 +254,16 @@
     <value>chartPanel</value>
   </data>
   <data name="&gt;&gt;lrButton.ZOrder" xml:space="preserve">
-    <value>3</value>
+    <value>4</value>
   </data>
   <data name="vocalRstr.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
   <data name="vocalRstr.Location" type="System.Drawing.Point, System.Drawing">
-    <value>198, 72</value>
+    <value>198, 66</value>
   </data>
   <data name="vocalRstr.Size" type="System.Drawing.Size, System.Drawing">
-    <value>0, 13</value>
+    <value>0, 12</value>
   </data>
   <data name="vocalRstr.TabIndex" type="System.Int32, mscorlib">
     <value>16</value>
@@ -254,16 +278,16 @@
     <value>chartPanel</value>
   </data>
   <data name="&gt;&gt;vocalRstr.ZOrder" xml:space="preserve">
-    <value>4</value>
+    <value>5</value>
   </data>
   <data name="vocalLstr.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
   <data name="vocalLstr.Location" type="System.Drawing.Point, System.Drawing">
-    <value>198, 40</value>
+    <value>198, 37</value>
   </data>
   <data name="vocalLstr.Size" type="System.Drawing.Size, System.Drawing">
-    <value>0, 13</value>
+    <value>0, 12</value>
   </data>
   <data name="vocalLstr.TabIndex" type="System.Int32, mscorlib">
     <value>15</value>
@@ -278,13 +302,13 @@
     <value>chartPanel</value>
   </data>
   <data name="&gt;&gt;vocalLstr.ZOrder" xml:space="preserve">
-    <value>5</value>
+    <value>6</value>
   </data>
   <data name="pauseButton.Location" type="System.Drawing.Point, System.Drawing">
-    <value>101, 66</value>
+    <value>101, 61</value>
   </data>
   <data name="pauseButton.Size" type="System.Drawing.Size, System.Drawing">
-    <value>75, 25</value>
+    <value>75, 23</value>
   </data>
   <data name="pauseButton.TabIndex" type="System.Int32, mscorlib">
     <value>13</value>
@@ -302,13 +326,13 @@
     <value>chartPanel</value>
   </data>
   <data name="&gt;&gt;pauseButton.ZOrder" xml:space="preserve">
-    <value>6</value>
+    <value>7</value>
   </data>
   <data name="refreshButton.Location" type="System.Drawing.Point, System.Drawing">
-    <value>101, 35</value>
+    <value>101, 32</value>
   </data>
   <data name="refreshButton.Size" type="System.Drawing.Size, System.Drawing">
-    <value>75, 25</value>
+    <value>75, 23</value>
   </data>
   <data name="refreshButton.TabIndex" type="System.Int32, mscorlib">
     <value>12</value>
@@ -326,16 +350,16 @@
     <value>chartPanel</value>
   </data>
   <data name="&gt;&gt;refreshButton.ZOrder" xml:space="preserve">
-    <value>7</value>
+    <value>8</value>
   </data>
   <data name="autoCheck.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
   <data name="autoCheck.Location" type="System.Drawing.Point, System.Drawing">
-    <value>20, 98</value>
+    <value>20, 90</value>
   </data>
   <data name="autoCheck.Size" type="System.Drawing.Size, System.Drawing">
-    <value>64, 17</value>
+    <value>67, 16</value>
   </data>
   <data name="autoCheck.TabIndex" type="System.Int32, mscorlib">
     <value>11</value>
@@ -353,13 +377,13 @@
     <value>chartPanel</value>
   </data>
   <data name="&gt;&gt;autoCheck.ZOrder" xml:space="preserve">
-    <value>8</value>
+    <value>9</value>
   </data>
   <data name="offsetUpDown.Location" type="System.Drawing.Point, System.Drawing">
     <value>200, 3</value>
   </data>
   <data name="offsetUpDown.Size" type="System.Drawing.Size, System.Drawing">
-    <value>120, 20</value>
+    <value>120, 19</value>
   </data>
   <data name="offsetUpDown.TabIndex" type="System.Int32, mscorlib">
     <value>10</value>
@@ -377,13 +401,13 @@
     <value>chartPanel</value>
   </data>
   <data name="&gt;&gt;offsetUpDown.ZOrder" xml:space="preserve">
-    <value>9</value>
+    <value>10</value>
   </data>
   <data name="button3.Location" type="System.Drawing.Point, System.Drawing">
-    <value>20, 66</value>
+    <value>20, 61</value>
   </data>
   <data name="button3.Size" type="System.Drawing.Size, System.Drawing">
-    <value>75, 25</value>
+    <value>75, 23</value>
   </data>
   <data name="button3.TabIndex" type="System.Int32, mscorlib">
     <value>9</value>
@@ -401,13 +425,13 @@
     <value>chartPanel</value>
   </data>
   <data name="&gt;&gt;button3.ZOrder" xml:space="preserve">
-    <value>10</value>
+    <value>11</value>
   </data>
   <data name="button4.Location" type="System.Drawing.Point, System.Drawing">
-    <value>20, 35</value>
+    <value>20, 32</value>
   </data>
   <data name="button4.Size" type="System.Drawing.Size, System.Drawing">
-    <value>75, 25</value>
+    <value>75, 23</value>
   </data>
   <data name="button4.TabIndex" type="System.Int32, mscorlib">
     <value>6</value>
@@ -425,13 +449,13 @@
     <value>chartPanel</value>
   </data>
   <data name="&gt;&gt;button4.ZOrder" xml:space="preserve">
-    <value>11</value>
+    <value>12</value>
   </data>
   <data name="button1.Location" type="System.Drawing.Point, System.Drawing">
     <value>20, 3</value>
   </data>
   <data name="button1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>75, 25</value>
+    <value>75, 23</value>
   </data>
   <data name="button1.TabIndex" type="System.Int32, mscorlib">
     <value>2</value>
@@ -449,13 +473,13 @@
     <value>chartPanel</value>
   </data>
   <data name="&gt;&gt;button1.ZOrder" xml:space="preserve">
-    <value>12</value>
+    <value>13</value>
   </data>
   <data name="chartPanel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 500</value>
+    <value>3, 461</value>
   </data>
   <data name="chartPanel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>493, 196</value>
+    <value>493, 181</value>
   </data>
   <data name="chartPanel.TabIndex" type="System.Int32, mscorlib">
     <value>2</value>
@@ -536,13 +560,13 @@
     <value>2</value>
   </data>
   <data name="baseTablePanel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>10, 35</value>
+    <value>10, 32</value>
   </data>
   <data name="baseTablePanel.RowCount" type="System.Int32, mscorlib">
     <value>2</value>
   </data>
   <data name="baseTablePanel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>999, 699</value>
+    <value>999, 645</value>
   </data>
   <data name="baseTablePanel.TabIndex" type="System.Int32, mscorlib">
     <value>5</value>
@@ -593,10 +617,10 @@
     <value>77</value>
   </metadata>
   <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
-    <value>6, 13</value>
+    <value>6, 12</value>
   </data>
   <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
-    <value>1021, 746</value>
+    <value>1021, 689</value>
   </data>
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>

@@ -31,7 +31,7 @@ namespace ll_synthesizer
         protected Color mainPanelBack = Color.AliceBlue;
         private static Bitmap muteImage = new Bitmap("..\\ico\\mute.png");
         private static Bitmap gearImage = new Bitmap("..\\ico\\gear.png");
-        protected bool plotEnable = true;
+        protected bool plotEnable = false;
         protected int factorDefault = 5;
         protected string title;
         protected string myName;
@@ -201,6 +201,12 @@ namespace ll_synthesizer
             if (plotEnable)
                 this.Controls.Add(chart);
             if (icon.ImageLocation != null) this.Controls.Add(icon);
+        }
+
+        public void ApplySettings()
+        {
+            Settings settings = Settings.GetInstance();
+            PlotEnable = settings.PlotEnable;
         }
 
 

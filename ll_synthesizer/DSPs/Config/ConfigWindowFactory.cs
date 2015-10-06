@@ -28,6 +28,8 @@ namespace ll_synthesizer.DSPs.Config
                     return new ConfigHighPassFilter((HighPassFilter)parent);
                 case DSPType.BandPassFilter:
                     return new ConfigBandPassFilter((BandPassFilter)parent);
+                case DSPType.Butterworth1stLPF:
+                    return new ConfigButterworth1stLPF((Butterworth1stLPF)parent);
                 default:
                     return new ConfigWindow(parent);
             }

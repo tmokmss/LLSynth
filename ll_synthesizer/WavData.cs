@@ -35,19 +35,8 @@ namespace ll_synthesizer
 
         public const bool LEFT = true;
         public const bool RIGHT = false;
-
-        public bool DSPEnabled
-        {
-            set { if (!value) myDSP.CurrentType = DSPType.Default;
-                else
-                    //myDSP.CurrentType = DSPType.BandPassFilter;
-                    myDSP.CurrentType = DSPType.PitchShiftPV;
-                    //myDSP.CurrentType = DSPType.PitchShiftTDSOLA;
-                    //myDSP.CurrentType = DSPType.HighPassFilter;
-                    //myDSP.CurrentType = DSPType.CenterCut;
-            }
-            get { return !(myDSP.CurrentType == DSPType.Default); }
-        }
+        
+        public bool DSPEnabled { set; get; }
         
         public static int BufSizeDefault
         {
@@ -337,9 +326,12 @@ namespace ll_synthesizer
                     leftBuf[i] = BitConverter.ToInt16(buffer, i * 4);
                     rightBuf[i] = BitConverter.ToInt16(buffer, i * 4 + 2);
                 }
-                var dsp = myDSP.GetDSP();
-                dsp.Position = startPosition;
-                dsp.Process(ref leftBuf, ref rightBuf);
+                if (DSPEnabled)
+                {
+                    var dsp = myDSP.GetDSP();
+                    dsp.Position = startPosition;
+                    dsp.Process(ref leftBuf, ref rightBuf);
+                }
 
                 if (Parent != null && plotcount % 1 == 0)
                 {
@@ -430,6 +422,11 @@ namespace ll_synthesizer
         public void ShowDSPConfig()
         {
             myDSP.GetDSP().ShowConfigWindow(GetName());
+        }
+
+        public void SetCurrentDSP(DSPType type)
+        {
+            myDSP.CurrentType = type;
         }
     }
 }

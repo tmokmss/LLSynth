@@ -47,9 +47,10 @@
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.addFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.flowChartPanel = new System.Windows.Forms.FlowLayoutPanel();
             this.baseTablePanel = new System.Windows.Forms.TableLayoutPanel();
-            this.addFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.tbar2ResetButton = new System.Windows.Forms.Button();
             this.chartPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.fadeTimeBar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).BeginInit();
@@ -62,6 +63,7 @@
             // 
             resources.ApplyResources(this.chartPanel, "chartPanel");
             this.chartPanel.BackColor = System.Drawing.SystemColors.ControlDark;
+            this.chartPanel.Controls.Add(this.tbar2ResetButton);
             this.chartPanel.Controls.Add(this.saveCheck);
             this.chartPanel.Controls.Add(this.fadeTimeBar);
             this.chartPanel.Controls.Add(this.trackBar1);
@@ -210,6 +212,12 @@
             resources.ApplyResources(this.openFileToolStripMenuItem, "openFileToolStripMenuItem");
             this.openFileToolStripMenuItem.Click += new System.EventHandler(this.openFileToolStripMenuItem_Click);
             // 
+            // addFileToolStripMenuItem
+            // 
+            this.addFileToolStripMenuItem.Name = "addFileToolStripMenuItem";
+            resources.ApplyResources(this.addFileToolStripMenuItem, "addFileToolStripMenuItem");
+            this.addFileToolStripMenuItem.Click += new System.EventHandler(this.addFileToolStripMenuItem_Click);
+            // 
             // flowChartPanel
             // 
             resources.ApplyResources(this.flowChartPanel, "flowChartPanel");
@@ -228,11 +236,12 @@
             this.baseTablePanel.Controls.Add(this.flowChartPanel, 0, 0);
             this.baseTablePanel.Name = "baseTablePanel";
             // 
-            // addFileToolStripMenuItem
+            // tbar2ResetButton
             // 
-            this.addFileToolStripMenuItem.Name = "addFileToolStripMenuItem";
-            resources.ApplyResources(this.addFileToolStripMenuItem, "addFileToolStripMenuItem");
-            this.addFileToolStripMenuItem.Click += new System.EventHandler(this.addFileToolStripMenuItem_Click);
+            resources.ApplyResources(this.tbar2ResetButton, "tbar2ResetButton");
+            this.tbar2ResetButton.Name = "tbar2ResetButton";
+            this.tbar2ResetButton.UseVisualStyleBackColor = true;
+            this.tbar2ResetButton.Click += new System.EventHandler(this.tbar2ResetButton_Click);
             // 
             // Form1
             // 
@@ -283,6 +292,7 @@
         private System.Windows.Forms.CheckBox saveCheck;
         private System.Windows.Forms.ToolStripMenuItem openFileToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem addFileToolStripMenuItem;
+        private System.Windows.Forms.Button tbar2ResetButton;
     }
 }
 

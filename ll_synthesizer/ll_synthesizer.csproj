@@ -82,10 +82,17 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CharUtl.cs" />
+    <Compile Include="Configurable.cs" />
     <Compile Include="ControlPanel.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="DSPSelectWindow.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="DSPs\Config\ConfigBandPassFilter.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DSPs\Config\ConfigButterworth1stLPF.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="DSPs\Config\ConfigHighPassFilter.cs">
@@ -103,6 +110,7 @@
     </Compile>
     <Compile Include="DSPs\Overlap.cs" />
     <Compile Include="DSPs\Types\BandPassFilter.cs" />
+    <Compile Include="DSPs\Types\Butterworth1stLPF.cs" />
     <Compile Include="DSPs\Types\CenterCut.cs" />
     <Compile Include="DSPs\Types\Default.cs" />
     <Compile Include="DSPs\DSP.cs" />

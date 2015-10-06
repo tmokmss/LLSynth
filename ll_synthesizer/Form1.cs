@@ -288,5 +288,10 @@ namespace ll_synthesizer
         {
             wp.SaveFile = saveCheck.Checked;
         }
+
+        private void tbar2ResetButton_Click(object sender, EventArgs e)
+        {
+            fadeTimeBar.Value = (fadeTimeBar.Maximum+fadeTimeBar.Minimum)/2;
+        }
     }
 }
