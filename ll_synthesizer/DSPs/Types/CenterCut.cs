@@ -8,6 +8,7 @@ namespace ll_synthesizer.DSPs.Types
     class CenterCut : DSP
     {
         bool mBassToSides = true;
+        bool vocalExtract = true;
         FHTransform fhtr = new FHTransform();
         FHTransform fhtl = new FHTransform();
         FHTransform fhtc = new FHTransform();
@@ -89,10 +90,17 @@ namespace ll_synthesizer.DSPs.Types
                 tempRight[i] = rightin[i] - tempC[i];
             }
 
-            leftout = tempC;
-            rightout = tempC;
-            leftout = tempLeft;
-            rightout = tempRight;
+            if (vocalExtract)
+            {
+                leftout = tempC;
+                rightout = tempC;
+            }
+            else
+            {
+                leftout = tempLeft;
+                rightout = tempRight;
+            }
+
         }
     }
 }

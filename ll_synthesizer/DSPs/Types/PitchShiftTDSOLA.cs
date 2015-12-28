@@ -8,9 +8,8 @@ namespace ll_synthesizer.DSPs.Types
 {
     class PitchShiftTDSOLA : DSP
     {
-        private int kOverlapCount = FHTransform.kOverlapCount;
+        new private int kOverlapCount = FHTransform.kOverlapCount;
         private Overlap overlap = null;
-        //private Overlap overlapl = null;
         private double[] window = null;
         private const int region = (int)(44100 * 20e-3);
 

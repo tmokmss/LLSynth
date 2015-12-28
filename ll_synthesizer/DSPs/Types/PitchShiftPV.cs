@@ -9,7 +9,7 @@ namespace ll_synthesizer.DSPs.Types
 {
     class PitchShiftPV: DSP
     {
-        private int kOverlapCount = FHTransform.kOverlapCount;
+        new private int kOverlapCount = FHTransform.kOverlapCount;
         private static readonly double ONEDEG = Math.Pow(2, 1.0 / 12);
         private double shiftRate = 4.0 / 5;//Math.Pow(1/ONEDEG,3);
         private double[] mLastPhase = null;
