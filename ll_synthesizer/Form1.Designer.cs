@@ -33,7 +33,6 @@
             this.trackBar2 = new System.Windows.Forms.TrackBar();
             this.polarButton = new System.Windows.Forms.Button();
             this.tbar2ResetButton = new System.Windows.Forms.Button();
-            this.saveCheck = new System.Windows.Forms.CheckBox();
             this.fadeTimeBar = new System.Windows.Forms.TrackBar();
             this.trackBar1 = new System.Windows.Forms.TrackBar();
             this.lrButton = new System.Windows.Forms.Button();
@@ -53,6 +52,7 @@
             this.addFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.flowChartPanel = new System.Windows.Forms.FlowLayoutPanel();
             this.baseTablePanel = new System.Windows.Forms.TableLayoutPanel();
+            this.saveCheck = new System.Windows.Forms.CheckBox();
             this.chartPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.fadeTimeBar)).BeginInit();
@@ -108,14 +108,6 @@
             this.tbar2ResetButton.Name = "tbar2ResetButton";
             this.tbar2ResetButton.UseVisualStyleBackColor = true;
             this.tbar2ResetButton.Click += new System.EventHandler(this.tbar2ResetButton_Click);
-            // 
-            // saveCheck
-            // 
-            resources.ApplyResources(this.saveCheck, "saveCheck");
-            this.saveCheck.Image = global::ll_synthesizer.Properties.Resources.control_record;
-            this.saveCheck.Name = "saveCheck";
-            this.saveCheck.UseVisualStyleBackColor = false;
-            this.saveCheck.CheckedChanged += new System.EventHandler(this.saveCheck_CheckedChanged);
             // 
             // fadeTimeBar
             // 
@@ -250,12 +242,26 @@
             resources.ApplyResources(this.addFileToolStripMenuItem, "addFileToolStripMenuItem");
             this.addFileToolStripMenuItem.Click += new System.EventHandler(this.addFileToolStripMenuItem_Click);
             // 
+            // flowChartPanel
+            // 
+            resources.ApplyResources(this.flowChartPanel, "flowChartPanel");
+            this.baseTablePanel.SetColumnSpan(this.flowChartPanel, 2);
+            this.flowChartPanel.Name = "flowChartPanel";
+            // 
             // baseTablePanel
             // 
             resources.ApplyResources(this.baseTablePanel, "baseTablePanel");
             this.baseTablePanel.Controls.Add(this.chartPanel, 0, 1);
             this.baseTablePanel.Controls.Add(this.flowChartPanel, 0, 0);
             this.baseTablePanel.Name = "baseTablePanel";
+            // 
+            // saveCheck
+            // 
+            resources.ApplyResources(this.saveCheck, "saveCheck");
+            this.saveCheck.Image = global::ll_synthesizer.Properties.Resources.control_record;
+            this.saveCheck.Name = "saveCheck";
+            this.saveCheck.UseVisualStyleBackColor = false;
+            this.saveCheck.CheckedChanged += new System.EventHandler(this.saveCheck_CheckedChanged);
             // 
             // Form1
             // 
@@ -278,7 +284,6 @@
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.baseTablePanel.ResumeLayout(false);
-            this.baseTablePanel.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 

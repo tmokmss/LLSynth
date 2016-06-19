@@ -125,6 +125,9 @@
   <data name="chartPanel.AutoScroll" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
+  <data name="trackBar2.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="trackBar2.Location" type="System.Drawing.Point, System.Drawing">
     <value>204, 39</value>
@@ -146,6 +149,9 @@
   </data>
   <data name="&gt;&gt;trackBar2.ZOrder" xml:space="preserve">
     <value>0</value>
+  </data>
+  <data name="polarButton.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
   </data>
   <data name="polarButton.Location" type="System.Drawing.Point, System.Drawing">
     <value>392, 137</value>
@@ -170,6 +176,9 @@
   </data>
   <data name="&gt;&gt;polarButton.ZOrder" xml:space="preserve">
     <value>1</value>
+  </data>
+  <data name="tbar2ResetButton.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
   </data>
   <data name="tbar2ResetButton.Location" type="System.Drawing.Point, System.Drawing">
     <value>311, 135</value>
@@ -198,6 +207,9 @@
   <data name="saveCheck.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
+  <data name="saveCheck.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
   <data name="saveCheck.Location" type="System.Drawing.Point, System.Drawing">
     <value>101, 90</value>
   </data>
@@ -222,6 +234,9 @@
   <data name="&gt;&gt;saveCheck.ZOrder" xml:space="preserve">
     <value>3</value>
   </data>
+  <data name="fadeTimeBar.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
   <data name="fadeTimeBar.Location" type="System.Drawing.Point, System.Drawing">
     <value>200, 135</value>
   </data>
@@ -243,6 +258,9 @@
   <data name="&gt;&gt;fadeTimeBar.ZOrder" xml:space="preserve">
     <value>4</value>
   </data>
+  <data name="trackBar1.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
   <data name="trackBar1.Location" type="System.Drawing.Point, System.Drawing">
     <value>200, 90</value>
   </data>
@@ -263,6 +281,9 @@
   </data>
   <data name="&gt;&gt;trackBar1.ZOrder" xml:space="preserve">
     <value>5</value>
+  </data>
+  <data name="lrButton.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
   </data>
   <data name="lrButton.Location" type="System.Drawing.Point, System.Drawing">
     <value>101, 3</value>
@@ -291,6 +312,9 @@
   <data name="vocalRstr.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
+  <data name="vocalRstr.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
   <data name="vocalRstr.Location" type="System.Drawing.Point, System.Drawing">
     <value>198, 66</value>
   </data>
@@ -315,6 +339,9 @@
   <data name="vocalLstr.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
+  <data name="vocalLstr.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
   <data name="vocalLstr.Location" type="System.Drawing.Point, System.Drawing">
     <value>198, 37</value>
   </data>
@@ -335,6 +362,9 @@
   </data>
   <data name="&gt;&gt;vocalLstr.ZOrder" xml:space="preserve">
     <value>8</value>
+  </data>
+  <data name="pauseButton.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
   </data>
   <data name="pauseButton.Location" type="System.Drawing.Point, System.Drawing">
     <value>101, 61</value>
@@ -359,6 +389,9 @@
   </data>
   <data name="&gt;&gt;pauseButton.ZOrder" xml:space="preserve">
     <value>9</value>
+  </data>
+  <data name="refreshButton.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
   </data>
   <data name="refreshButton.Location" type="System.Drawing.Point, System.Drawing">
     <value>101, 32</value>
@@ -386,6 +419,9 @@
   </data>
   <data name="autoCheck.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
+  </data>
+  <data name="autoCheck.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
   </data>
   <data name="autoCheck.Location" type="System.Drawing.Point, System.Drawing">
     <value>20, 90</value>
@@ -435,6 +471,9 @@
   <data name="&gt;&gt;offsetUpDown.ZOrder" xml:space="preserve">
     <value>12</value>
   </data>
+  <data name="button3.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
   <data name="button3.Location" type="System.Drawing.Point, System.Drawing">
     <value>20, 61</value>
   </data>
@@ -459,6 +498,9 @@
   <data name="&gt;&gt;button3.ZOrder" xml:space="preserve">
     <value>13</value>
   </data>
+  <data name="button4.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
   <data name="button4.Location" type="System.Drawing.Point, System.Drawing">
     <value>20, 32</value>
   </data>
@@ -482,6 +524,9 @@
   </data>
   <data name="&gt;&gt;button4.ZOrder" xml:space="preserve">
     <value>14</value>
+  </data>
+  <data name="button1.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
   </data>
   <data name="button1.Location" type="System.Drawing.Point, System.Drawing">
     <value>20, 3</value>
@@ -531,6 +576,30 @@
   <metadata name="menuStrip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>
   </metadata>
+  <data name="openToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>164, 22</value>
+  </data>
+  <data name="openToolStripMenuItem.Text" xml:space="preserve">
+    <value>Open Directory</value>
+  </data>
+  <data name="openFileToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>164, 22</value>
+  </data>
+  <data name="openFileToolStripMenuItem.Text" xml:space="preserve">
+    <value>Open File</value>
+  </data>
+  <data name="addFileToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>164, 22</value>
+  </data>
+  <data name="addFileToolStripMenuItem.Text" xml:space="preserve">
+    <value>Add File</value>
+  </data>
+  <data name="fileToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>40, 22</value>
+  </data>
+  <data name="fileToolStripMenuItem.Text" xml:space="preserve">
+    <value>File</value>
+  </data>
   <data name="menuStrip1.Location" type="System.Drawing.Point, System.Drawing">
     <value>0, 0</value>
   </data>
@@ -555,35 +624,14 @@
   <data name="&gt;&gt;menuStrip1.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
-  <data name="fileToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>40, 22</value>
-  </data>
-  <data name="fileToolStripMenuItem.Text" xml:space="preserve">
-    <value>File</value>
-  </data>
-  <data name="openToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>164, 22</value>
-  </data>
-  <data name="openToolStripMenuItem.Text" xml:space="preserve">
-    <value>Open Directory</value>
-  </data>
-  <data name="openFileToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>164, 22</value>
-  </data>
-  <data name="openFileToolStripMenuItem.Text" xml:space="preserve">
-    <value>Open File</value>
-  </data>
-  <data name="addFileToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>164, 22</value>
-  </data>
-  <data name="addFileToolStripMenuItem.Text" xml:space="preserve">
-    <value>Add File</value>
+  <data name="flowChartPanel.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Bottom, Left, Right</value>
   </data>
   <data name="flowChartPanel.AutoScroll" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
-  <data name="flowChartPanel.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
+  <data name="flowChartPanel.AutoSizeMode" type="System.Windows.Forms.AutoSizeMode, System.Windows.Forms">
+    <value>GrowAndShrink</value>
   </data>
   <data name="baseTablePanel.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Bottom, Left, Right</value>
@@ -618,17 +666,14 @@
   <data name="baseTablePanel.LayoutSettings" type="System.Windows.Forms.TableLayoutSettings, System.Windows.Forms">
     <value>&lt;?xml version="1.0" encoding="utf-16"?&gt;&lt;TableLayoutSettings&gt;&lt;Controls&gt;&lt;Control Name="chartPanel" Row="1" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="flowChartPanel" Row="0" RowSpan="1" Column="0" ColumnSpan="2" /&gt;&lt;/Controls&gt;&lt;Columns Styles="Percent,50,Percent,50" /&gt;&lt;Rows Styles="Percent,71.16279,Percent,28.83721" /&gt;&lt;/TableLayoutSettings&gt;</value>
   </data>
-  <data name="flowChartPanel.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Top</value>
-  </data>
   <data name="flowChartPanel.Location" type="System.Drawing.Point, System.Drawing">
     <value>3, 3</value>
   </data>
   <data name="flowChartPanel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>1111, 0</value>
+    <value>1111, 452</value>
   </data>
   <data name="flowChartPanel.TabIndex" type="System.Int32, mscorlib">
-    <value>4</value>
+    <value>3</value>
   </data>
   <data name="&gt;&gt;flowChartPanel.Name" xml:space="preserve">
     <value>flowChartPanel</value>
@@ -1995,6 +2040,9 @@
         27fcvDVvzdvfcysOzTi7IpTzFfYXalrNPTMSnPc1uodoeM6FIHTbeMbci/8ceL8y3p4++5fl6fd+S6t4
         OOtL+pzB7K8WnNXcoGvemrfmrXn7nG8tWvx/RyulmeGI898AAAAASUVORK5CYII=
 </value>
+  </data>
+  <data name="$this.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
   </data>
   <data name="$this.Text" xml:space="preserve">
     <value>Form1</value>
