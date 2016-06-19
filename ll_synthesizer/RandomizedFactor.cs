@@ -40,7 +40,7 @@ namespace ll_synthesizer
 
             int count = 0;
             double targetSaved = RemovalRatio;
-            int max = 50000;
+            int max = 500000;
             while (!IsAllowedFactors(factors) && count < max)
             {
                 for (int i = 0; i < num; i++)
