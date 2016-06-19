@@ -198,19 +198,6 @@
   <data name="saveCheck.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
-  <data name="saveCheck.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAABl0RVh0U29m
-        dHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAGISURBVDhPpZK9S0JhFMYPWpB3UK6oWGpUDm6CIIiL
-        4iDIpcBFSVuc/R9yasipKYiICDIpQzOniEBuLhEKUboKFehS013u5OkcCCl6jT4u/Dj3fc7zPu/HvYCI
-        /0Io/obxSwkAysQJwEIFoEA0iJv3WmCd++z7LiBWkyS1F40OX3M5XcvnRy9Uu5HIsEo69ycGHNIKp2R6
-        TqW0p2wW++n0mMdMBvvJpFYxmVT2CQP2aZvtcHhwryjYice/cJdIYCsQGLBPGLBLZ+0qit4MhZC5DASw
-        7vNh2e3GA4cD96xWrHm9OvuEAdt0YbTK6MLvx6rHg0c0oSTLn6i6XCP2CQO2KLkVDOoNmw3PySyibrPp
-        7BMGFOlsZ07nQKWAJplFlCVpwD5hwAbdbtFoVJt2u9ah7bdpwkeuzGZt02BQ2ScMiNH3zdJ3XifTsSQN
-        by0WvSfLI648Zp37i5P+A3qmiXkPwLICsLMKcL0G8MCVx6SvUH+JmJkUYCQsxCwxNwGZmBIG/BWh+HMQ
-        3gCM1DC7XEtlPQAAAABJRU5ErkJggg==
-</value>
-  </data>
   <data name="saveCheck.Location" type="System.Drawing.Point, System.Drawing">
     <value>101, 90</value>
   </data>

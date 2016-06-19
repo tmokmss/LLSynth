@@ -148,7 +148,7 @@ namespace ll_synthesizer
         private void InitializeIcon()
         {
             var orgIcon = item.MyIcon;
-            OrgBitmap = new Bitmap(orgIcon.ImageLocation);
+            OrgBitmap = new Bitmap(orgIcon.Image);
             ZoomOut(1);
         }
 

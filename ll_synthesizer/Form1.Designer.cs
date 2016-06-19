@@ -112,6 +112,7 @@
             // saveCheck
             // 
             resources.ApplyResources(this.saveCheck, "saveCheck");
+            this.saveCheck.Image = global::ll_synthesizer.Properties.Resources.control_record;
             this.saveCheck.Name = "saveCheck";
             this.saveCheck.UseVisualStyleBackColor = false;
             this.saveCheck.CheckedChanged += new System.EventHandler(this.saveCheck_CheckedChanged);

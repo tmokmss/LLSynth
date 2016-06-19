@@ -10,11 +10,11 @@ namespace ll_synthesizer
     class ControlPanel: TableLayoutPanel
     {
         private static Font defaultFont;
-        private static Bitmap playImage = new Bitmap("../ico/play.png");
-        private static Bitmap stopImage = new Bitmap("../ico/stop.png");
-        private static Bitmap pauseImage = new Bitmap("../ico/pause.png");
-        private static Bitmap repeatImage = new Bitmap("../ico/repeat.png");
-        private static Bitmap backImage = new Bitmap("../ico/back.png");
+        private static Bitmap playImage = Properties.Resources.play;
+        private static Bitmap stopImage = Properties.Resources.stop;
+        private static Bitmap pauseImage = Properties.Resources.pause; 
+        private static Bitmap repeatImage = Properties.Resources.repeat;
+        private static Bitmap backImage = Properties.Resources.back;
 
         private TrackBar seekBar = new TrackBar();
         private TrackBar volumeBar = new TrackBar();

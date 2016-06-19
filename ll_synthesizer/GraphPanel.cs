@@ -29,8 +29,8 @@ namespace ll_synthesizer
         private static Color chartActive = Color.DarkCyan;
         private static Color chartInactive = Color.LightCyan;
         protected Color mainPanelBack = Color.AliceBlue;
-        private static Bitmap muteImage = new Bitmap("..\\ico\\mute.png");
-        private static Bitmap gearImage = new Bitmap("..\\ico\\gear.png");
+        private static Bitmap muteImage = Properties.Resources.mute;
+        private static Bitmap gearImage = Properties.Resources.gear;
         protected bool plotEnable = false;
         protected int factorDefault = 5;
         protected string title;
@@ -124,7 +124,7 @@ namespace ll_synthesizer
             titleText.Font = defaultFont;
 
             // picture
-            icon.ImageLocation = ChooseIcon(title);
+            icon.Image = ChooseIcon(title);
             icon.Name = "icon" + myNum;
             icon.TabStop = false;
             icon.Width = 128;
@@ -200,7 +200,7 @@ namespace ll_synthesizer
 
             if (plotEnable)
                 this.Controls.Add(chart);
-            if (icon.ImageLocation != null) this.Controls.Add(icon);
+            if (icon.Image != null) this.Controls.Add(icon);
         }
 
         public void ApplySettings()
@@ -231,60 +231,59 @@ namespace ll_synthesizer
             return Keys.None;
         }
 
-        string ChooseIcon(string title)
+        Image ChooseIcon(string title)
         {
-            string path;
+            Image img;
             if (title.Contains("ELI"))
             {
                 myName = "ELI";
-                path = "..\\ico\\eli.png";
+                img = Properties.Resources.eli;
             }
             else if (title.Contains("HANAYO"))
             {
                 myName = "HANAYO";
-                path = "..\\ico\\hanayo.png";
+                img = Properties.Resources.hanayo;
             }
             else if (title.Contains("HONOKA"))
             {
                 myName = "HONOKA";
-                path = "..\\ico\\honoka.png";
+                img = Properties.Resources.honoka;
             }
             else if (title.Contains("KOTORI"))
             {
                 myName = "KOTORI";
-                path = "..\\ico\\kotori.png";
+                img = Properties.Resources.kotori;
             }
             else if (title.Contains("MAKI"))
             {
                 myName = "MAKI";
-                path = "..\\ico\\maki.png";
+                img = Properties.Resources.maki;
             }
             else if (title.Contains("NICO"))
             {
                 myName = "NICO";
-                path = "..\\ico\\nico.png";
+                img = Properties.Resources.nico;
             }
             else if (title.Contains("NOZOMI"))
             {
                 myName = "NOZOMI";
-                path = "..\\ico\\nozomi.png";
+                img = Properties.Resources.nozomi;
             }
             else if (title.Contains("RIN"))
             {
                 myName = "RIN";
-                path = "..\\ico\\rin.png";
+                img = Properties.Resources.rin;
             }
             else if (title.Contains("UMI"))
             {
                 myName = "UMI";
-                path = "..\\ico\\umi.png";
+                img = Properties.Resources.umi;
             }
             else
             {
-                path = "..\\ico\\default.png";
+                img = Properties.Resources._default;
             }
-            string basedir = AppDomain.CurrentDomain.BaseDirectory;
-            return Path.Combine(basedir, path);
+            return img;
         }
 
         public void AddLR(WavData wd, int sampleNum, double start, double end)
