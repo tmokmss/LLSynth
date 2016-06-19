@@ -23,6 +23,7 @@ namespace ll_synthesizer
         public event EventHandler PlotRefreshed;
         public event EventHandler Suicided;
         public event EventHandler FactorChanged;
+        public event EventHandler MuteChanged;
         delegate void upDownDelegate(double value);
         delegate void booleanDelegate(bool iswhat);
 
@@ -40,6 +41,7 @@ namespace ll_synthesizer
         static public int FadingTime
         {
             set { fadeTimeMs = value; }
+            get { return fadeTimeMs; }
         }
 
         public bool Muted
@@ -297,7 +299,7 @@ namespace ll_synthesizer
             LRThread.Start(stepNum);
         }
 
-        public void SetTotalFactorGradually(object step)
+        private void SetTotalFactorGradually(object step)
         {
             int stepNum = (int)step;
             bool isPositive = stepNum > 0;
@@ -325,6 +327,20 @@ namespace ll_synthesizer
             TFThread = new Thread(new ParameterizedThreadStart(SetTotalFactorGradually));
             TFThread.IsBackground = true;
             TFThread.Start(stepNum);
+        }
+        
+        public void SetFactors(int tFactor, int lrFactor)
+        {
+            if (LRThread != null)
+            {
+                LRThread.Abort();
+            }
+            if (TFThread != null)
+            {
+                TFThread.Abort();
+            }
+            TotalFactor = tFactor;
+            LRBalance = lrFactor;
         }
 
         void playButton_Clicked(object sender, EventArgs e)
@@ -502,16 +518,18 @@ namespace ll_synthesizer
             }
         }
 
-        void RequestRefresh()
+        void RequestRefresh(bool isMute = false)
         {
             if (FactorChanged != null)
                 FactorChanged(this, EventArgs.Empty);
+            if (isMute && MuteChanged != null)
+                MuteChanged(this, EventArgs.Empty);
         }
 
         void muteChanged(object sender, EventArgs e)
         {
             wd.Muted = mute.Checked;
-            RequestRefresh();
+            RequestRefresh(true);
             Refresh();
         }
 

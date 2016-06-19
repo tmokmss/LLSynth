@@ -84,7 +84,7 @@ namespace ll_synthesizer
             volumeBar.SmallChange = 50;
             volumeBar.TickFrequency = 0;
             volumeBar.ValueChanged += new System.EventHandler(this.volumeBar_ValueChanged);
-            volumeBar.Value = -1000;
+            volumeBar.Value = volumeBar.Maximum;
 
             autoDJCheck.Text = "Auto DJ";
             autoDJCheck.AutoSize = true;

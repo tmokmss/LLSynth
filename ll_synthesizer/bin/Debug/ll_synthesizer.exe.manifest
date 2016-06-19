@@ -43,14 +43,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="ll_synthesizer.exe" size="599552">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="ll_synthesizer.exe" size="613888">
       <assemblyIdentity name="ll_synthesizer" version="1.0.0.0" language="neutral" processorArchitecture="x86" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
-        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-        <dsig:DigestValue>w8HOpK7ogDDunRQgxUYbMIZh1L0=</dsig:DigestValue>
+        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+        <dsig:DigestValue>+LnLHCM8/4l4BnrS5QKQTxFVj/SGRFfnyuf0iRow288=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -61,8 +61,8 @@
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
-        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-        <dsig:DigestValue>xMfgNHc6JAkJMygU9JlzBXWhzXE=</dsig:DigestValue>
+        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+        <dsig:DigestValue>lC6Y8UI3NUdJPxOxThYDskIIUa/wE9MIW62ntrIhTZw=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -73,8 +73,8 @@
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
-        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-        <dsig:DigestValue>h3/993uc3BvhQTXP8LdWojFAFhc=</dsig:DigestValue>
+        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+        <dsig:DigestValue>LijI+4uHtf/R4OoncQoueF70dBqJ5LPDr3Juxj0Vofo=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -85,8 +85,8 @@
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
-        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-        <dsig:DigestValue>o7jofSl1uLfLVlahbTeU6FrrgWY=</dsig:DigestValue>
+        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+        <dsig:DigestValue>My2cr5wBcqq9f/jKkJln0x3Bcym2S2XR+xO4TGylpyk=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -95,17 +95,17 @@
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
-      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-      <dsig:DigestValue>5n/nKfE1CNFHwVw3E0+zVKSnp+8=</dsig:DigestValue>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>6V+Pb2w2Girmh9apJ9qBSzs3yRp8crqCT1CeVboTCB4=</dsig:DigestValue>
     </hash>
   </file>
-  <file name="ll_synthesizer.exe.config" size="186">
+  <file name="ll_synthesizer.exe.config" size="217">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
-      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-      <dsig:DigestValue>1pQQG+cGywoBSjvAoy4pBM1u3y0=</dsig:DigestValue>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>ymywO8ort4GJieDHvf5p2MTkCSmWj8la3gf3pdkiumI=</dsig:DigestValue>
     </hash>
   </file>
 </asmv1:assembly>

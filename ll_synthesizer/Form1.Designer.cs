@@ -30,9 +30,12 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.chartPanel = new System.Windows.Forms.Panel();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
             this.trackBar2 = new System.Windows.Forms.TrackBar();
             this.polarButton = new System.Windows.Forms.Button();
             this.tbar2ResetButton = new System.Windows.Forms.Button();
+            this.saveCheck = new System.Windows.Forms.CheckBox();
             this.fadeTimeBar = new System.Windows.Forms.TrackBar();
             this.trackBar1 = new System.Windows.Forms.TrackBar();
             this.lrButton = new System.Windows.Forms.Button();
@@ -52,7 +55,6 @@
             this.addFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.flowChartPanel = new System.Windows.Forms.FlowLayoutPanel();
             this.baseTablePanel = new System.Windows.Forms.TableLayoutPanel();
-            this.saveCheck = new System.Windows.Forms.CheckBox();
             this.chartPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.fadeTimeBar)).BeginInit();
@@ -66,6 +68,8 @@
             // 
             resources.ApplyResources(this.chartPanel, "chartPanel");
             this.chartPanel.BackColor = System.Drawing.SystemColors.ControlDark;
+            this.chartPanel.Controls.Add(this.label2);
+            this.chartPanel.Controls.Add(this.label1);
             this.chartPanel.Controls.Add(this.trackBar2);
             this.chartPanel.Controls.Add(this.polarButton);
             this.chartPanel.Controls.Add(this.tbar2ResetButton);
@@ -84,15 +88,24 @@
             this.chartPanel.Controls.Add(this.button1);
             this.chartPanel.Name = "chartPanel";
             // 
+            // label2
+            // 
+            resources.ApplyResources(this.label2, "label2");
+            this.label2.Name = "label2";
+            // 
+            // label1
+            // 
+            resources.ApplyResources(this.label1, "label1");
+            this.label1.Name = "label1";
+            // 
             // trackBar2
             // 
             resources.ApplyResources(this.trackBar2, "trackBar2");
             this.trackBar2.Maximum = 2000;
-            this.trackBar2.Minimum = 10;
             this.trackBar2.Name = "trackBar2";
             this.trackBar2.SmallChange = 10;
             this.trackBar2.TickFrequency = 100;
-            this.trackBar2.Value = 10;
+            this.trackBar2.Value = 500;
             this.trackBar2.Scroll += new System.EventHandler(this.trackBar2_Scroll);
             // 
             // polarButton
@@ -108,6 +121,14 @@
             this.tbar2ResetButton.Name = "tbar2ResetButton";
             this.tbar2ResetButton.UseVisualStyleBackColor = true;
             this.tbar2ResetButton.Click += new System.EventHandler(this.tbar2ResetButton_Click);
+            // 
+            // saveCheck
+            // 
+            resources.ApplyResources(this.saveCheck, "saveCheck");
+            this.saveCheck.Image = global::ll_synthesizer.Properties.Resources.control_record;
+            this.saveCheck.Name = "saveCheck";
+            this.saveCheck.UseVisualStyleBackColor = false;
+            this.saveCheck.CheckedChanged += new System.EventHandler(this.saveCheck_CheckedChanged);
             // 
             // fadeTimeBar
             // 
@@ -255,14 +276,6 @@
             this.baseTablePanel.Controls.Add(this.flowChartPanel, 0, 0);
             this.baseTablePanel.Name = "baseTablePanel";
             // 
-            // saveCheck
-            // 
-            resources.ApplyResources(this.saveCheck, "saveCheck");
-            this.saveCheck.Image = global::ll_synthesizer.Properties.Resources.control_record;
-            this.saveCheck.Name = "saveCheck";
-            this.saveCheck.UseVisualStyleBackColor = false;
-            this.saveCheck.CheckedChanged += new System.EventHandler(this.saveCheck_CheckedChanged);
-            // 
             // Form1
             // 
             this.AllowDrop = true;
@@ -315,6 +328,8 @@
         private System.Windows.Forms.Button tbar2ResetButton;
         private System.Windows.Forms.Button polarButton;
         private System.Windows.Forms.TrackBar trackBar2;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label label1;
     }
 }
 

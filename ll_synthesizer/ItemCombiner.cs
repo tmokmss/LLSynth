@@ -20,6 +20,7 @@ namespace ll_synthesizer
         private Stopwatch sw = new Stopwatch();
         private Thread factorCalculateThread;
         private System.Timers.Timer timer;
+        private Dictionary<int, RandomizedFactor> randomFactors = new Dictionary<int, RandomizedFactor>();
         private Form1 form;
 
         // settings
@@ -27,7 +28,6 @@ namespace ll_synthesizer
         private static int compareSpan = 30; // in index +-
         private static short threashold = 50;
         private static double[] searchRegion = new double[] { 0, 0.01 };  // region of offset search
-        private double target = 0.2;    // targeted instrument/total ratio
         private static double allowedError = 0.005;
         private static int minimumRefreshIntervalMs = 1000;
         private static double iconRefreshIntervalInMs = 500;
@@ -36,13 +36,15 @@ namespace ll_synthesizer
 
         public double MelodyRemovalRatio
         {
-            set { target = value; }
+            set { RandomizedFactor.RemovalRatio = value; }
         }
 
         public bool NormalizeEnabled
         {
             set { normalize = value; }
         }
+
+        public bool AdjustWhenMuted { set; get; } = false;
 
         public ItemCombiner(Form1 form)
         {
@@ -83,7 +85,7 @@ namespace ll_synthesizer
                 //baseLength = (baseLength > item.GetLength()) ? item.GetLength() : baseLength;
             }
             Subscribe(item);
-            AsyncRandomizeFactor();
+            ResetRandomizedFactor();
             timer.Enabled = true;
         }
 
@@ -92,6 +94,7 @@ namespace ll_synthesizer
             item.PlotRefreshed += this.RefleshAllPlot;
             item.Suicided += this.RemoveSuicider;
             item.FactorChanged += this.RefreshRequestReceived;
+            item.MuteChanged += this.RandomizeFactorsOnMute;
         }
 
         void UnSubscribe(ItemSet item)
@@ -99,6 +102,7 @@ namespace ll_synthesizer
             item.PlotRefreshed -= this.RefleshAllPlot;
             item.Suicided -= this.RemoveSuicider;
             item.FactorChanged -= this.RefreshRequestReceived;
+            item.MuteChanged -= this.RandomizeFactorsOnMute;
         }
 
         public void Dispose()
@@ -143,62 +147,57 @@ namespace ll_synthesizer
             return str;
         }
 
-        System.Random r = new System.Random();
-        int[,] factors;
-        bool factorsCalced = false;
-        bool isFirst = true;
-        private void CalcRandomizedFactor()
+        private void ResetRandomizedFactor()
         {
-            ArrayList unmuted = GetUnmutedItems();
-            int num = unmuted.Count;
-            if (num == 1)
-                return; // there is no answer
-            factorsCalced = false;
-            factors = new int[num, 2];
-            int[] maxmin = ((ItemSet)unmuted[0]).GetFacsMaxMin();
-
-            int count = 0;
-            double targetSaved = target;
-            while (!IsAllowedFactors(factors))
+            if (RandomizedFactor.MaxMin == null)
             {
-                for (int i = 0; i < num; i++)
+                RandomizedFactor.MaxMin = ((ItemSet)list[0]).GetFacsMaxMin();
+                RandomizedFactor.RemovalRatio = 0.2;
+                RandomizedFactor.AllowedError = allowedError;
+            }
+            var length = GetCount();
+            for (var i=1; i<=length; i++)
+            {
+                RandomizedFactor fac;
+                randomFactors.TryGetValue(i, out fac);
+                if (fac == null)
                 {
-                    factors[i, 0] = r.Next(maxmin[0], maxmin[1]);   // LRFactor
-                    factors[i, 1] = r.Next(-maxmin[3], maxmin[3]);  // TotalFactor
-                    //factors[i, 1] = r.Next(maxmin[2], maxmin[3]);
+                    fac = new RandomizedFactor(i);
+                    randomFactors.Add(i, fac);
                 }
-                count++;
+                if (!fac.FactorsCalced)
+                {
+                    fac.AsyncCalcRandomizedFactor();
+                }
             }
-            Console.WriteLine(count);
-            factorsCalced = true;
-            isFirst = false;
-        }
-
-        private void AsyncRandomizeFactor()
-        {
-            if (factorCalculateThread != null)
-            {
-                factorCalculateThread.Abort();
-            }
-            factorCalculateThread = new Thread(new ThreadStart(CalcRandomizedFactor));
-            factorCalculateThread.IsBackground = true;
-            factorCalculateThread.Start();
         }
 
         public void ApplyRandomizedFactor()
         {
-            if (isFirst)
-                AsyncRandomizeFactor();
-            if (!factorsCalced)
-                return;
-            ArrayList unmuted = GetUnmutedItems();
+            ApplyRandomizedFactor(false);
+        }
+
+        public void ApplyRandomizedFactor(bool asap)
+        {
+            var unmuted = GetUnmutedItems();
             int num = unmuted.Count;
-            int numfac = factors.GetLength(0);
-            num = Math.Min(numfac, num);
+            if (num == 1) return;
+            RandomizedFactor fac;
+            randomFactors.TryGetValue(num, out fac);
+            if (fac == null)
+            {
+                ResetRandomizedFactor();
+                return;
+            }
+            if (!fac.FactorsCalced)
+            {
+                fac.AsyncCalcRandomizedFactor();
+                return;
+            }
+            var factors = fac.Factors;
             for (int i = 0; i < num; i++)
             {
                 ItemSet item = (ItemSet)unmuted[i];
-                item.AsyncSetLRBalance(factors[i, 0]);
                 /* CenterCut版
                 if (factors[i, 1] < 0)
                 {
@@ -212,47 +211,17 @@ namespace ll_synthesizer
                 }
                 */
                 // 逆位相版
-                item.AsyncSetTotalFactor(factors[i, 1]);
+                if (asap || ItemSet.FadingTime == 0)
+                {
+                    item.SetFactors(factors[i, 1], factors[i, 0]);
+                }
+                else
+                {
+                    item.AsyncSetLRBalance(factors[i, 0]);
+                    item.AsyncSetTotalFactor(factors[i, 1]);
+                }
             }
-            AsyncRandomizeFactor();
-        }
-
-        private bool IsAllowedFactors(int[,] orgfac)
-        {
-            double sumR = 0;
-            double sumL = 0;
-            double sumAbsR = 0;
-            double sumAbsL = 0;
-            for (int i = 0; i < orgfac.GetLength(0); i++)
-            {
-                int val = orgfac[i, 0];
-                double fac = (orgfac[i, 1] < 0) ? 1 : 1;
-                double facR = Math.Cos(Math.PI / 40 * val + Math.PI / 4) * orgfac[i, 1] * fac;
-                double facL = Math.Sin(Math.PI / 40 * val + Math.PI / 4) * orgfac[i, 1] * fac;
-                sumR += facR;
-                sumL += facL;
-                sumAbsR += Math.Abs(facR);
-                sumAbsL += Math.Abs(facL);
-            }
-            if (sumAbsR * sumAbsL == 0)
-                return false;
-
-            //double R = Math.Abs(sumR/sumAbsR);
-            //double L = Math.Abs(sumL/sumAbsL);
-            double R = sumR / sumAbsR;
-            double L = sumL / sumAbsL;
-
-            double target = this.target;
-            if (IsApproxTarget(R) && IsApproxTarget(L))
-                return true;
-            return false;
-        }
-
-        private bool IsApproxTarget(double val)
-        {
-            if (val > target - allowedError && val < target + allowedError)
-                return true;
-            return false;
+            fac.AsyncCalcRandomizedFactor();
         }
 
         private ArrayList GetUnmutedItems()
@@ -300,6 +269,12 @@ namespace ll_synthesizer
         private void RefreshRequestReceived(object sender, EventArgs e)
         {
             RefreshAllIcon();
+        }
+
+        private void RandomizeFactorsOnMute(object sender, EventArgs e)
+        {
+            if (AdjustWhenMuted)
+                ApplyRandomizedFactor(true);
         }
 
         private void RemoveSuicider(object sender, EventArgs e)

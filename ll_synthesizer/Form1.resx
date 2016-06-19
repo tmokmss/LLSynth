@@ -125,15 +125,75 @@
   <data name="chartPanel.AutoScroll" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
-  <data name="trackBar2.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+  <data name="label2.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="label2.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="label2.Location" type="System.Drawing.Point, System.Drawing">
+    <value>392, 74</value>
+  </data>
+  <data name="label2.Size" type="System.Drawing.Size, System.Drawing">
+    <value>66, 15</value>
+  </data>
+  <data name="label2.TabIndex" type="System.Int32, mscorlib">
+    <value>21</value>
+  </data>
+  <data name="label2.Text" xml:space="preserve">
+    <value>Fade time</value>
+  </data>
+  <data name="&gt;&gt;label2.Name" xml:space="preserve">
+    <value>label2</value>
+  </data>
+  <data name="&gt;&gt;label2.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label2.Parent" xml:space="preserve">
+    <value>chartPanel</value>
+  </data>
+  <data name="&gt;&gt;label2.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="label1.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="label1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>392, 12</value>
+  </data>
+  <data name="label1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>131, 15</value>
+  </data>
+  <data name="label1.TabIndex" type="System.Int32, mscorlib">
+    <value>6</value>
+  </data>
+  <data name="label1.Text" xml:space="preserve">
+    <value>Melody removal ratio</value>
+  </data>
+  <data name="&gt;&gt;label1.Name" xml:space="preserve">
+    <value>label1</value>
+  </data>
+  <data name="&gt;&gt;label1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label1.Parent" xml:space="preserve">
+    <value>chartPanel</value>
+  </data>
+  <data name="&gt;&gt;label1.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="trackBar2.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
   <data name="trackBar2.Location" type="System.Drawing.Point, System.Drawing">
-    <value>204, 39</value>
+    <value>431, 96</value>
+  </data>
+  <data name="trackBar2.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>3, 4, 3, 4</value>
   </data>
   <data name="trackBar2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>104, 45</value>
+    <value>121, 45</value>
   </data>
   <data name="trackBar2.TabIndex" type="System.Int32, mscorlib">
     <value>20</value>
@@ -148,16 +208,22 @@
     <value>chartPanel</value>
   </data>
   <data name="&gt;&gt;trackBar2.ZOrder" xml:space="preserve">
-    <value>0</value>
+    <value>2</value>
+  </data>
+  <data name="polarButton.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Meiryo UI, 9pt</value>
   </data>
   <data name="polarButton.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
   <data name="polarButton.Location" type="System.Drawing.Point, System.Drawing">
-    <value>392, 137</value>
+    <value>441, 142</value>
+  </data>
+  <data name="polarButton.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>3, 4, 3, 4</value>
   </data>
   <data name="polarButton.Size" type="System.Drawing.Size, System.Drawing">
-    <value>75, 21</value>
+    <value>101, 29</value>
   </data>
   <data name="polarButton.TabIndex" type="System.Int32, mscorlib">
     <value>19</value>
@@ -175,16 +241,19 @@
     <value>chartPanel</value>
   </data>
   <data name="&gt;&gt;polarButton.ZOrder" xml:space="preserve">
-    <value>1</value>
+    <value>3</value>
   </data>
   <data name="tbar2ResetButton.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
   <data name="tbar2ResetButton.Location" type="System.Drawing.Point, System.Drawing">
-    <value>311, 135</value>
+    <value>347, 142</value>
+  </data>
+  <data name="tbar2ResetButton.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>3, 4, 3, 4</value>
   </data>
   <data name="tbar2ResetButton.Size" type="System.Drawing.Size, System.Drawing">
-    <value>75, 23</value>
+    <value>87, 29</value>
   </data>
   <data name="tbar2ResetButton.TabIndex" type="System.Int32, mscorlib">
     <value>18</value>
@@ -202,7 +271,7 @@
     <value>chartPanel</value>
   </data>
   <data name="&gt;&gt;tbar2ResetButton.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>4</value>
   </data>
   <data name="saveCheck.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -211,13 +280,16 @@
     <value>NoControl</value>
   </data>
   <data name="saveCheck.Location" type="System.Drawing.Point, System.Drawing">
-    <value>101, 90</value>
+    <value>118, 112</value>
+  </data>
+  <data name="saveCheck.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>3, 4, 3, 4</value>
   </data>
   <data name="saveCheck.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>0, 3, 0, 0</value>
+    <value>0, 4, 0, 0</value>
   </data>
   <data name="saveCheck.Size" type="System.Drawing.Size, System.Drawing">
-    <value>31, 19</value>
+    <value>31, 20</value>
   </data>
   <data name="saveCheck.TabIndex" type="System.Int32, mscorlib">
     <value>6</value>
@@ -232,16 +304,19 @@
     <value>chartPanel</value>
   </data>
   <data name="&gt;&gt;saveCheck.ZOrder" xml:space="preserve">
-    <value>3</value>
+    <value>5</value>
   </data>
   <data name="fadeTimeBar.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
   <data name="fadeTimeBar.Location" type="System.Drawing.Point, System.Drawing">
-    <value>200, 135</value>
+    <value>217, 142</value>
+  </data>
+  <data name="fadeTimeBar.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>3, 4, 3, 4</value>
   </data>
   <data name="fadeTimeBar.Size" type="System.Drawing.Size, System.Drawing">
-    <value>104, 45</value>
+    <value>121, 45</value>
   </data>
   <data name="fadeTimeBar.TabIndex" type="System.Int32, mscorlib">
     <value>5</value>
@@ -256,16 +331,19 @@
     <value>chartPanel</value>
   </data>
   <data name="&gt;&gt;fadeTimeBar.ZOrder" xml:space="preserve">
-    <value>4</value>
+    <value>6</value>
   </data>
   <data name="trackBar1.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
   <data name="trackBar1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>200, 90</value>
+    <value>431, 31</value>
+  </data>
+  <data name="trackBar1.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>3, 4, 3, 4</value>
   </data>
   <data name="trackBar1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>104, 45</value>
+    <value>121, 45</value>
   </data>
   <data name="trackBar1.TabIndex" type="System.Int32, mscorlib">
     <value>17</value>
@@ -280,16 +358,22 @@
     <value>chartPanel</value>
   </data>
   <data name="&gt;&gt;trackBar1.ZOrder" xml:space="preserve">
-    <value>5</value>
+    <value>7</value>
+  </data>
+  <data name="lrButton.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Meiryo UI, 9pt</value>
   </data>
   <data name="lrButton.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
   <data name="lrButton.Location" type="System.Drawing.Point, System.Drawing">
-    <value>101, 3</value>
+    <value>118, 4</value>
+  </data>
+  <data name="lrButton.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>3, 4, 3, 4</value>
   </data>
   <data name="lrButton.Size" type="System.Drawing.Size, System.Drawing">
-    <value>75, 23</value>
+    <value>87, 29</value>
   </data>
   <data name="lrButton.TabIndex" type="System.Int32, mscorlib">
     <value>7</value>
@@ -307,7 +391,7 @@
     <value>chartPanel</value>
   </data>
   <data name="&gt;&gt;lrButton.ZOrder" xml:space="preserve">
-    <value>6</value>
+    <value>8</value>
   </data>
   <data name="vocalRstr.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -316,10 +400,10 @@
     <value>NoControl</value>
   </data>
   <data name="vocalRstr.Location" type="System.Drawing.Point, System.Drawing">
-    <value>198, 66</value>
+    <value>210, 88</value>
   </data>
   <data name="vocalRstr.Size" type="System.Drawing.Size, System.Drawing">
-    <value>0, 12</value>
+    <value>0, 15</value>
   </data>
   <data name="vocalRstr.TabIndex" type="System.Int32, mscorlib">
     <value>16</value>
@@ -334,7 +418,7 @@
     <value>chartPanel</value>
   </data>
   <data name="&gt;&gt;vocalRstr.ZOrder" xml:space="preserve">
-    <value>7</value>
+    <value>9</value>
   </data>
   <data name="vocalLstr.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -343,10 +427,10 @@
     <value>NoControl</value>
   </data>
   <data name="vocalLstr.Location" type="System.Drawing.Point, System.Drawing">
-    <value>198, 37</value>
+    <value>210, 52</value>
   </data>
   <data name="vocalLstr.Size" type="System.Drawing.Size, System.Drawing">
-    <value>0, 12</value>
+    <value>0, 15</value>
   </data>
   <data name="vocalLstr.TabIndex" type="System.Int32, mscorlib">
     <value>15</value>
@@ -361,16 +445,22 @@
     <value>chartPanel</value>
   </data>
   <data name="&gt;&gt;vocalLstr.ZOrder" xml:space="preserve">
-    <value>8</value>
+    <value>10</value>
+  </data>
+  <data name="pauseButton.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Meiryo UI, 9pt</value>
   </data>
   <data name="pauseButton.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
   <data name="pauseButton.Location" type="System.Drawing.Point, System.Drawing">
-    <value>101, 61</value>
+    <value>118, 76</value>
+  </data>
+  <data name="pauseButton.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>3, 4, 3, 4</value>
   </data>
   <data name="pauseButton.Size" type="System.Drawing.Size, System.Drawing">
-    <value>75, 23</value>
+    <value>87, 29</value>
   </data>
   <data name="pauseButton.TabIndex" type="System.Int32, mscorlib">
     <value>13</value>
@@ -388,16 +478,22 @@
     <value>chartPanel</value>
   </data>
   <data name="&gt;&gt;pauseButton.ZOrder" xml:space="preserve">
-    <value>9</value>
+    <value>11</value>
+  </data>
+  <data name="refreshButton.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Meiryo UI, 9pt</value>
   </data>
   <data name="refreshButton.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
   <data name="refreshButton.Location" type="System.Drawing.Point, System.Drawing">
-    <value>101, 32</value>
+    <value>118, 40</value>
+  </data>
+  <data name="refreshButton.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>3, 4, 3, 4</value>
   </data>
   <data name="refreshButton.Size" type="System.Drawing.Size, System.Drawing">
-    <value>75, 23</value>
+    <value>87, 29</value>
   </data>
   <data name="refreshButton.TabIndex" type="System.Int32, mscorlib">
     <value>12</value>
@@ -415,19 +511,25 @@
     <value>chartPanel</value>
   </data>
   <data name="&gt;&gt;refreshButton.ZOrder" xml:space="preserve">
-    <value>10</value>
+    <value>12</value>
   </data>
   <data name="autoCheck.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
+  </data>
+  <data name="autoCheck.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Meiryo UI, 9pt</value>
   </data>
   <data name="autoCheck.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
   <data name="autoCheck.Location" type="System.Drawing.Point, System.Drawing">
-    <value>20, 90</value>
+    <value>23, 112</value>
+  </data>
+  <data name="autoCheck.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>3, 4, 3, 4</value>
   </data>
   <data name="autoCheck.Size" type="System.Drawing.Size, System.Drawing">
-    <value>67, 16</value>
+    <value>71, 19</value>
   </data>
   <data name="autoCheck.TabIndex" type="System.Int32, mscorlib">
     <value>11</value>
@@ -445,13 +547,16 @@
     <value>chartPanel</value>
   </data>
   <data name="&gt;&gt;autoCheck.ZOrder" xml:space="preserve">
-    <value>11</value>
+    <value>13</value>
   </data>
   <data name="offsetUpDown.Location" type="System.Drawing.Point, System.Drawing">
-    <value>200, 3</value>
+    <value>212, 10</value>
+  </data>
+  <data name="offsetUpDown.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>3, 4, 3, 4</value>
   </data>
   <data name="offsetUpDown.Size" type="System.Drawing.Size, System.Drawing">
-    <value>120, 19</value>
+    <value>140, 23</value>
   </data>
   <data name="offsetUpDown.TabIndex" type="System.Int32, mscorlib">
     <value>10</value>
@@ -469,16 +574,22 @@
     <value>chartPanel</value>
   </data>
   <data name="&gt;&gt;offsetUpDown.ZOrder" xml:space="preserve">
-    <value>12</value>
+    <value>14</value>
+  </data>
+  <data name="button3.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Meiryo UI, 9pt</value>
   </data>
   <data name="button3.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
   <data name="button3.Location" type="System.Drawing.Point, System.Drawing">
-    <value>20, 61</value>
+    <value>23, 76</value>
+  </data>
+  <data name="button3.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>3, 4, 3, 4</value>
   </data>
   <data name="button3.Size" type="System.Drawing.Size, System.Drawing">
-    <value>75, 23</value>
+    <value>87, 29</value>
   </data>
   <data name="button3.TabIndex" type="System.Int32, mscorlib">
     <value>9</value>
@@ -496,16 +607,22 @@
     <value>chartPanel</value>
   </data>
   <data name="&gt;&gt;button3.ZOrder" xml:space="preserve">
-    <value>13</value>
+    <value>15</value>
+  </data>
+  <data name="button4.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Meiryo UI, 9pt</value>
   </data>
   <data name="button4.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
   <data name="button4.Location" type="System.Drawing.Point, System.Drawing">
-    <value>20, 32</value>
+    <value>23, 40</value>
+  </data>
+  <data name="button4.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>3, 4, 3, 4</value>
   </data>
   <data name="button4.Size" type="System.Drawing.Size, System.Drawing">
-    <value>75, 23</value>
+    <value>87, 29</value>
   </data>
   <data name="button4.TabIndex" type="System.Int32, mscorlib">
     <value>6</value>
@@ -523,16 +640,22 @@
     <value>chartPanel</value>
   </data>
   <data name="&gt;&gt;button4.ZOrder" xml:space="preserve">
-    <value>14</value>
+    <value>16</value>
+  </data>
+  <data name="button1.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Meiryo UI, 9pt</value>
   </data>
   <data name="button1.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
   <data name="button1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>20, 3</value>
+    <value>23, 4</value>
+  </data>
+  <data name="button1.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>3, 4, 3, 4</value>
   </data>
   <data name="button1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>75, 23</value>
+    <value>87, 29</value>
   </data>
   <data name="button1.TabIndex" type="System.Int32, mscorlib">
     <value>2</value>
@@ -550,13 +673,19 @@
     <value>chartPanel</value>
   </data>
   <data name="&gt;&gt;button1.ZOrder" xml:space="preserve">
-    <value>15</value>
+    <value>17</value>
+  </data>
+  <data name="chartPanel.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Meiryo UI, 9pt</value>
   </data>
   <data name="chartPanel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 461</value>
+    <value>3, 463</value>
+  </data>
+  <data name="chartPanel.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>3, 4, 3, 4</value>
   </data>
   <data name="chartPanel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>552, 181</value>
+    <value>572, 188</value>
   </data>
   <data name="chartPanel.TabIndex" type="System.Int32, mscorlib">
     <value>2</value>
@@ -603,8 +732,11 @@
   <data name="menuStrip1.Location" type="System.Drawing.Point, System.Drawing">
     <value>0, 0</value>
   </data>
+  <data name="menuStrip1.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>7, 2, 0, 2</value>
+  </data>
   <data name="menuStrip1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>1139, 26</value>
+    <value>1143, 26</value>
   </data>
   <data name="menuStrip1.TabIndex" type="System.Int32, mscorlib">
     <value>3</value>
@@ -640,13 +772,16 @@
     <value>2</value>
   </data>
   <data name="baseTablePanel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>10, 32</value>
+    <value>12, 40</value>
+  </data>
+  <data name="baseTablePanel.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>3, 4, 3, 4</value>
   </data>
   <data name="baseTablePanel.RowCount" type="System.Int32, mscorlib">
     <value>2</value>
   </data>
   <data name="baseTablePanel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>1117, 645</value>
+    <value>1117, 655</value>
   </data>
   <data name="baseTablePanel.TabIndex" type="System.Int32, mscorlib">
     <value>5</value>
@@ -664,13 +799,19 @@
     <value>1</value>
   </data>
   <data name="baseTablePanel.LayoutSettings" type="System.Windows.Forms.TableLayoutSettings, System.Windows.Forms">
-    <value>&lt;?xml version="1.0" encoding="utf-16"?&gt;&lt;TableLayoutSettings&gt;&lt;Controls&gt;&lt;Control Name="chartPanel" Row="1" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="flowChartPanel" Row="0" RowSpan="1" Column="0" ColumnSpan="2" /&gt;&lt;/Controls&gt;&lt;Columns Styles="Percent,50,Percent,50" /&gt;&lt;Rows Styles="Percent,71.16279,Percent,28.83721" /&gt;&lt;/TableLayoutSettings&gt;</value>
+    <value>&lt;?xml version="1.0" encoding="utf-16"?&gt;&lt;TableLayoutSettings&gt;&lt;Controls&gt;&lt;Control Name="chartPanel" Row="1" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="flowChartPanel" Row="0" RowSpan="1" Column="0" ColumnSpan="2" /&gt;&lt;/Controls&gt;&lt;Columns Styles="Percent,51.76991,Percent,48.23009" /&gt;&lt;Rows Styles="Percent,70.229,Percent,29.77099" /&gt;&lt;/TableLayoutSettings&gt;</value>
+  </data>
+  <data name="flowChartPanel.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Meiryo UI, 9pt</value>
   </data>
   <data name="flowChartPanel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 3</value>
+    <value>3, 4</value>
+  </data>
+  <data name="flowChartPanel.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>3, 4, 3, 4</value>
   </data>
   <data name="flowChartPanel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>1111, 452</value>
+    <value>1111, 451</value>
   </data>
   <data name="flowChartPanel.TabIndex" type="System.Int32, mscorlib">
     <value>3</value>
@@ -691,13 +832,16 @@
     <value>True</value>
   </metadata>
   <metadata name="$this.TrayHeight" type="System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>77</value>
+    <value>73</value>
   </metadata>
   <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
-    <value>6, 12</value>
+    <value>7, 15</value>
   </data>
   <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
-    <value>1139, 689</value>
+    <value>1143, 710</value>
+  </data>
+  <data name="$this.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Meiryo UI, 9pt</value>
   </data>
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
@@ -2041,8 +2185,8 @@
         OOtL+pzB7K8WnNXcoGvemrfmrXn7nG8tWvx/RyulmeGI898AAAAASUVORK5CYII=
 </value>
   </data>
-  <data name="$this.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
+  <data name="$this.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>3, 4, 3, 4</value>
   </data>
   <data name="$this.Text" xml:space="preserve">
     <value>Form1</value>

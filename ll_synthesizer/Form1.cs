@@ -321,6 +321,7 @@ namespace ll_synthesizer
             if (ic != null)
             {
                 ic.NormalizeEnabled = autoCheck.Checked;
+                ic.AdjustWhenMuted = autoCheck.Checked;
             }
         }
     }
