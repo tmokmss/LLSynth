@@ -250,17 +250,6 @@
             resources.ApplyResources(this.addFileToolStripMenuItem, "addFileToolStripMenuItem");
             this.addFileToolStripMenuItem.Click += new System.EventHandler(this.addFileToolStripMenuItem_Click);
             // 
-            // flowChartPanel
-            // 
-            resources.ApplyResources(this.flowChartPanel, "flowChartPanel");
-            this.flowChartPanel.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
-            this.baseTablePanel.SetColumnSpan(this.flowChartPanel, 2);
-            this.flowChartPanel.Name = "flowChartPanel";
-            this.flowChartPanel.ControlRemoved += new System.Windows.Forms.ControlEventHandler(this.flowChartPanel_ControlRemoved);
-            this.flowChartPanel.Enter += new System.EventHandler(this.flowChartPanel_Enter);
-            this.flowChartPanel.Leave += new System.EventHandler(this.flowChartPanel_Leave);
-            this.flowChartPanel.MouseDown += new System.Windows.Forms.MouseEventHandler(this.flowChartPanel_MouseDown);
-            // 
             // baseTablePanel
             // 
             resources.ApplyResources(this.baseTablePanel, "baseTablePanel");
