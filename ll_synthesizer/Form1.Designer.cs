@@ -30,6 +30,9 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.chartPanel = new System.Windows.Forms.Panel();
+            this.trackBar2 = new System.Windows.Forms.TrackBar();
+            this.polarButton = new System.Windows.Forms.Button();
+            this.tbar2ResetButton = new System.Windows.Forms.Button();
             this.saveCheck = new System.Windows.Forms.CheckBox();
             this.fadeTimeBar = new System.Windows.Forms.TrackBar();
             this.trackBar1 = new System.Windows.Forms.TrackBar();
@@ -50,8 +53,8 @@
             this.addFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.flowChartPanel = new System.Windows.Forms.FlowLayoutPanel();
             this.baseTablePanel = new System.Windows.Forms.TableLayoutPanel();
-            this.tbar2ResetButton = new System.Windows.Forms.Button();
             this.chartPanel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBar2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.fadeTimeBar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.offsetUpDown)).BeginInit();
@@ -63,6 +66,8 @@
             // 
             resources.ApplyResources(this.chartPanel, "chartPanel");
             this.chartPanel.BackColor = System.Drawing.SystemColors.ControlDark;
+            this.chartPanel.Controls.Add(this.trackBar2);
+            this.chartPanel.Controls.Add(this.polarButton);
             this.chartPanel.Controls.Add(this.tbar2ResetButton);
             this.chartPanel.Controls.Add(this.saveCheck);
             this.chartPanel.Controls.Add(this.fadeTimeBar);
@@ -78,6 +83,31 @@
             this.chartPanel.Controls.Add(this.button4);
             this.chartPanel.Controls.Add(this.button1);
             this.chartPanel.Name = "chartPanel";
+            // 
+            // trackBar2
+            // 
+            resources.ApplyResources(this.trackBar2, "trackBar2");
+            this.trackBar2.Maximum = 2000;
+            this.trackBar2.Minimum = 10;
+            this.trackBar2.Name = "trackBar2";
+            this.trackBar2.SmallChange = 10;
+            this.trackBar2.TickFrequency = 100;
+            this.trackBar2.Value = 10;
+            this.trackBar2.Scroll += new System.EventHandler(this.trackBar2_Scroll);
+            // 
+            // polarButton
+            // 
+            resources.ApplyResources(this.polarButton, "polarButton");
+            this.polarButton.Name = "polarButton";
+            this.polarButton.UseVisualStyleBackColor = true;
+            this.polarButton.Click += new System.EventHandler(this.polarButton_Click);
+            // 
+            // tbar2ResetButton
+            // 
+            resources.ApplyResources(this.tbar2ResetButton, "tbar2ResetButton");
+            this.tbar2ResetButton.Name = "tbar2ResetButton";
+            this.tbar2ResetButton.UseVisualStyleBackColor = true;
+            this.tbar2ResetButton.Click += new System.EventHandler(this.tbar2ResetButton_Click);
             // 
             // saveCheck
             // 
@@ -141,6 +171,7 @@
             resources.ApplyResources(this.autoCheck, "autoCheck");
             this.autoCheck.Name = "autoCheck";
             this.autoCheck.UseVisualStyleBackColor = true;
+            this.autoCheck.CheckedChanged += new System.EventHandler(this.autoCheck_CheckedChanged);
             // 
             // offsetUpDown
             // 
@@ -236,13 +267,6 @@
             this.baseTablePanel.Controls.Add(this.flowChartPanel, 0, 0);
             this.baseTablePanel.Name = "baseTablePanel";
             // 
-            // tbar2ResetButton
-            // 
-            resources.ApplyResources(this.tbar2ResetButton, "tbar2ResetButton");
-            this.tbar2ResetButton.Name = "tbar2ResetButton";
-            this.tbar2ResetButton.UseVisualStyleBackColor = true;
-            this.tbar2ResetButton.Click += new System.EventHandler(this.tbar2ResetButton_Click);
-            // 
             // Form1
             // 
             this.AllowDrop = true;
@@ -257,6 +281,7 @@
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Form1_KeyDown);
             this.chartPanel.ResumeLayout(false);
             this.chartPanel.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBar2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.fadeTimeBar)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.offsetUpDown)).EndInit();
@@ -293,6 +318,8 @@
         private System.Windows.Forms.ToolStripMenuItem openFileToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem addFileToolStripMenuItem;
         private System.Windows.Forms.Button tbar2ResetButton;
+        private System.Windows.Forms.Button polarButton;
+        private System.Windows.Forms.TrackBar trackBar2;
     }
 }
 

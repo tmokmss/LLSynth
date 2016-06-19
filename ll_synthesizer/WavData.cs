@@ -6,6 +6,7 @@ using System.Threading;
 using NAudio.Wave;
 using ll_synthesizer.Sound;
 using ll_synthesizer.DSPs;
+using System.Diagnostics;
 
 namespace ll_synthesizer
 {
@@ -74,6 +75,10 @@ namespace ll_synthesizer
             get { return wfr.WaveFormat; }
         }
 
+        public double FactorL { get { return factorL; } }
+        public double FactorR { get { return factorR; } }
+        public double Factor { get { return factor; } }
+        
         public WavData(string path)
         {
             this.path = path;

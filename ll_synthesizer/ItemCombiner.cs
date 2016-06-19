@@ -32,10 +32,16 @@ namespace ll_synthesizer
         private static int minimumRefreshIntervalMs = 1000;
         private static double iconRefreshIntervalInMs = 500;
         private static int numOfElementsCompared = 2000;
+        private static bool normalize = false;
 
         public double MelodyRemovalRatio
         {
             set { target = value; }
+        }
+
+        public bool NormalizeEnabled
+        {
+            set { normalize = value; }
         }
 
         public ItemCombiner(Form1 form)
@@ -62,6 +68,7 @@ namespace ll_synthesizer
             minimumRefreshIntervalMs = settings.MinimumRefreshInterval;
             iconRefreshIntervalInMs = settings.IconRefreshInterval;
             numOfElementsCompared = settings.NumOfElementsCompared;
+            normalize = settings.NormalizeLRVolume;
         }
 
         public void AddItem(ItemSet item)
@@ -192,6 +199,7 @@ namespace ll_synthesizer
             {
                 ItemSet item = (ItemSet)unmuted[i];
                 item.AsyncSetLRBalance(factors[i, 0]);
+                /* CenterCut版
                 if (factors[i, 1] < 0)
                 {
                     item.DSPEnabled = true;
@@ -202,6 +210,9 @@ namespace ll_synthesizer
                     item.DSPEnabled = false;
                     item.AsyncSetTotalFactor(factors[i, 1]);
                 }
+                */
+                // 逆位相版
+                item.AsyncSetTotalFactor(factors[i, 1]);
             }
             AsyncRandomizeFactor();
         }
@@ -411,11 +422,6 @@ namespace ll_synthesizer
             return list.Count;
         }
 
-        public int GetAvailable()
-        {
-            return list.Count;
-        }
-
         public ItemSet GetItem(int idx)
         {
             if (idx < list.Count && idx >= 0)
@@ -475,6 +481,10 @@ namespace ll_synthesizer
                     // sometimes thrown when item removed while playing
                     // can be ignored
                 }
+                catch (NullReferenceException)
+                {
+                    continue;
+                }
             }
             if (factorL == 0 && factorR == 0 && avoidAllMute)
             {
@@ -486,8 +496,17 @@ namespace ll_synthesizer
                 factorL = 1;
                 factorR = 1;
             }
-            short newLeft = ToShortDevidedBy(left, factorL);
-            short newRight = ToShortDevidedBy(right, factorR);;
+            short newLeft, newRight;
+            if (factorL > 1 || normalize)
+            {
+                newLeft = ToShortDevidedBy(left, factorL);
+            }
+            else newLeft = Convert.ToInt16(left);
+            if (factorR > 1 || normalize)
+            {
+                newRight = ToShortDevidedBy(right, factorR); ;
+            }
+            else newRight = Convert.ToInt16(right);
             return new short[] {newLeft, newRight};
         }
 

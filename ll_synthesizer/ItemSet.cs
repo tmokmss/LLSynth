@@ -35,7 +35,7 @@ namespace ll_synthesizer
         private Thread TFThread;
 
         // setting
-        private static int fadeTimeMs = 1000;
+        private static int fadeTimeMs = 100;
 
         static public int FadingTime
         {
@@ -44,6 +44,7 @@ namespace ll_synthesizer
 
         public bool Muted
         {
+            set { mute.Checked = value; }
             get { return mute.Checked; }
         }
 
@@ -86,6 +87,21 @@ namespace ll_synthesizer
             }
             get { return totalFactor.Value; }
         }
+
+        public int[] MaxMins
+        {
+            get
+            {
+                var vals = new int[4];
+                vals[0]= lrBalance.Maximum;
+                vals[1]= lrBalance.Minimum;
+                vals[2]= totalFactor.Maximum;
+                vals[3]= totalFactor.Minimum;
+                return vals;
+            }
+        }
+
+        public PictureBox MyIcon { get { return this.icon; } }
 
         public ItemSet(WavData wd): base(wd.GetName())
         {
@@ -449,10 +465,10 @@ namespace ll_synthesizer
 
             Color color = Color.FromArgb(alphaL, mainPanelBack);
             Brush b = new SolidBrush(color);
-            g.FillRectangle(b, 0, 0, 60, 120);
+            g.FillRectangle(b, 0, 0, 64, 128);
             color = Color.FromArgb(alphaR, mainPanelBack);
             b = new SolidBrush(color);
-            g.FillRectangle(b, 60, 0, 120, 120);
+            g.FillRectangle(b, 64, 0, 128, 128);
 
             Font fnt = new System.Drawing.Font("Meiryo UI", 15, FontStyle.Bold); ;
             g.DrawString(myKey.ToString(), fnt, Brushes.Black, 0, 0);

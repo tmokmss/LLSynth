@@ -127,8 +127,8 @@ namespace ll_synthesizer
             icon.ImageLocation = ChooseIcon(title);
             icon.Name = "icon" + myNum;
             icon.TabStop = false;
-            icon.Width = 120;
-            icon.Height = 120;
+            icon.Width = 128;
+            icon.Height = 128;
 
             // mute
             mute.AutoSize = true;
@@ -174,7 +174,7 @@ namespace ll_synthesizer
             infoPanel.ColumnCount = 3;
             infoPanel.Name = "infoPanel" + myNum;
             infoPanel.AutoSize = true;
-            infoPanel.BackColor = Color.AliceBlue;
+            infoPanel.BackColor = mainPanelBack;
 
             infoPanel.Controls.Add(playButton, 0, 0);
             infoPanel.Controls.Add(offsetUpDown, 1, 0);

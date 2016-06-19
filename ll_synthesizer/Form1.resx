@@ -126,6 +126,51 @@
     <value>True</value>
   </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="trackBar2.Location" type="System.Drawing.Point, System.Drawing">
+    <value>204, 39</value>
+  </data>
+  <data name="trackBar2.Size" type="System.Drawing.Size, System.Drawing">
+    <value>104, 45</value>
+  </data>
+  <data name="trackBar2.TabIndex" type="System.Int32, mscorlib">
+    <value>20</value>
+  </data>
+  <data name="&gt;&gt;trackBar2.Name" xml:space="preserve">
+    <value>trackBar2</value>
+  </data>
+  <data name="&gt;&gt;trackBar2.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TrackBar, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;trackBar2.Parent" xml:space="preserve">
+    <value>chartPanel</value>
+  </data>
+  <data name="&gt;&gt;trackBar2.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="polarButton.Location" type="System.Drawing.Point, System.Drawing">
+    <value>392, 137</value>
+  </data>
+  <data name="polarButton.Size" type="System.Drawing.Size, System.Drawing">
+    <value>75, 21</value>
+  </data>
+  <data name="polarButton.TabIndex" type="System.Int32, mscorlib">
+    <value>19</value>
+  </data>
+  <data name="polarButton.Text" xml:space="preserve">
+    <value>show Polar</value>
+  </data>
+  <data name="&gt;&gt;polarButton.Name" xml:space="preserve">
+    <value>polarButton</value>
+  </data>
+  <data name="&gt;&gt;polarButton.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;polarButton.Parent" xml:space="preserve">
+    <value>chartPanel</value>
+  </data>
+  <data name="&gt;&gt;polarButton.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
   <data name="tbar2ResetButton.Location" type="System.Drawing.Point, System.Drawing">
     <value>311, 135</value>
   </data>
@@ -148,22 +193,22 @@
     <value>chartPanel</value>
   </data>
   <data name="&gt;&gt;tbar2ResetButton.ZOrder" xml:space="preserve">
-    <value>0</value>
+    <value>2</value>
   </data>
   <data name="saveCheck.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
   <data name="saveCheck.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
-        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
-        YQUAAAAZdEVYdFNvZnR3YXJlAEFkb2JlIEltYWdlUmVhZHlxyWU8AAABiElEQVQ4T6WSvUtCYRTGD1qQ
-        d1CuqFhqVA5ugiCIi+IgyKXARUlbnP0fcmrIqSmIiAgyKUMzp4hAbi4RClG6ChXoUtNd7uTpHAgpeo0+
-        Lvw4933O8z7vx72AiP9CKP6G8UsJAMrECcBCBaBANIib91pgnfvs+y4gVpMktReNDl9zOV3L50cvVLuR
-        yLBKOvcnBhzSCqdkek6ltKdsFvvp9JjHTAb7yaRWMZlU9gkD9mmb7XB4cK8o2InHv3CXSGArEBiwTxiw
-        S2ftKoreDIWQuQwEsO7zYdntxgOHA/esVqx5vTr7hAHbdGG0yujC78eqx4NHNKEky5+oulwj9gkDtii5
-        FQzqDZsNz8ksom6z6ewTBhTpbGdO50ClgCaZRZQlacA+YcAG3W7RaFSbdrvWoe23acJHrsxmbdNgUNkn
-        DIjR983Sd14n07EkDW8tFr0nyyOuPGad+4uT/gN6pol5D8CyArCzCnC9BvDAlcekr1B/iZiZFGAkLMQs
-        MTcBmZgSBvwVofhzEN4AjNQwu1xLZT0AAAAASUVORK5CYII=
+        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAABl0RVh0U29m
+        dHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAGISURBVDhPpZK9S0JhFMYPWpB3UK6oWGpUDm6CIIiL
+        4iDIpcBFSVuc/R9yasipKYiICDIpQzOniEBuLhEKUboKFehS013u5OkcCCl6jT4u/Dj3fc7zPu/HvYCI
+        /0Io/obxSwkAysQJwEIFoEA0iJv3WmCd++z7LiBWkyS1F40OX3M5XcvnRy9Uu5HIsEo69ycGHNIKp2R6
+        TqW0p2wW++n0mMdMBvvJpFYxmVT2CQP2aZvtcHhwryjYice/cJdIYCsQGLBPGLBLZ+0qit4MhZC5DASw
+        7vNh2e3GA4cD96xWrHm9OvuEAdt0YbTK6MLvx6rHg0c0oSTLn6i6XCP2CQO2KLkVDOoNmw3PySyibrPp
+        7BMGFOlsZ07nQKWAJplFlCVpwD5hwAbdbtFoVJt2u9ah7bdpwkeuzGZt02BQ2ScMiNH3zdJ3XifTsSQN
+        by0WvSfLI648Zp37i5P+A3qmiXkPwLICsLMKcL0G8MCVx6SvUH+JmJkUYCQsxCwxNwGZmBIG/BWh+HMQ
+        3gCM1DC7XEtlPQAAAABJRU5ErkJggg==
 </value>
   </data>
   <data name="saveCheck.Location" type="System.Drawing.Point, System.Drawing">
@@ -188,7 +233,7 @@
     <value>chartPanel</value>
   </data>
   <data name="&gt;&gt;saveCheck.ZOrder" xml:space="preserve">
-    <value>1</value>
+    <value>3</value>
   </data>
   <data name="fadeTimeBar.Location" type="System.Drawing.Point, System.Drawing">
     <value>200, 135</value>
@@ -209,7 +254,7 @@
     <value>chartPanel</value>
   </data>
   <data name="&gt;&gt;fadeTimeBar.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>4</value>
   </data>
   <data name="trackBar1.Location" type="System.Drawing.Point, System.Drawing">
     <value>200, 90</value>
@@ -230,7 +275,7 @@
     <value>chartPanel</value>
   </data>
   <data name="&gt;&gt;trackBar1.ZOrder" xml:space="preserve">
-    <value>3</value>
+    <value>5</value>
   </data>
   <data name="lrButton.Location" type="System.Drawing.Point, System.Drawing">
     <value>101, 3</value>
@@ -254,7 +299,7 @@
     <value>chartPanel</value>
   </data>
   <data name="&gt;&gt;lrButton.ZOrder" xml:space="preserve">
-    <value>4</value>
+    <value>6</value>
   </data>
   <data name="vocalRstr.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -278,7 +323,7 @@
     <value>chartPanel</value>
   </data>
   <data name="&gt;&gt;vocalRstr.ZOrder" xml:space="preserve">
-    <value>5</value>
+    <value>7</value>
   </data>
   <data name="vocalLstr.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -302,7 +347,7 @@
     <value>chartPanel</value>
   </data>
   <data name="&gt;&gt;vocalLstr.ZOrder" xml:space="preserve">
-    <value>6</value>
+    <value>8</value>
   </data>
   <data name="pauseButton.Location" type="System.Drawing.Point, System.Drawing">
     <value>101, 61</value>
@@ -326,7 +371,7 @@
     <value>chartPanel</value>
   </data>
   <data name="&gt;&gt;pauseButton.ZOrder" xml:space="preserve">
-    <value>7</value>
+    <value>9</value>
   </data>
   <data name="refreshButton.Location" type="System.Drawing.Point, System.Drawing">
     <value>101, 32</value>
@@ -350,7 +395,7 @@
     <value>chartPanel</value>
   </data>
   <data name="&gt;&gt;refreshButton.ZOrder" xml:space="preserve">
-    <value>8</value>
+    <value>10</value>
   </data>
   <data name="autoCheck.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -377,7 +422,7 @@
     <value>chartPanel</value>
   </data>
   <data name="&gt;&gt;autoCheck.ZOrder" xml:space="preserve">
-    <value>9</value>
+    <value>11</value>
   </data>
   <data name="offsetUpDown.Location" type="System.Drawing.Point, System.Drawing">
     <value>200, 3</value>
@@ -401,7 +446,7 @@
     <value>chartPanel</value>
   </data>
   <data name="&gt;&gt;offsetUpDown.ZOrder" xml:space="preserve">
-    <value>10</value>
+    <value>12</value>
   </data>
   <data name="button3.Location" type="System.Drawing.Point, System.Drawing">
     <value>20, 61</value>
@@ -425,7 +470,7 @@
     <value>chartPanel</value>
   </data>
   <data name="&gt;&gt;button3.ZOrder" xml:space="preserve">
-    <value>11</value>
+    <value>13</value>
   </data>
   <data name="button4.Location" type="System.Drawing.Point, System.Drawing">
     <value>20, 32</value>
@@ -449,7 +494,7 @@
     <value>chartPanel</value>
   </data>
   <data name="&gt;&gt;button4.ZOrder" xml:space="preserve">
-    <value>12</value>
+    <value>14</value>
   </data>
   <data name="button1.Location" type="System.Drawing.Point, System.Drawing">
     <value>20, 3</value>
@@ -473,13 +518,13 @@
     <value>chartPanel</value>
   </data>
   <data name="&gt;&gt;button1.ZOrder" xml:space="preserve">
-    <value>13</value>
+    <value>15</value>
   </data>
   <data name="chartPanel.Location" type="System.Drawing.Point, System.Drawing">
     <value>3, 461</value>
   </data>
   <data name="chartPanel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>493, 181</value>
+    <value>552, 181</value>
   </data>
   <data name="chartPanel.TabIndex" type="System.Int32, mscorlib">
     <value>2</value>
@@ -527,7 +572,7 @@
     <value>0, 0</value>
   </data>
   <data name="menuStrip1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>1021, 26</value>
+    <value>1139, 26</value>
   </data>
   <data name="menuStrip1.TabIndex" type="System.Int32, mscorlib">
     <value>3</value>
@@ -566,7 +611,7 @@
     <value>2</value>
   </data>
   <data name="baseTablePanel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>999, 645</value>
+    <value>1117, 645</value>
   </data>
   <data name="baseTablePanel.TabIndex" type="System.Int32, mscorlib">
     <value>5</value>
@@ -593,7 +638,7 @@
     <value>3, 3</value>
   </data>
   <data name="flowChartPanel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>993, 0</value>
+    <value>1111, 0</value>
   </data>
   <data name="flowChartPanel.TabIndex" type="System.Int32, mscorlib">
     <value>4</value>
@@ -620,7 +665,7 @@
     <value>6, 12</value>
   </data>
   <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
-    <value>1021, 689</value>
+    <value>1139, 689</value>
   </data>
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>

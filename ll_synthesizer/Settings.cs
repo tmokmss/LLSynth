@@ -25,6 +25,7 @@ namespace ll_synthesizer
         private int minimumRefreshIntervalMs = 1000;
         private double iconRefreshIntervalInMs = 500;
         private int numOfElementsCompared = 2000;
+        private bool normalizeLRVolume = false;
 
         // WavPlayer
         private int m_StreamBufferSize = 262144 / 4;
@@ -104,6 +105,11 @@ namespace ll_synthesizer
         {
             set { plotEnable = value; }
             get { return plotEnable; }
+        }
+        public bool NormalizeLRVolume
+        {
+            set { normalizeLRVolume = value; }
+            get { return normalizeLRVolume; }
         }
 
         private Settings()

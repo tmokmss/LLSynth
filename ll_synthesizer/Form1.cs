@@ -25,6 +25,8 @@ namespace ll_synthesizer
         delegate void progressDelegate(int value);
         delegate void generalDelegate();
 
+        PolarForm polarForm;
+
         // setting
         private static int randomizeInterval = 3;
 
@@ -56,6 +58,7 @@ namespace ll_synthesizer
 
             cp = new ControlPanel();
             baseTablePanel.Controls.Add(cp, 1, 1);
+
         }
 
         static public void ApplySettings()
@@ -85,12 +88,17 @@ namespace ll_synthesizer
             }
             ic = new ItemCombiner(this);
             ItemSet.SetCombiner(ic);
+
+            if (polarForm != null) polarForm.Dispose();
+            polarForm = new PolarForm(ic);
         }
 
         void AddItem(string file)
         {
             ic.AddItem(new ItemSet(file));
             AddChart(ic.GetLastItem());
+            if (polarForm !=null && !polarForm.IsDisposed)
+                polarForm.RefreshIcons();
         }
 
         public void AddItems(string[] files)
@@ -210,7 +218,6 @@ namespace ll_synthesizer
             vocalRstr.Text = str[1];
         }
 
-
         private void Form1_KeyDown(object sender, KeyEventArgs e)
         {
             if (KeyPushed != null)
@@ -223,6 +230,8 @@ namespace ll_synthesizer
             {
                 Refresh();
             }
+            if (polarForm != null && !polarForm.IsDisposed)
+                polarForm.RefreshIcons();
         }
 
         private void refreshButton_Click(object sender, EventArgs e)
@@ -275,7 +284,7 @@ namespace ll_synthesizer
         private void fadeTimeBar_MouseCaptureChanged(object sender, EventArgs e)
         {
             wp.SetPlaybackSpeedRatio((fadeTimeBar.Value - fadeTimeBar.Minimum) * 2.0 / (fadeTimeBar.Maximum - fadeTimeBar.Minimum));
-            //ItemSet.FadingTime = fadeTimeBar.Value;
+            
         }
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
@@ -292,6 +301,27 @@ namespace ll_synthesizer
         private void tbar2ResetButton_Click(object sender, EventArgs e)
         {
             fadeTimeBar.Value = (fadeTimeBar.Maximum+fadeTimeBar.Minimum)/2;
+        }
+
+        private void polarButton_Click(object sender, EventArgs e)
+        {
+            if (polarForm == null||polarForm.IsDisposed)
+                polarForm = new PolarForm(ic);
+            polarForm.Show();
+            polarForm.RefreshIcons();
+        }
+
+        private void trackBar2_Scroll(object sender, EventArgs e)
+        {
+            ItemSet.FadingTime = trackBar2.Value;
+        }
+
+        private void autoCheck_CheckedChanged(object sender, EventArgs e)
+        {
+            if (ic != null)
+            {
+                ic.NormalizeEnabled = autoCheck.Checked;
+            }
         }
     }
 }

@@ -359,12 +359,16 @@ namespace ll_synthesizer
             buffer.GetCurrentPosition(out readPos, out writePos);
             var num = (readPos + m_SectorSize - 1) / m_SectorSize + 2;
             var newPos = (num * m_SectorSize) % m_StreamBufferSize;
+
+            /*
             if (newPos > m_secondaryBufferWritePosition)
             {
                 Console.Write(newPos);Console.Write(" ; ");Console.WriteLine(m_secondaryBufferWritePosition);
                 m_secondaryBufferWritePosition = newPos;
                 Console.WriteLine("There were some lag.");
             }
+            */
+
             if (preReadPos > readPos)
                 readNum++;
             if (preWritePos > m_secondaryBufferWritePosition)
